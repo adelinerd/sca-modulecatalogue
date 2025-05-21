@@ -1,0 +1,70 @@
+{
+  "header": {
+    "title": "SCA Modulbibliothek",
+    "darkMode": "Toggle dark mode",
+    "compare": "Compare",
+    "selected": "Selected",
+    "toggleLanguage": "Toggle language"
+  },
+  "appList": {
+    "title": "Applications",
+    "searchPlaceholder": "Search applications...",
+    "noResults": "No applications found matching '{{searchTerm}}'"
+  },
+  "appCard": {
+    "provider": "by {{provider}}",
+    "unknownProvider": "Unknown provider",
+    "deployedIn": "Deployed in: {{municipalities}}",
+    "compare": "Compare",
+    "selected": "Selected"
+  },
+  "compareView": {
+    "title": "Comparing Applications ({{count}}/2)",
+    "empty": {
+      "title": "No Applications Selected",
+      "description": "Select up to two applications to compare their features"
+    },
+    "details": {
+      "title": "Details",
+      "status": "Status",
+      "lastUpdate": "Last Update",
+      "notSpecified": "Not specified"
+    },
+    "resources": {
+      "title": "Resources",
+      "documentation": "Documentation",
+      "website": "Website",
+      "repository": "Repository"
+    },
+    "deployments": {
+      "title": "Deployments"
+    },
+    "modules": {
+      "title": "Modules ({{count}})"
+    }
+  },
+  "appDetails": {
+    "overview": "Overview",
+    "status": "Development Status",
+    "lastUpdate": "Last Updated",
+    "documentation": "Documentation",
+    "viewDocumentation": "View Documentation",
+    "website": "Website",
+    "visitWebsite": "Visit Website",
+    "repository": "Repository",
+    "viewRepository": "View Repository",
+    "deployments": "Deployments",
+    "modules": "Modules",
+    "useCases": "Use Cases",
+    "externalServices": "External Services",
+    "learnMore": "Learn more",
+    "customizationOptions": "Customization Options"
+  },
+  "loading": {
+    "title": "Loading applications...",
+    "error": {
+      "title": "Error Loading Data",
+      "retry": "Retry"
+    }
+  }
+}

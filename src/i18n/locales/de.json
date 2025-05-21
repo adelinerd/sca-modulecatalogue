@@ -1,0 +1,70 @@
+{
+  "header": {
+    "title": "SCA - Modulbibliothek",
+    "darkMode": "Dunkelmodus umschalten",
+    "compare": "Vergleichen",
+    "selected": "Ausgewählt",
+    "toggleLanguage": "Sprache ändern"
+  },
+  "appList": {
+    "title": "City Apps",
+    "searchPlaceholder": "Apps suchen...",
+    "noResults": "Keine App gefunden für '{{searchTerm}}'"
+  },
+  "appCard": {
+    "provider": "von {{provider}}",
+    "unknownProvider": "Unbekannter Anbieter",
+    "deployedIn": "Eingesetzt in: {{municipalities}}",
+    "compare": "Vergleichen",
+    "selected": "Ausgewählt"
+  },
+  "compareView": {
+    "title": "Apps vergleichen ({{count}}/2)",
+    "empty": {
+      "title": "Keine App ausgewählt",
+      "description": "Wählen Sie bis zu zwei Apps aus, um ihre Funktionen zu vergleichen"
+    },
+    "details": {
+      "title": "Details",
+      "status": "Status",
+      "lastUpdate": "Letzte Aktualisierung",
+      "notSpecified": "Nicht angegeben"
+    },
+    "resources": {
+      "title": "Ressourcen",
+      "documentation": "Dokumentation",
+      "website": "Webseite",
+      "repository": "Repository"
+    },
+    "deployments": {
+      "title": "Einsatzorte"
+    },
+    "modules": {
+      "title": "Module ({{count}})"
+    }
+  },
+  "appDetails": {
+    "overview": "Übersicht",
+    "status": "Entwicklungsstatus",
+    "lastUpdate": "Letzte Aktualisierung",
+    "documentation": "Dokumentation",
+    "viewDocumentation": "Dokumentation ansehen",
+    "website": "Webseite",
+    "visitWebsite": "Webseite besuchen",
+    "repository": "Repository",
+    "viewRepository": "Repository ansehen",
+    "deployments": "Einsatzorte",
+    "modules": "Module",
+    "useCases": "Anwendungsfälle",
+    "externalServices": "Externe Dienste",
+    "learnMore": "Mehr erfahren",
+    "customizationOptions": "Anpassungsoptionen"
+  },
+  "loading": {
+    "title": "Anwendungen werden geladen...",
+    "error": {
+      "title": "Fehler beim Laden der Daten",
+      "retry": "Erneut versuchen"
+    }
+  }
+}

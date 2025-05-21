@@ -1,1 +1,1 @@
-# sca-modulecatalogue
+# Smart City Apps - Modulbibliothek
