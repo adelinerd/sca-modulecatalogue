@@ -1,12 +1,15 @@
 import React from 'react';
 import { App } from '../types';
 import { ExternalLink, Calendar, Server, Users, Info, Package } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface AppDetailsProps {
   app: App;
 }
 
 const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
+  const { t } = useTranslation();
+  
   if (!app) return null;
 
   return (
@@ -14,7 +17,9 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
       <header className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{app.name}</h1>
         {app.provider && (
-          <p className="text-sm text-gray-500 dark:text-gray-400">Provided by {app.provider}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {t('appCard.provider', { provider: app.provider })}
+          </p>
         )}
       </header>
 
@@ -22,12 +27,14 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
         <section className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
             <Info className="h-5 w-5 mr-2 text-blue-500" />
-            Overview
+            {t('appDetails.overview')}
           </h2>
           
           {app.development_status && (
             <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Development Status</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t('appDetails.status')}
+              </h3>
               <span className={`
                 inline-block px-2 py-1 text-xs font-medium rounded-full
                 ${app.development_status === 'Stable' 
@@ -44,7 +51,9 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
           
           {app.last_update && (
             <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Updated</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t('appDetails.lastUpdate')}
+              </h3>
               <div className="flex items-center">
                 <Calendar className="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" />
                 <span className="text-sm text-gray-700 dark:text-gray-300">{app.last_update}</span>
@@ -54,7 +63,9 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
 
           {app.documentation && (
             <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Documentation</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t('appDetails.documentation')}
+              </h3>
               <a
                 href={app.documentation}
                 target="_blank"
@@ -62,14 +73,16 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                 className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center"
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                View Documentation
+                {t('appDetails.viewDocumentation')}
               </a>
             </div>
           )}
 
           {app.website && (
             <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Website</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t('appDetails.website')}
+              </h3>
               <a
                 href={app.website}
                 target="_blank"
@@ -77,14 +90,16 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                 className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center"
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                Visit Website
+                {t('appDetails.visitWebsite')}
               </a>
             </div>
           )}
 
           {app.opencode_repository && (
             <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Repository</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t('appDetails.repository')}
+              </h3>
               <a
                 href={app.opencode_repository}
                 target="_blank"
@@ -92,7 +107,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                 className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center"
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                View Repository
+                {t('appDetails.viewRepository')}
               </a>
             </div>
           )}
@@ -102,10 +117,12 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
           <section className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
               <Server className="h-5 w-5 mr-2 text-blue-500" />
-              Deployments
+              {t('appDetails.deployments')}
             </h2>
             <div>
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Municipalities</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {t('compareView.deployments.title')}
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {app.deployed_in_municipalities.map((municipality, index) => (
                   <span 
@@ -125,7 +142,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
         <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
             <Package className="h-5 w-5 mr-2 text-blue-500" />
-            Modules
+            {t('appDetails.modules')}
           </h2>
           <div className="space-y-4">
             {app.modules.map((module, index) => (
@@ -149,14 +166,18 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                 
                 {module.use_cases && (
                   <div className="mb-3">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Use Cases</h4>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      {t('appDetails.useCases')}
+                    </h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{module.use_cases}</p>
                   </div>
                 )}
                 
                 {module.external_services && module.external_services.length > 0 && (
                   <div className="mb-3">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">External Services</h4>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      {t('appDetails.externalServices')}
+                    </h4>
                     <ul className="space-y-2">
                       {module.external_services.map((service, i) => (
                         <li key={i} className="text-sm">
@@ -172,7 +193,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                               className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center mt-1"
                             >
                               <ExternalLink className="h-3 w-3 mr-1" />
-                              Learn more
+                              {t('appDetails.learnMore')}
                             </a>
                           )}
                         </li>
@@ -183,7 +204,9 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                 
                 {module.customization_options && module.customization_options.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Customization Options</h4>
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      {t('appDetails.customizationOptions')}
+                    </h4>
                     <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
                       {module.customization_options.map((option, i) => (
                         <li key={i}>{option}</li>

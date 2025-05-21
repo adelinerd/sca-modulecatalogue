@@ -1,6 +1,7 @@
 import React from 'react';
 import { App } from '../types';
 import { Landmark } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface AppCardProps {
   app: App;
@@ -17,6 +18,8 @@ const AppCard: React.FC<AppCardProps> = ({
   onToggleCompare, 
   isInCompareList 
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div 
       className={`
@@ -39,7 +42,9 @@ const AppCard: React.FC<AppCardProps> = ({
               {app.name}
             </h3>
             <p className="text-sm text-primary-600 dark:text-primary-400">
-              {app.provider || 'Unknown provider'}
+              {app.provider 
+                ? t('appCard.provider', { provider: app.provider })
+                : t('appCard.unknownProvider')}
             </p>
           </div>
         </div>
@@ -58,7 +63,7 @@ const AppCard: React.FC<AppCardProps> = ({
               transition-colors duration-200
             `}
           >
-            {isInCompareList ? 'Selected' : 'Compare'}
+            {isInCompareList ? t('appCard.selected') : t('appCard.compare')}
           </button>
         </div>
       </div>
@@ -66,8 +71,10 @@ const AppCard: React.FC<AppCardProps> = ({
       {app.deployed_in_municipalities && app.deployed_in_municipalities.length > 0 && (
         <div className="mt-2">
           <p className="text-xs text-primary-600 dark:text-primary-400">
-            Deployed in: {app.deployed_in_municipalities.slice(0, 2).join(', ')}
-            {app.deployed_in_municipalities.length > 2 && ' and more'}
+            {t('appCard.deployedIn', { 
+              municipalities: app.deployed_in_municipalities.slice(0, 2).join(', ') +
+                (app.deployed_in_municipalities.length > 2 ? '...' : '')
+            })}
           </p>
         </div>
       )}

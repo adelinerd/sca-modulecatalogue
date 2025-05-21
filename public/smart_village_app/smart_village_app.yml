@@ -1,0 +1,13 @@
+name: "Smart Village Solutions"
+provider: "Smart Village Solutions SVS GmbH"
+app_url: "https://smart-village.app/"
+technical_specifications: "Uses microservices and REST API"
+documentation: "https://example.com/doc"
+deployed_in_municipalities:
+  - "Bad Belzig"
+  - "Detmold"
+opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
+
+modules:
+  - "modules/traffic_monitoring.yaml"
+  - "modules/waste_management.yaml"

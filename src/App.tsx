@@ -9,7 +9,7 @@ import Header from './components/Header';
 import { Loader } from 'lucide-react';
 
 function App() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { apps, loading, error } = useAppData();
   const [selectedApp, setSelectedApp] = useState<AppType | null>(null);
   const [comparisonApps, setComparisonApps] = useState<AppType[]>([]);
@@ -19,7 +19,6 @@ function App() {
 
   // Handle dark mode toggle and system preference
   useEffect(() => {
-    // Check if user has already set a preference
     const storedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -63,7 +62,6 @@ function App() {
       if (isAlreadySelected) {
         return prevApps.filter(a => a.name !== app.name);
       } else {
-        // Limit to max 2 apps for comparison
         if (prevApps.length >= 2) {
           return [...prevApps.slice(1), app];
         }
@@ -79,7 +77,6 @@ function App() {
   const handleRemoveFromCompare = (app: AppType) => {
     setComparisonApps(prevApps => prevApps.filter(a => a.name !== app.name));
     
-    // If no apps left in comparison, exit compare mode
     if (comparisonApps.length <= 1) {
       setIsCompareMode(false);
     }
@@ -90,7 +87,7 @@ function App() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="flex flex-col items-center">
           <Loader className="h-10 w-10 text-blue-500 animate-spin" />
-          <p className="mt-4 text-gray-600 dark:text-gray-300">Loading applications...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">{t('loading.title')}</p>
         </div>
       </div>
     );
@@ -100,13 +97,13 @@ function App() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md max-w-md w-full">
-          <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-4">Error Loading Data</h2>
+          <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-4">{t('loading.error.title')}</h2>
           <p className="text-gray-700 dark:text-gray-300">{error}</p>
           <button 
             className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-colors"
             onClick={() => window.location.reload()}
           >
-            Retry
+            {t('loading.error.retry')}
           </button>
         </div>
       </div>
