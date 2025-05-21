@@ -1,4 +1,4 @@
-name: "Smart Village Solutions"
+name: "Smart Village App"
 provider: "Smart Village Solutions SVS GmbH"
 app_url: "https://smart-village.app/"
 technical_specifications: "Uses microservices and REST API"
@@ -9,5 +9,5 @@ deployed_in_municipalities:
 opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
 
 modules:
-  - "modules/traffic_monitoring.yaml"
-  - "modules/waste_management.yaml"
+  - "modules/traffic_monitoring.yml"
+  

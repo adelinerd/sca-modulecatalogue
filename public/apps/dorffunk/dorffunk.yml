@@ -1,12 +1,15 @@
-smart_city_app:
-  name: "DorfFunk"
-  provider: "Fraunhofer IESE"
-  technical_specifications: ""
-  documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
-  deployed_in_municipalities:
+name: "DorfFunk"
+provider: "Fraunhofer IESE"
+technical_specifications: ""
+documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
+deployed_in_municipalities:
     - "Niedersachsen"
     - "RLP"
-    - "…"
-  website: "https://www.digitale-doerfer.de/unsere-loesungen/dorffunk"
-  opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk"
+    - "SH"
+    - "..."
+website: "https://www.digitale-doerfer.de/unsere-loesungen/dorffunk"
+opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk"
+  modules:
+    - "modules/events.yml"
+    - "modules/sags_uns.yml"
 
