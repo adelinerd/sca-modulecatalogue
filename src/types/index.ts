@@ -15,7 +15,7 @@ export interface AppModule {
     url?: string;
   }[];
   customization_options?: string[];
-  involved_actors?: any[];
+  involved_actors?: string[];
   technical_documentation?: string;
   deployed_in_municipalities?: string[];
   development_status?: string;

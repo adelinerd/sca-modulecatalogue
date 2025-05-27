@@ -3,15 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "scripts": {    
+  "scripts": {
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "vite"
   },
   "dependencies": {
+    "@types/js-yaml": "^4.0.9",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
+    "js-yaml": "^4.1.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
