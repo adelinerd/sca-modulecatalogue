@@ -4,7 +4,7 @@ export interface AppModule {
   topic?: string;
   opencode_repository?: string;
   screenshots?: string;
-  use_cases?: string;
+  usage_scenarios?: string;
   description?: string;
   cost?: string;
   interfaces?: string[];
@@ -31,6 +31,9 @@ export interface App {
   website?: string;
   opencode_repository?: string;
   modules?: AppModule[];
+  modulePaths?: string[];  
+  development_status?: string;
+  last_update?: string; 
 }
 
 export interface AppState {

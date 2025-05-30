@@ -40,7 +40,7 @@
       "title": "Einsatzorte"
     },
     "modules": {
-      "title": "Module ({{count}})"
+      "title": "Modules ({{count}})"
     }
   },
   "appDetails": {
@@ -55,7 +55,7 @@
     "viewRepository": "Repository ansehen",
     "deployments": "Einsatzorte",
     "modules": "Module",
-    "useCases": "Anwendungsfälle",
+    "usageScenarios": "Einsatzszenarien",
     "externalServices": "Externe Dienste",
     "learnMore": "Mehr erfahren",
     "customizationOptions": "Anpassungsoptionen"
@@ -66,5 +66,10 @@
       "title": "Fehler beim Laden der Daten",
       "retry": "Erneut versuchen"
     }
+  },
+   "footer": {
+    "copyright": "Smart City Apps - Modulbibliothek. Alle Rechte vorbehalten.",
+    "impressum": "Impressum",
+    "privacy": "Datenschutz"
   }
 }

@@ -55,7 +55,7 @@
     "viewRepository": "View Repository",
     "deployments": "Deployments",
     "modules": "Modules",
-    "useCases": "Use Cases",
+    "usageScenarios": "Usage Scenarios",
     "externalServices": "External Services",
     "learnMore": "Learn more",
     "customizationOptions": "Customization Options"
@@ -66,5 +66,10 @@
       "title": "Error Loading Data",
       "retry": "Retry"
     }
+  },
+  "footer": {
+    "copyright": "Smart City App Explorer. All rights reserved.",
+    "impressum": "Legal Notice",
+    "privacy": "Privacy Policy"
   }
 }

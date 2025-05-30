@@ -1,6 +1,6 @@
 import React from 'react';
 import { App } from '../types';
-import { ExternalLink, Calendar, Server, Users, Info, Package } from 'lucide-react';
+import { ExternalLink, Calendar, Server, Info, Package } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppDetailsProps {
@@ -164,12 +164,12 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{module.description}</p>
                 )}
                 
-                {module.use_cases && (
+                {module.usage_scenarios && (
                   <div className="mb-3">
                     <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      {t('appDetails.useCases')}
+                      {t('appDetails.usageScenario')}
                     </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{module.use_cases}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{module.usage_scenarios}</p>
                   </div>
                 )}
                 

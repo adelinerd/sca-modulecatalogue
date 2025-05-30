@@ -1,6 +1,5 @@
 name: "DorfFunk"
 provider: "Fraunhofer IESE"
-technical_specifications: ""
 documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
 deployed_in_municipalities:
     - "Niedersachsen"
@@ -9,7 +8,9 @@ deployed_in_municipalities:
     - "..."
 website: "https://www.digitale-doerfer.de/unsere-loesungen/dorffunk"
 opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk"
-  modules:
-    - "modules/events.yml"
-    - "modules/sags_uns.yml"
+modules:
+  - "modules/events.yml"
+  - "modules/sags_uns.yml"
 
+development_status: "Stable"
+last_update: "2025-04-16"

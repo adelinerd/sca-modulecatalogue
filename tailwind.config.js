@@ -44,6 +44,18 @@ export default {
           800: '#3C4D0C',
           900: '#1E2706',
         },
+        gray: {
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#1F2937',
+          900: '#111827',
+        }
       },
       fontFamily: {
         sans: [
@@ -61,7 +73,39 @@ export default {
       backgroundImage: {
         'gradient-primary': 'linear-gradient(135deg, #3B8B96 0%, #96C11F 100%)',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'inherit',
+            h1: {
+              color: 'inherit',
+            },
+            h2: {
+              color: 'inherit',
+            },
+            h3: {
+              color: 'inherit',
+            },
+            p: {
+              color: 'inherit',
+            },
+            strong: {
+              color: 'inherit',
+            },
+            a: {
+              color: 'inherit',
+              '&:hover': {
+                color: 'inherit',
+                opacity: 0.8,
+              },
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

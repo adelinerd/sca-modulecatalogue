@@ -1,9 +1,12 @@
 name: "Traffic Monitoring"
+optional: "nein"
+topic: "Mobilität"
+opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
+screenshots: []
 short_description: "Monitors real-time traffic data and optimizes routes."
-description: ""
-usage_scenario: ""
+description: "Monitors real-time traffic data and optimizes routes."
+usage_scenario: "real-time traffic data monitoring"
 cost: "Free"
-screenshots:
 interfaces:
   - "REST API"
   - "MQTT"
@@ -25,3 +28,4 @@ deployed_in_municipalities:
   - "Hamburg"
 
 development_status: "in Entwicklung"
+last_update: "2025-05-16"

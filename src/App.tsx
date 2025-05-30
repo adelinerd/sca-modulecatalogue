@@ -6,6 +6,8 @@ import AppList from './components/AppList';
 import AppDetails from './components/AppDetails';
 import CompareView from './components/CompareView';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import LegalInfo from './components/LegalInfo';
 import { Loader } from 'lucide-react';
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
   const [isCompareMode, setIsCompareMode] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentView, setCurrentView] = useState<'apps' | 'impressum' | 'privacy'>('apps');
 
   // Handle dark mode toggle and system preference
   useEffect(() => {
@@ -50,10 +53,10 @@ function App() {
 
   // Set first app as selected when data loads
   useEffect(() => {
-    if (apps.length > 0 && !selectedApp) {
+    if (apps.length > 0 && !selectedApp && currentView === 'apps') {
       setSelectedApp(apps[0]);
     }
-  }, [apps, selectedApp]);
+  }, [apps, selectedApp, currentView]);
 
   const handleToggleCompare = (app: AppType) => {
     setComparisonApps(prevApps => {
@@ -81,6 +84,24 @@ function App() {
       setIsCompareMode(false);
     }
   };
+
+  // Handle navigation
+  useEffect(() => {
+    const handleNavigation = () => {
+      const path = window.location.pathname;
+      if (path === '/impressum') {
+        setCurrentView('impressum');
+      } else if (path === '/datenschutz') {
+        setCurrentView('privacy');
+      } else {
+        setCurrentView('apps');
+      }
+    };
+
+    handleNavigation();
+    window.addEventListener('popstate', handleNavigation);
+    return () => window.removeEventListener('popstate', handleNavigation);
+  }, []);
 
   if (loading) {
     return (
@@ -121,28 +142,36 @@ function App() {
       />
       
       <main className="flex flex-1 overflow-hidden">
-        <AppList 
-          apps={apps}
-          onSelectApp={setSelectedApp}
-          selectedApp={selectedApp}
-          onToggleCompare={handleToggleCompare}
-          comparisonApps={comparisonApps}
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-        />
-        
-        {isCompareMode ? (
-          <CompareView 
-            apps={comparisonApps}
-            onClose={() => setIsCompareMode(false)}
-            onRemoveApp={handleRemoveFromCompare}
-          />
+        {currentView === 'apps' ? (
+          <>
+            <AppList 
+              apps={apps}
+              onSelectApp={setSelectedApp}
+              selectedApp={selectedApp}
+              onToggleCompare={handleToggleCompare}
+              comparisonApps={comparisonApps}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
+            
+            {isCompareMode ? (
+              <CompareView 
+                apps={comparisonApps}
+                onClose={() => setIsCompareMode(false)}
+                onRemoveApp={handleRemoveFromCompare}
+              />
+            ) : (
+              selectedApp && <AppDetails app={selectedApp} />
+            )}
+          </>
         ) : (
-          selectedApp && <AppDetails app={selectedApp} />
+          <LegalInfo type={currentView} />
         )}
       </main>
+
+      <Footer />
     </div>
   );
 }
 
-export default App;
+export default App

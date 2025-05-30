@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { App } from '../types';
+import { App, AppModule } from '../types';
 import yaml from 'js-yaml';
 
 // Helper to fetch YAML safely
@@ -22,15 +22,32 @@ const useAppData = () => {
   useEffect(() => {
     const fetchApps = async () => {
       try {
-        // 1. Fetch the list of app folders (assume a manifest file exists)
+       // 1. Fetch the list of app folders (from JSON manifest)
         const manifestUrl = '/apps/manifest.json';
-        const manifest = await fetchYaml<{ apps: string[] }>(manifestUrl);
-        if (!manifest) throw new Error('Could not load app manifest');
+        const res = await fetch(manifestUrl);
+        if (!res.ok) throw new Error('Could not load app manifest');
+        const manifest: { apps: string[] } = await res.json();
 
         // 2. For each app, fetch its info
         const appPromises = manifest.apps.map(async (appFolder) => {
-          const appInfo = await fetchYaml<App>(`/apps/${appFolder}/app.yml`);
-          return appInfo;
+          const appData = await fetchYaml<any>(`/apps/${appFolder}/app.yml`);
+          if (!appData) return null;
+          
+          const modulePaths: string[] = appData.modules || [];
+          console.log(`Modules defined in app.yml for ${appFolder}:`, modulePaths);
+
+          const modulePromises = modulePaths.map((relPath) =>
+            fetchYaml<AppModule>(`/apps/${appFolder}/${relPath}`)
+          );
+          const modules = (await Promise.all(modulePromises)).filter(Boolean) as AppModule[];
+
+          const { modules: _, ...appCoreData } = appData;
+
+          return {
+            ...appCoreData,
+            modules,
+            modulePaths,
+          } as App;
         });
 
         const loadedApps = (await Promise.all(appPromises)).filter(Boolean) as App[];

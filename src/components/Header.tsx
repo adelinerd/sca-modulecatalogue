@@ -24,9 +24,17 @@ const Header: React.FC<HeaderProps> = ({
     localStorage.setItem('language', newLang);
   };
 
+  const handleLogoClick = () => {
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-primary-100 dark:border-primary-900 py-4 px-6 flex items-center justify-between transition-colors duration-200">
-      <div className="flex items-center space-x-2">
+      <div 
+        className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
+        onClick={handleLogoClick}
+      >
         <Layers className="h-6 w-6 text-primary-500 dark:text-primary-400" />
         <h1 className="text-xl font-bold text-primary-900 dark:text-primary-50">{t('header.title')}</h1>
       </div>
