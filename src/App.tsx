@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { App as AppType } from './types';
+import { CityApp, AppModule } from './types';
 import useAppData from './hooks/useAppData';
 import AppList from './components/AppList';
 import AppDetails from './components/AppDetails';
 import CompareView from './components/CompareView';
+import ModuleList from './components/ModuleList';
+import ModuleDetails from './components/ModuleDetails';
+import ModuleCompareView from './components/ModuleCompareView';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LegalInfo from './components/LegalInfo';
@@ -13,12 +16,16 @@ import { Loader } from 'lucide-react';
 function App() {
   const { t, i18n } = useTranslation();
   const { apps, loading, error } = useAppData();
-  const [selectedApp, setSelectedApp] = useState<AppType | null>(null);
-  const [comparisonApps, setComparisonApps] = useState<AppType[]>([]);
+  const [selectedApp, setSelectedApp] = useState<CityApp | null>(null);
+  const [selectedModule, setSelectedModule] = useState<AppModule | null>(null);
+  const [comparisonApps, setComparisonApps] = useState<CityApp[]>([]);
+  const [comparisonModules, setComparisonModules] = useState<AppModule[]>([]);
   const [isCompareMode, setIsCompareMode] = useState(false);
+  const [isModuleCompareMode, setIsModuleCompareMode] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentView, setCurrentView] = useState<'apps' | 'impressum' | 'privacy'>('apps');
+  const [moduleSearchTerm, setModuleSearchTerm] = useState('');
+  const [currentView, setCurrentView] = useState<'apps' | 'modules' | 'impressum' | 'privacy'>('apps');
 
   // Handle dark mode toggle and system preference
   useEffect(() => {
@@ -58,7 +65,29 @@ function App() {
     }
   }, [apps, selectedApp, currentView]);
 
-  const handleToggleCompare = (app: AppType) => {
+  // Get all modules from all apps for module view
+  const allModules = React.useMemo(() => {
+    const modules: AppModule[] = [];
+    apps.forEach(app => {
+      if (app.modules && Array.isArray(app.modules)) {
+        app.modules.forEach(module => {
+          if (typeof module === 'object') {
+            modules.push(module);
+          }
+        });
+      }
+    });
+    return modules;
+  }, [apps]);
+
+  // Set first module as selected when switching to module view
+  useEffect(() => {
+    if (allModules.length > 0 && !selectedModule && currentView === 'modules') {
+      setSelectedModule(allModules[0]);
+    }
+  }, [allModules, selectedModule, currentView]);
+
+  const handleToggleCompare = (app: CityApp) => {
     setComparisonApps(prevApps => {
       const isAlreadySelected = prevApps.some(a => a.name === app.name);
       
@@ -73,15 +102,42 @@ function App() {
     });
   };
 
+  const handleToggleModuleCompare = (module: AppModule) => {
+    setComparisonModules(prevModules => {
+      const isAlreadySelected = prevModules.some(m => m.name === module.name);
+      
+      if (isAlreadySelected) {
+        return prevModules.filter(m => m.name !== module.name);
+      } else {
+        if (prevModules.length >= 2) {
+          return [...prevModules.slice(1), module];
+        }
+        return [...prevModules, module];
+      }
+    });
+  };
+
   const handleToggleCompareView = () => {
     setIsCompareMode(prev => !prev);
   };
 
-  const handleRemoveFromCompare = (app: AppType) => {
+  const handleToggleModuleCompareView = () => {
+    setIsModuleCompareMode(prev => !prev);
+  };
+
+  const handleRemoveFromCompare = (app: CityApp) => {
     setComparisonApps(prevApps => prevApps.filter(a => a.name !== app.name));
     
     if (comparisonApps.length <= 1) {
       setIsCompareMode(false);
+    }
+  };
+
+  const handleRemoveModuleFromCompare = (module: AppModule) => {
+    setComparisonModules(prevModules => prevModules.filter(m => m.name !== module.name));
+    
+    if (comparisonModules.length <= 1) {
+      setIsModuleCompareMode(false);
     }
   };
 
@@ -93,6 +149,8 @@ function App() {
         setCurrentView('impressum');
       } else if (path === '/datenschutz') {
         setCurrentView('privacy');
+      } else if (path === '/modules') {
+        setCurrentView('modules');
       } else {
         setCurrentView('apps');
       }
@@ -137,8 +195,13 @@ function App() {
         isDarkMode={isDarkMode}
         onToggleDarkMode={() => setIsDarkMode(prev => !prev)}
         comparisonApps={comparisonApps}
+        comparisonModules={comparisonModules}
         onToggleCompareView={handleToggleCompareView}
+        onToggleModuleCompareView={handleToggleModuleCompareView}
         isCompareMode={isCompareMode}
+        isModuleCompareMode={isModuleCompareMode}
+        currentView={currentView}
+        onViewChange={setCurrentView}
       />
       
       <main className="flex flex-1 overflow-hidden">
@@ -162,6 +225,28 @@ function App() {
               />
             ) : (
               selectedApp && <AppDetails app={selectedApp} />
+            )}
+          </>
+        ) : currentView === 'modules' ? (
+          <>
+            <ModuleList 
+              modules={allModules}
+              onSelectModule={setSelectedModule}
+              selectedModule={selectedModule}
+              onToggleCompare={handleToggleModuleCompare}
+              comparisonModules={comparisonModules}
+              searchTerm={moduleSearchTerm}
+              onSearchChange={setModuleSearchTerm}
+            />
+            
+            {isModuleCompareMode ? (
+              <ModuleCompareView 
+                modules={comparisonModules}
+                onClose={() => setIsModuleCompareMode(false)}
+                onRemoveModule={handleRemoveModuleFromCompare}
+              />
+            ) : (
+              selectedModule && <ModuleDetails module={selectedModule} />
             )}
           </>
         ) : (

@@ -18,7 +18,7 @@ customization_options:
   - "Kommentare: erlaubt oder nicht"
 involved_actors: 
   - name: "Gemeindemitarbeiter*innen"
-  - role: "Fälle verwalten"
+    role: "Fälle verwalten"
 technical_documentation: ""
 deployed_in_municipalities:
   - "Amt Haddeby"

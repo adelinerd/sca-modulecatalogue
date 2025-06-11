@@ -1,29 +1,24 @@
-name: "Sag's uns"
-optional: ja
-topic: "Mängelmelder"
-short_description: "Sag's uns ist ein Mängelmelder, der es Bürger*innen ermöglicht, Vorschläge oder Mängel der Gemeinde direkt zu melden."
-opencode_repository: "https://opencode.de/en/software/dorf-funk-4774"
-screenshots: "new_sags_uns.png"
-usage_scenario: "Ermöglicht es Bürgerinnen und Bürgern, Schäden oder Störungen im öffentlichen Raum – wie defekte Straßenlaternen oder Schlaglöcher – schnell und unkompliziert an die zuständige Behörde zu melden"
-description: "Hier können Bürger*innen Vorschläge oder Mängel der Gemeinde mitteilen. Die Nachricht landet direkt bei der richtigen Ansprechperson."
-cost: "50 € pro Monat (zzgl. MwSt.)"
-interfaces: []
-dependencies: []
-external_services:
-  - name: "LösBar"
-    description: "Der Kanal wird nur aktiviert, wenn LösBar mitbestellt ist."
-    url: "https://www.digitale-doerfer.de/unsere-loesungen/loesbar/?portfolioCats=68%2C70%2C69%2C97"
-customization_options:
-  - "Kanal-Name"
-  - "Kommentare: erlaubt oder nicht"
-involved_actors: 
-  - name: "Gemeindemitarbeiter*innen"
-    role: "Fälle verwalten"
-technical_documentation: ""
+name: "DorfFunk"
+provider: "Fraunhofer IESE"
+short_description: "DorfFunk ist eine Kommunikationsplattform für Bürger*innen, um sich über lokale Themen auszutauschen und Veranstaltungen zu organisieren."
+website: "https://www.digitale-doerfer.de/unsere-loesungen/dorffunk"
+contact: 
+  - email: "https://www.digitale-doerfer.de/kontakt"
+    telefon: "+49 631 205-0"
+
 deployed_in_municipalities:
-  - "Amt Haddeby"
-  - "Gleichen"
-  - "Bingen"
-  - "Tetenhusen"
+  - "Niedersachsen"
+  - "RLP"
+  - "SH"
+  - "Bayern"
+  - "..."
+
+opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk"
+documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
+
+modules:
+  - "modules/events.yml"
+  - "modules/sags_uns.yml"
+
 development_status: "Stable"
 last_update: "2025-04-16"

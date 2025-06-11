@@ -11,13 +11,13 @@ interfaces: []
 dependencies: []
 external_services:
   - name: DorfNews
-  - description: "Der Kanal wird nur aktiviert, wenn LösBar mitbestellt ist."
-  - url: "https://www.digitale-doerfer.de/unsere-loesungen/loesbar/?portfolioCats=68%2C70%2C69%2C97"
+    description: "Der Kanal wird nur aktiviert, wenn LösBar mitbestellt ist."
+    url: "https://www.digitale-doerfer.de/unsere-loesungen/loesbar/?portfolioCats=68%2C70%2C69%2C97"
 customization_options:
   - "Erstellung von Events durch Bürger: erlaubt oder nicht"
 involved_actors: 
   - name: "Gemeindemitarbeiter*innen"
-  - role: "Inhalt bereitstellen und verwalten"
+    role: "Inhalt bereitstellen und verwalten"
   
 technical_documentation: "LINK"
 deployed_in_municipalities:

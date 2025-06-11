@@ -1,15 +1,23 @@
 {
   "header": {
-    "title": "SCA Module catalogue",
+    "title": "App Explorer",
     "darkMode": "Toggle dark mode",
     "compare": "Compare",
+    "compareModules": "Compare Modules",
     "selected": "Selected",
-    "toggleLanguage": "Toggle language"
+    "toggleLanguage": "Toggle language",
+    "apps": "Applications",
+    "modules": "Modules"
   },
   "appList": {
     "title": "Applications",
     "searchPlaceholder": "Search applications...",
     "noResults": "No applications found matching '{{searchTerm}}'"
+  },
+  "moduleList": {
+    "title": "Modules",
+    "searchPlaceholder": "Search modules...",
+    "noResults": "No modules found matching '{{searchTerm}}'"
   },
   "appCard": {
     "provider": "by {{provider}}",
@@ -17,6 +25,11 @@
     "deployedIn": "Deployed in: {{municipalities}}",
     "compare": "Compare",
     "selected": "Selected"
+  },
+  "moduleCard": {
+    "compare": "Compare",
+    "selected": "Selected",
+    "optional": "Optional"
   },
   "compareView": {
     "title": "Comparing Applications ({{count}}/2)",
@@ -43,10 +56,46 @@
       "title": "Modules ({{count}})"
     }
   },
+  "moduleCompareView": {
+    "title": "Comparing Modules ({{count}}/2)",
+    "empty": {
+      "title": "No Modules Selected",
+      "description": "Select up to two modules to compare their features"
+    },
+    "details": {
+      "title": "Details",
+      "status": "Status",
+      "lastUpdate": "Last Update",
+      "optional": "Optional",
+      "cost": "Cost",
+      "notSpecified": "Not specified"
+    },
+    "technical": {
+      "title": "Technical Details",
+      "interfaces": "Interfaces",
+      "dependencies": "Dependencies"
+    },
+    "resources": {
+      "title": "Resources",
+      "documentation": "Documentation",
+      "repository": "Repository"
+    },
+    "deployments": {
+      "title": "Deployments"
+    },
+    "externalServices": {
+      "title": "External Services"
+    },
+    "actors": {
+      "title": "Involved Actors"
+    }
+  },
   "appDetails": {
     "overview": "Overview",
     "status": "Development Status",
     "lastUpdate": "Last Updated",
+    "contact": "Contact",
+    "contactForm": "Contact Form",
     "documentation": "Documentation",
     "viewDocumentation": "View Documentation",
     "website": "Website",
@@ -55,10 +104,36 @@
     "viewRepository": "View Repository",
     "deployments": "Deployments",
     "modules": "Modules",
-    "usageScenarios": "Usage Scenarios",
+    "optional": "Optional",
+    "useCases": "Use Cases",
+    "usageScenario": "Usage Scenario",
+    "cost": "Cost",
     "externalServices": "External Services",
     "learnMore": "Learn more",
-    "customizationOptions": "Customization Options"
+    "customizationOptions": "Customization Options",
+    "involvedActors": "Involved Actors"
+  },
+  "moduleDetails": {
+    "topic": "Topic",
+    "overview": "Overview",
+    "status": "Development Status",
+    "lastUpdate": "Last Updated",
+    "optional": "Optional",
+    "cost": "Cost",
+    "repository": "Repository",
+    "viewRepository": "View Repository",
+    "documentation": "Documentation",
+    "viewDocumentation": "View Documentation",
+    "technical": "Technical Details",
+    "interfaces": "Interfaces",
+    "dependencies": "Dependencies",
+    "deployments": "Deployments",
+    "description": "Description",
+    "usageScenario": "Usage Scenario",
+    "externalServices": "External Services",
+    "learnMore": "Learn more",
+    "customizationOptions": "Customization Options",
+    "involvedActors": "Involved Actors"
   },
   "loading": {
     "title": "Loading applications...",
@@ -71,5 +146,5 @@
     "copyright": "Smart City App Explorer. All rights reserved.",
     "impressum": "Legal Notice",
     "privacy": "Privacy Policy"
-  }
+  }  
 }

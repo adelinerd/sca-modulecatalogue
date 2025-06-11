@@ -3,13 +3,21 @@
     "title": "SCA - Modulbibliothek",
     "darkMode": "Dunkelmodus umschalten",
     "compare": "Vergleichen",
+    "compareModules": "Module vergleichen",
     "selected": "Ausgewählt",
-    "toggleLanguage": "Sprache ändern"
+    "toggleLanguage": "Sprache ändern",
+    "apps": "Anwendungen",
+    "modules": "Module"
   },
   "appList": {
-    "title": "City Apps",
-    "searchPlaceholder": "Apps suchen...",
-    "noResults": "Keine App gefunden für '{{searchTerm}}'"
+    "title": "Anwendungen",
+    "searchPlaceholder": "Anwendungen suchen...",
+    "noResults": "Keine Anwendungen gefunden für '{{searchTerm}}'"
+  },
+  "moduleList": {
+    "title": "Module",
+    "searchPlaceholder": "Module suchen...",
+    "noResults": "Keine Module gefunden für '{{searchTerm}}'"
   },
   "appCard": {
     "provider": "von {{provider}}",
@@ -18,11 +26,16 @@
     "compare": "Vergleichen",
     "selected": "Ausgewählt"
   },
+  "moduleCard": {
+    "compare": "Vergleichen",
+    "selected": "Ausgewählt",
+    "optional": "Optional"
+  },
   "compareView": {
-    "title": "Apps vergleichen ({{count}}/2)",
+    "title": "Anwendungen vergleichen ({{count}}/2)",
     "empty": {
-      "title": "Keine App ausgewählt",
-      "description": "Wählen Sie bis zu zwei Apps aus, um ihre Funktionen zu vergleichen"
+      "title": "Keine Anwendungen ausgewählt",
+      "description": "Wählen Sie bis zu zwei Anwendungen aus, um ihre Funktionen zu vergleichen"
     },
     "details": {
       "title": "Details",
@@ -40,13 +53,49 @@
       "title": "Einsatzorte"
     },
     "modules": {
-      "title": "Modules ({{count}})"
+      "title": "Module ({{count}})"
+    }
+  },
+  "moduleCompareView": {
+    "title": "Module vergleichen ({{count}}/2)",
+    "empty": {
+      "title": "Keine Module ausgewählt",
+      "description": "Wählen Sie bis zu zwei Module aus, um ihre Funktionen zu vergleichen"
+    },
+    "details": {
+      "title": "Details",
+      "status": "Status",
+      "lastUpdate": "Letzte Aktualisierung",
+      "optional": "Optional",
+      "cost": "Kosten",
+      "notSpecified": "Nicht angegeben"
+    },
+    "technical": {
+      "title": "Technische Details",
+      "interfaces": "Schnittstellen",
+      "dependencies": "Abhängigkeiten"
+    },
+    "resources": {
+      "title": "Ressourcen",
+      "documentation": "Dokumentation",
+      "repository": "Repository"
+    },
+    "deployments": {
+      "title": "Einsatzorte"
+    },
+    "externalServices": {
+      "title": "Externe Dienste"
+    },
+    "actors": {
+      "title": "Beteiligte Akteure"
     }
   },
   "appDetails": {
     "overview": "Übersicht",
     "status": "Entwicklungsstatus",
     "lastUpdate": "Letzte Aktualisierung",
+    "contact": "Kontakt",
+    "contactForm": "Kontaktformular",
     "documentation": "Dokumentation",
     "viewDocumentation": "Dokumentation ansehen",
     "website": "Webseite",
@@ -55,10 +104,36 @@
     "viewRepository": "Repository ansehen",
     "deployments": "Einsatzorte",
     "modules": "Module",
-    "usageScenarios": "Einsatzszenarien",
+    "optional": "Optional",
+    "useCases": "Anwendungsfälle",
+    "usageScenario": "Anwendungsszenario",
+    "cost": "Kosten",
     "externalServices": "Externe Dienste",
     "learnMore": "Mehr erfahren",
-    "customizationOptions": "Anpassungsoptionen"
+    "customizationOptions": "Anpassungsoptionen",
+    "involvedActors": "Beteiligte Akteure"
+  },
+  "moduleDetails": {
+    "topic": "Thema",
+    "overview": "Übersicht",
+    "status": "Entwicklungsstatus",
+    "lastUpdate": "Letzte Aktualisierung",
+    "optional": "Optional",
+    "cost": "Kosten",
+    "repository": "Repository",
+    "viewRepository": "Repository ansehen",
+    "documentation": "Dokumentation",
+    "viewDocumentation": "Dokumentation ansehen",
+    "technical": "Technische Details",
+    "interfaces": "Schnittstellen",
+    "dependencies": "Abhängigkeiten",
+    "deployments": "Einsatzorte",
+    "description": "Beschreibung",
+    "usageScenario": "Anwendungsszenario",
+    "externalServices": "Externe Dienste",
+    "learnMore": "Mehr erfahren",
+    "customizationOptions": "Anpassungsoptionen",
+    "involvedActors": "Beteiligte Akteure"
   },
   "loading": {
     "title": "Anwendungen werden geladen...",
@@ -67,8 +142,8 @@
       "retry": "Erneut versuchen"
     }
   },
-   "footer": {
-    "copyright": "Smart City Apps - Modulbibliothek. Alle Rechte vorbehalten.",
+  "footer": {
+    "copyright": "Smart City App Explorer. Alle Rechte vorbehalten.",
     "impressum": "Impressum",
     "privacy": "Datenschutz"
   }
