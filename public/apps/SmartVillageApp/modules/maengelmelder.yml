@@ -1,0 +1,31 @@
+name: "Mängel"
+optional: "nein"
+topic: "Mängelmelder"
+opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
+short_description: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
+usage_scenario: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
+description: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
+
+cost: "Free"
+interfaces:
+  - "REST API"
+  - "MQTT"
+dependencies:
+  name: "Sensor Data Integration"
+  data_provider: "City Traffic Sensors"
+  input_formats:
+    - "JSON"
+    - "CSV"
+  output_formats:
+    - "GeoJSON"
+    - "REST API"
+involved_actors:
+  - name: "Gemeindemitarbeiter*innen"
+    role: "Fälle verwalten"
+technical_documentation: "https://github.com/smart-village-solutions/smart-village-app-app/wiki"
+deployed_in_municipalities:
+  - "Berlin"
+  - "Hamburg"
+
+development_status: "in Entwicklung"
+last_update: "2025-05-16"

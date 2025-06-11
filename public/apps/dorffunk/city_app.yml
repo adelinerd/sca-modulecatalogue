@@ -1,4 +1,4 @@
-name: "Sag’s uns"
+name: "Sag's uns"
 optional: ja
 topic: "Mängelmelder"
 short_description: "Sag's uns ist ein Mängelmelder, der es Bürger*innen ermöglicht, Vorschläge oder Mängel der Gemeinde direkt zu melden."
@@ -18,7 +18,7 @@ customization_options:
   - "Kommentare: erlaubt oder nicht"
 involved_actors: 
   - name: "Gemeindemitarbeiter*innen"
-  - role: "Fälle verwalten"
+    role: "Fälle verwalten"
 technical_documentation: ""
 deployed_in_municipalities:
   - "Amt Haddeby"

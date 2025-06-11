@@ -5,20 +5,20 @@ opencode_repository: "https://opencode.de/en/software/dorf-funk-4774"
 screenshots: "new_event.png"
 usage_scenario: "Veröffentlichung von Veranstaltungen, Terminen und Events in der Gemeinde. Bürger*innen können Veranstaltungen erstellen und teilen."
 short_description: "Veröffentlichung von Veranstaltungen, Terminen und Events in der Gemeinde. Bürger*innen können Veranstaltungen erstellen und teilen."
-usage_scenario: "Veranstaltungskalender für die Gemeinde"
 description: "Hier können Bürger*innen Vorschläge oder Mängel der Gemeinde mitteilen. Die Nachricht landet direkt bei der richtigen Ansprechperson."
 cost: ""
 interfaces: []
 dependencies: []
 external_services:
   - name: DorfNews
-    description: "Der Kanal wird nur aktiviert, wenn LösBar mitbestellt ist."
-    url: "https://www.digitale-doerfer.de/unsere-loesungen/loesbar/?portfolioCats=68%2C70%2C69%2C97"
+  - description: "Der Kanal wird nur aktiviert, wenn LösBar mitbestellt ist."
+  - url: "https://www.digitale-doerfer.de/unsere-loesungen/loesbar/?portfolioCats=68%2C70%2C69%2C97"
 customization_options:
   - "Erstellung von Events durch Bürger: erlaubt oder nicht"
-involved_actors: []
-  name:
-  contact:
+involved_actors: 
+  - name: "Gemeindemitarbeiter*innen"
+  - role: "Inhalt bereitstellen und verwalten"
+  
 technical_documentation: "LINK"
 deployed_in_municipalities:
   - "Amt Haddeby"

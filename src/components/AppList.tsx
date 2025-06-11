@@ -1,15 +1,15 @@
 import React from 'react';
-import { App } from '../types';
+import { CityApp } from '../types';
 import AppCard from './AppCard';
 import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppListProps {
-  apps: App[];
-  onSelectApp: (app: App) => void;
-  selectedApp: App | null;
-  onToggleCompare: (app: App) => void;
-  comparisonApps: App[];
+  apps: CityApp[];
+  onSelectApp: (app: CityApp) => void;
+  selectedApp: CityApp | null;
+  onToggleCompare: (app: CityApp) => void;
+  comparisonApps: CityApp[];
   searchTerm: string;
   onSearchChange: (term: string) => void;
 }

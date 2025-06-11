@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/city-app-schema.json",
+  "title": "City App Schema",
+  "description": "Schema for city application YAML files",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the city application"
+    },
+    "provider": {
+      "type": "string",
+      "description": "The organization or company that provides the application"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "A brief description of the application's purpose and functionality"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "The official website URL for the application"
+    },
+    "contact": {
+      "type": "array",
+      "description": "Contact information for the application provider",
+      "items": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email address or contact form URL"
+          },
+          "telefon": {
+            "type": "string",
+            "description": "Phone number for contact"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "deployed_in_municipalities": {
+      "type": "array",
+      "description": "List of municipalities where the application is deployed",
+      "items": {
+        "type": "string"
+      }
+    },
+    "opencode_repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the open source code repository"
+    },
+    "documentation": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the application documentation"
+    },
+    "modules": {
+      "type": "array",
+      "description": "List of module file paths relative to the application directory",
+      "items": {
+        "type": "string",
+        "pattern": "^modules/.+\\.yml$"
+      }
+    },
+    "development_status": {
+      "type": "string",
+      "enum": ["Alpha", "Beta", "Stable", "Production", "Deprecated"],
+      "description": "Current development status of the application"
+    },
+    "last_update": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the last update in YYYY-MM-DD format"
+    }
+  },
+  "additionalProperties": false
+}

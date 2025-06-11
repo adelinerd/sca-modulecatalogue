@@ -1,0 +1,21 @@
+name: "Merkliste"
+optional: ja
+topic: "Veranstaltungskalender"
+opencode_repository: "https://github.com/smart-village-solutions/smart-village-app-app"
+
+usage_scenario: "Interessante Inhalte für später vormerken"
+short_description: "Hier können Bürger*innen interessante Inhalte für später vormerken. Diese Merkliste kann für Veranstaltungen, Termine und andere relevante Inhalte genutzt werden."
+description: "Hier können Bürger*innen interessante Inhalte für später vormerken. Diese Merkliste kann für Veranstaltungen, Termine und andere relevante Inhalte genutzt werden."
+cost: ""
+interfaces: []
+dependencies: []
+external_services: []  
+customization_options: []  
+involved_actors: []
+  
+technical_documentation: "LINK"
+deployed_in_municipalities:
+  - "Detmold"
+  - "Bad Belzig"
+development_status: "Stable"
+last_update: "2025-04-16"

@@ -1,10 +1,10 @@
 import React from 'react';
-import { App } from '../types';
+import { CityApp } from '../types';
 import { ExternalLink, Calendar, Server, Info, Package } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppDetailsProps {
-  app: App;
+  app: CityApp;
 }
 
 const AppDetails: React.FC<AppDetailsProps> = ({ app }) => {

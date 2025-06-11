@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/app-module-schema.json",
+  "title": "App Module Schema",
+  "description": "Schema for application module YAML files",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the module"
+    },
+    "optional": {
+      "type": "string",
+      "enum": ["ja", "nein", "yes", "no"],
+      "description": "Whether the module is optional"
+    },
+    "topic": {
+      "type": "string",
+      "description": "The main topic or category of the module"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "A brief description of the module's functionality"
+    },
+    "opencode_repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the module's open source code repository"
+    },
+    "screenshots": {
+      "type": "string",
+      "description": "Filename or path to screenshots of the module"
+    },
+    "usage_scenario": {
+      "type": "string",
+      "description": "Detailed description of how and when the module is used"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the module's functionality"
+    },
+    "cost": {
+      "type": "string",
+      "description": "Cost information for the module"
+    },
+    "interfaces": {
+      "type": "array",
+      "description": "List of interfaces the module provides or uses",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "List of dependencies required by the module",
+      "items": {
+        "type": "string"
+      }
+    },
+    "external_services": {
+      "type": "array",
+      "description": "List of external services used by the module",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the external service"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of how the service is used"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the external service"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "customization_options": {
+      "type": "array",
+      "description": "List of available customization options",
+      "items": {
+        "type": "string"
+      }
+    },
+    "involved_actors": {
+      "type": "array",
+      "description": "List of actors involved in using or managing the module",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name or title of the actor"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role or responsibility of the actor"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "technical_documentation": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to technical documentation for the module"
+    },
+    "deployed_in_municipalities": {
+      "type": "array",
+      "description": "List of municipalities where the module is deployed",
+      "items": {
+        "type": "string"
+      }
+    },
+    "development_status": {
+      "type": "string",
+      "enum": ["Alpha", "Beta", "Stable", "Production", "Deprecated"],
+      "description": "Current development status of the module"
+    },
+    "last_update": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the last update in YYYY-MM-DD format"
+    }
+  },
+  "additionalProperties": false
+}

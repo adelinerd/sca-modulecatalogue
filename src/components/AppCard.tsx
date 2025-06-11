@@ -1,10 +1,10 @@
 import React from 'react';
-import { App } from '../types';
+import { CityApp } from '../types';
 import { Landmark } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppCardProps {
-  app: App;
+  app: CityApp;
   onClick: () => void;
   isSelected: boolean;
   onToggleCompare: () => void;

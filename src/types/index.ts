@@ -2,9 +2,10 @@ export interface AppModule {
   name: string;
   optional?: string;
   topic?: string;
+  short_description?: string;
   opencode_repository?: string;
   screenshots?: string;
-  usage_scenarios?: string;
+  usage_scenario?: string;
   description?: string;
   cost?: string;
   interfaces?: string[];
@@ -15,32 +16,39 @@ export interface AppModule {
     url?: string;
   }[];
   customization_options?: string[];
-  involved_actors?: string[];
+  involved_actors?: {
+    name?: string;
+    role?: string;
+  }[];
   technical_documentation?: string;
   deployed_in_municipalities?: string[];
   development_status?: string;
   last_update?: string;
 }
 
-export interface App {
+export interface CityApp {
   name: string;
   provider?: string;
-  technical_specifications?: string;
-  documentation?: string;
-  deployed_in_municipalities?: string[];
+  short_description?: string;
   website?: string;
+  contact?: {
+    email?: string;
+    telefon?: string;
+  }[];
+  deployed_in_municipalities?: string[];
   opencode_repository?: string;
-  modules?: AppModule[];
-  modulePaths?: string[];  
+  documentation?: string;
+  modules?: string[] | AppModule[];
   development_status?: string;
-  last_update?: string; 
+  last_update?: string;
 }
 
 export interface AppState {
-  apps: App[];
-  selectedApp: App | null;
-  comparisonApps: App[];
+  apps: CityApp[];
+  selectedApp: CityApp | null;
+  comparisonApps: CityApp[];
   isCompareMode: boolean;
   isDarkMode: boolean;
   searchTerm: string;
 }
+
