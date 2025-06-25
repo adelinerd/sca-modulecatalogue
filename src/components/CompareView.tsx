@@ -1,11 +1,11 @@
 import React from 'react';
-import { App } from '../types';
+import { CityApp } from '../types';
 import { X, Calendar, Server, ExternalLink, Package, AlertCircle } from 'lucide-react';
 
 interface CompareViewProps {
-  apps: App[];
+  apps: CityApp[];
   onClose: () => void;
-  onRemoveApp: (app: App) => void;
+  onRemoveApp: (app: CityApp) => void;
 }
 
 const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp }) => {
@@ -57,6 +57,9 @@ const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp })
                   <h3 className="text-lg font-medium text-primary-900 dark:text-primary-50">{app.name}</h3>
                   {app.provider && (
                     <p className="text-sm text-primary-600 dark:text-primary-400">by {app.provider}</p>
+                  )}
+                  {app.short_description && (
+                    <p className="text-sm text-primary-600 dark:text-primary-400 mt-1">{app.short_description}</p>
                   )}
                 </div>
                 
@@ -159,6 +162,11 @@ const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp })
                               <span className="inline-block px-2 py-0.5 text-xs bg-teal-50 dark:bg-teal-900 text-teal-700 dark:text-teal-300 rounded-full mb-2">
                                 {module.topic}
                               </span>
+                            )}
+                            {module.short_description && (
+                              <p className="text-xs text-primary-600 dark:text-primary-400 line-clamp-2 mb-1 font-medium">
+                                {module.short_description}
+                              </p>
                             )}
                             {module.description && (
                               <p className="text-xs text-primary-600 dark:text-primary-400 line-clamp-3">

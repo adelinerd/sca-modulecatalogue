@@ -26,6 +26,10 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [moduleSearchTerm, setModuleSearchTerm] = useState('');
   const [currentView, setCurrentView] = useState<'apps' | 'modules' | 'impressum' | 'privacy'>('apps');
+  const [navigationState, setNavigationState] = useState<{
+    fromApp?: CityApp;
+    showingModuleFromApp?: boolean;
+  }>({});
 
   // Handle dark mode toggle and system preference
   useEffect(() => {
@@ -60,10 +64,10 @@ function App() {
 
   // Set first app as selected when data loads
   useEffect(() => {
-    if (apps.length > 0 && !selectedApp && currentView === 'apps') {
+    if (apps.length > 0 && !selectedApp && currentView === 'apps' && !navigationState.showingModuleFromApp) {
       setSelectedApp(apps[0]);
     }
-  }, [apps, selectedApp, currentView]);
+  }, [apps, selectedApp, currentView, navigationState.showingModuleFromApp]);
 
   // Get all modules from all apps for module view
   const allModules = React.useMemo(() => {
@@ -82,10 +86,10 @@ function App() {
 
   // Set first module as selected when switching to module view
   useEffect(() => {
-    if (allModules.length > 0 && !selectedModule && currentView === 'modules') {
+    if (allModules.length > 0 && !selectedModule && currentView === 'modules' && !navigationState.showingModuleFromApp) {
       setSelectedModule(allModules[0]);
     }
-  }, [allModules, selectedModule, currentView]);
+  }, [allModules, selectedModule, currentView, navigationState.showingModuleFromApp]);
 
   const handleToggleCompare = (app: CityApp) => {
     setComparisonApps(prevApps => {
@@ -141,6 +145,24 @@ function App() {
     }
   };
 
+  // Handle module navigation from app view
+  const handleModuleClick = (module: AppModule, fromApp: CityApp) => {
+    setSelectedModule(module);
+    setNavigationState({
+      fromApp,
+      showingModuleFromApp: true
+    });
+  };
+
+  // Handle back navigation to app view
+  const handleBackToApp = () => {
+    if (navigationState.fromApp) {
+      setSelectedApp(navigationState.fromApp);
+      setSelectedModule(null);
+      setNavigationState({});
+    }
+  };
+
   // Handle navigation
   useEffect(() => {
     const handleNavigation = () => {
@@ -151,15 +173,21 @@ function App() {
         setCurrentView('privacy');
       } else if (path === '/modules') {
         setCurrentView('modules');
+        // Clear navigation state when switching to modules view
+        setNavigationState({});
       } else {
         setCurrentView('apps');
+        // Clear navigation state when switching to apps view
+        if (!navigationState.showingModuleFromApp) {
+          setNavigationState({});
+        }
       }
     };
 
     handleNavigation();
     window.addEventListener('popstate', handleNavigation);
     return () => window.removeEventListener('popstate', handleNavigation);
-  }, []);
+  }, [navigationState.showingModuleFromApp]);
 
   if (loading) {
     return (
@@ -207,24 +235,41 @@ function App() {
       <main className="flex flex-1 overflow-hidden">
         {currentView === 'apps' ? (
           <>
-            <AppList 
-              apps={apps}
-              onSelectApp={setSelectedApp}
-              selectedApp={selectedApp}
-              onToggleCompare={handleToggleCompare}
-              comparisonApps={comparisonApps}
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-            />
-            
-            {isCompareMode ? (
-              <CompareView 
-                apps={comparisonApps}
-                onClose={() => setIsCompareMode(false)}
-                onRemoveApp={handleRemoveFromCompare}
+            {/* Show module details when navigating from app */}
+            {navigationState.showingModuleFromApp && selectedModule ? (
+              <ModuleDetails 
+                module={selectedModule} 
+                onBack={handleBackToApp}
+                showBackButton={true}
+                backToApp={navigationState.fromApp}
               />
             ) : (
-              selectedApp && <AppDetails app={selectedApp} />
+              <>
+                <AppList 
+                  apps={apps}
+                  onSelectApp={setSelectedApp}
+                  selectedApp={selectedApp}
+                  onToggleCompare={handleToggleCompare}
+                  comparisonApps={comparisonApps}
+                  searchTerm={searchTerm}
+                  onSearchChange={setSearchTerm}
+                />
+                
+                {isCompareMode ? (
+                  <CompareView 
+                    apps={comparisonApps}
+                    onClose={() => setIsCompareMode(false)}
+                    onRemoveApp={handleRemoveFromCompare}
+                  />
+                ) : (
+                  selectedApp && (
+                    <AppDetails 
+                      app={selectedApp} 
+                      onModuleClick={handleModuleClick}
+                    />
+                  )
+                )}
+              </>
             )}
           </>
         ) : currentView === 'modules' ? (
@@ -246,7 +291,12 @@ function App() {
                 onRemoveModule={handleRemoveModuleFromCompare}
               />
             ) : (
-              selectedModule && <ModuleDetails module={selectedModule} />
+              selectedModule && (
+                <ModuleDetails 
+                  module={selectedModule} 
+                  showBackButton={false}
+                />
+              )
             )}
           </>
         ) : (

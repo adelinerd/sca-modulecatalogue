@@ -3,7 +3,9 @@ optional: ja
 topic: "Mängelmelder"
 short_description: "Sag's uns ist ein Mängelmelder, der es Bürger*innen ermöglicht, Vorschläge oder Mängel der Gemeinde direkt zu melden."
 opencode_repository: "https://opencode.de/en/software/dorf-funk-4774"
-screenshots: "new_sags_uns.png"
+screenshots: 
+ - "https://www.digitale-doerfer.de/wp-content/uploads/sites/17/2019/09/create-suggestion.png"
+ - "https://www.digitale-doerfer.de/wp-content/uploads/sites/17/2018/04/btn_menu_suggestions_inactive@3x.png"
 usage_scenario: "Ermöglicht es Bürgerinnen und Bürgern, Schäden oder Störungen im öffentlichen Raum – wie defekte Straßenlaternen oder Schlaglöcher – schnell und unkompliziert an die zuständige Behörde zu melden"
 description: "Hier können Bürger*innen Vorschläge oder Mängel der Gemeinde mitteilen. Die Nachricht landet direkt bei der richtigen Ansprechperson."
 cost: "50 € pro Monat (zzgl. MwSt.)"

@@ -3,6 +3,8 @@ optional: ja
 topic: "Veranstaltungskalender"
 opencode_repository: "https://github.com/smart-village-solutions/smart-village-app-app"
 
+screenshots: 
+  - "https://staging.smart-village.app/wp-content/uploads/2021/09/features-merkliste@2x-1.jpg"
 usage_scenario: "Interessante Inhalte für später vormerken"
 short_description: "Hier können Bürger*innen interessante Inhalte für später vormerken. Diese Merkliste kann für Veranstaltungen, Termine und andere relevante Inhalte genutzt werden."
 description: "Hier können Bürger*innen interessante Inhalte für später vormerken. Diese Merkliste kann für Veranstaltungen, Termine und andere relevante Inhalte genutzt werden."

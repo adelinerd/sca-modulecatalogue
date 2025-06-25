@@ -1,20 +1,109 @@
-import React from 'react';
-import { AppModule } from '../types';
-import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench } from 'lucide-react';
+import React, { useState } from 'react';
+import { AppModule, CityApp } from '../types';
+import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench, ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface ModuleDetailsProps {
   module: AppModule;
+  onBack?: () => void;
+  showBackButton?: boolean;
+  backToApp?: CityApp;
 }
 
-const ModuleDetails: React.FC<ModuleDetailsProps> = ({ module }) => {
+const ModuleDetails: React.FC<ModuleDetailsProps> = ({ 
+  module, 
+  onBack, 
+  showBackButton = false, 
+  backToApp 
+}) => {
   const { t } = useTranslation();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [imageAspectRatios, setImageAspectRatios] = useState<{[key: number]: 'portrait' | 'landscape' | 'square'}>({});
   
   if (!module) return null;
+
+  // Handle screenshots - can be string or array
+  const screenshots = Array.isArray(module.screenshots) 
+    ? module.screenshots 
+    : module.screenshots 
+      ? [module.screenshots] 
+      : [];
+
+  const hasScreenshots = screenshots.length > 0;
+
+  const handlePreviousImage = () => {
+    setCurrentImageIndex(prev => prev === 0 ? screenshots.length - 1 : prev - 1);
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex(prev => prev === screenshots.length - 1 ? 0 : prev + 1);
+  };
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.style.display = 'none';
+  };
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>, index: number) => {
+    const img = e.currentTarget;
+    const aspectRatio = img.naturalWidth / img.naturalHeight;
+    
+    let orientation: 'portrait' | 'landscape' | 'square';
+    if (aspectRatio > 1.2) {
+      orientation = 'landscape';
+    } else if (aspectRatio < 0.8) {
+      orientation = 'portrait';
+    } else {
+      orientation = 'square';
+    }
+    
+    setImageAspectRatios(prev => ({
+      ...prev,
+      [index]: orientation
+    }));
+  };
+
+  const getImagePaddingClass = (index: number, isLightbox = false) => {
+    const orientation = imageAspectRatios[index];
+    
+    if (isLightbox) {
+      switch (orientation) {
+        case 'portrait':
+          return 'px-20 py-8'; // More horizontal padding for vertical images
+        case 'landscape':
+          return 'px-8 py-16'; // More vertical padding for horizontal images
+        case 'square':
+          return 'p-12'; // Equal padding for square images
+        default:
+          return 'p-8'; // Default padding while loading
+      }
+    } else {
+      switch (orientation) {
+        case 'portrait':
+          return 'px-16 py-4'; // More horizontal padding for vertical images
+        case 'landscape':
+          return 'px-4 py-8'; // More vertical padding for horizontal images
+        case 'square':
+          return 'p-6'; // Equal padding for square images
+        default:
+          return 'p-4'; // Default padding while loading
+      }
+    }
+  };
 
   return (
     <div className="flex-1 p-6 overflow-y-auto animate-fadeIn">
       <header className="mb-6">
+        {showBackButton && onBack && (
+          <button
+            onClick={onBack}
+            className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-4 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {backToApp ? t('moduleDetails.backToApp', { appName: backToApp.name }) : t('moduleDetails.back')}
+          </button>
+        )}
+        
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{module.name}</h1>
         {module.topic && (
           <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -186,6 +275,143 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({ module }) => {
           )}
         </section>
       </div>
+
+      {/* Screenshots Section - Only show if screenshots exist */}
+      {hasScreenshots && (
+        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
+            <Package className="h-5 w-5 mr-2 text-blue-500" />
+            {t('moduleDetails.screenshots')}
+          </h2>
+          
+          <div className="relative">
+            {/* Main Gallery Image */}
+            <div className="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              <div className={`w-full h-full flex items-center justify-center ${getImagePaddingClass(currentImageIndex)}`}>
+                <img
+                  src={screenshots[currentImageIndex]}
+                  alt={`${module.name} screenshot ${currentImageIndex + 1}`}
+                  className="max-w-full max-h-full object-contain shadow-lg rounded"
+                  onError={handleImageError}
+                  onLoad={(e) => handleImageLoad(e, currentImageIndex)}
+                  onClick={() => setIsLightboxOpen(true)}
+                  style={{ cursor: 'pointer' }}
+                />
+              </div>
+              
+              {/* Navigation Arrows */}
+              {screenshots.length > 1 && (
+                <>
+                  <button
+                    onClick={handlePreviousImage}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors z-10"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  
+                  <button
+                    onClick={handleNextImage}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors z-10"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </>
+              )}
+              
+              {/* Image Counter */}
+              {screenshots.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
+                  {currentImageIndex + 1} / {screenshots.length}
+                </div>
+              )}
+            </div>
+            
+            {/* Thumbnail Navigation */}
+            {screenshots.length > 1 && (
+              <div className="flex justify-center mt-4 space-x-2 overflow-x-auto pb-2">
+                {screenshots.map((screenshot, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+                      index === currentImageIndex 
+                        ? 'border-blue-500' 
+                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                    }`}
+                  >
+                    <img
+                      src={screenshot}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={handleImageError}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Lightbox */}
+      {isLightboxOpen && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50" onClick={() => setIsLightboxOpen(false)}>
+          <div className="relative max-w-7xl max-h-full w-full h-full flex items-center justify-center">
+            <div className={`w-full h-full flex items-center justify-center ${getImagePaddingClass(currentImageIndex, true)}`}>
+              <img
+                src={screenshots[currentImageIndex]}
+                alt={`${module.name} screenshot ${currentImageIndex + 1}`}
+                className="max-w-full max-h-full object-contain"
+                onError={handleImageError}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setIsLightboxOpen(false)}
+              className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+              aria-label="Close lightbox"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            
+            {/* Navigation in Lightbox */}
+            {screenshots.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePreviousImage();
+                  }}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+                
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNextImage();
+                  }}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </button>
+                
+                {/* Image Counter in Lightbox */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full">
+                  {currentImageIndex + 1} / {screenshots.length}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {module.description && (
         <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">

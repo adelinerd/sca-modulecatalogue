@@ -4,7 +4,7 @@ export interface AppModule {
   topic?: string;
   short_description?: string;
   opencode_repository?: string;
-  screenshots?: string;
+  screenshots?: string | string[];
   usage_scenario?: string;
   description?: string;
   cost?: string;

@@ -5,6 +5,8 @@ opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
 short_description: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
 usage_scenario: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
 description: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
+screenshots:
+  - "https://staging.smart-village.app/wp-content/uploads/2021/09/features-Maengelmelder@2x.jpg"
 
 cost: "Free"
 interfaces:

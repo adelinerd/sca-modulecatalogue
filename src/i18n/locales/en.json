@@ -29,7 +29,8 @@
   "moduleCard": {
     "compare": "Compare",
     "selected": "Selected",
-    "optional": "Optional"
+    "optional": "Optional",
+    "noImage": "No image available"
   },
   "compareView": {
     "title": "Comparing Applications ({{count}}/2)",
@@ -133,7 +134,10 @@
     "externalServices": "External Services",
     "learnMore": "Learn more",
     "customizationOptions": "Customization Options",
-    "involvedActors": "Involved Actors"
+    "involvedActors": "Involved Actors",
+    "back": "Back",
+    "backToApp": "Back to {{appName}}",
+    "screenshots": "Screenshots"
   },
   "loading": {
     "title": "Loading applications...",

@@ -46,6 +46,11 @@ const AppCard: React.FC<AppCardProps> = ({
                 ? t('appCard.provider', { provider: app.provider })
                 : t('appCard.unknownProvider')}
             </p>
+            {app.short_description && (
+              <p className="text-xs text-primary-500 dark:text-primary-400 mt-1 line-clamp-2">
+                {app.short_description}
+              </p>
+            )}
           </div>
         </div>
         

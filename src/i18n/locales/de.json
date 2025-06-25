@@ -29,7 +29,8 @@
   "moduleCard": {
     "compare": "Vergleichen",
     "selected": "Ausgewählt",
-    "optional": "Optional"
+    "optional": "Optional",
+     "noImage": "Kein Bild verfügbar"
   },
   "compareView": {
     "title": "Anwendungen vergleichen ({{count}}/2)",
@@ -114,7 +115,7 @@
     "involvedActors": "Beteiligte Akteure"
   },
   "moduleDetails": {
-    "topic": "Thema",
+     "topic": "Thema",
     "overview": "Übersicht",
     "status": "Entwicklungsstatus",
     "lastUpdate": "Letzte Aktualisierung",
@@ -133,7 +134,10 @@
     "externalServices": "Externe Dienste",
     "learnMore": "Mehr erfahren",
     "customizationOptions": "Anpassungsoptionen",
-    "involvedActors": "Beteiligte Akteure"
+    "involvedActors": "Beteiligte Akteure",
+    "back": "Zurück",
+    "backToApp": "Zurück zu {{appName}}",
+    "screenshots": "Screenshots"
   },
   "loading": {
     "title": "Anwendungen werden geladen...",
