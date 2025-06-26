@@ -28,7 +28,7 @@ const LegalInfo: React.FC<LegalInfoProps> = ({ type }) => {
   }, [type]);
 
   return (
-    <div className="flex-1 p-6 max-w-4xl mx-auto">
+    <div className="flex-1 py-6 max-w-4xl mx-auto w-full">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
         <h1 className="text-3xl font-bold text-primary-900 dark:text-primary-50 mb-8 border-b border-primary-200 dark:border-primary-700 pb-4">
           {t(`footer.${type}`)}

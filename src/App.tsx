@@ -202,7 +202,7 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md max-w-md w-full">
           <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-4">{t('loading.error.title')}</h2>
           <p className="text-gray-700 dark:text-gray-300">{error}</p>
@@ -232,77 +232,82 @@ function App() {
         onViewChange={setCurrentView}
       />
       
-      <main className="flex flex-1 overflow-hidden">
-        {currentView === 'apps' ? (
-          <>
-            {/* Show module details when navigating from app */}
-            {navigationState.showingModuleFromApp && selectedModule ? (
-              <ModuleDetails 
-                module={selectedModule} 
-                onBack={handleBackToApp}
-                showBackButton={true}
-                backToApp={navigationState.fromApp}
-              />
-            ) : (
+      {/* Main content with horizontal padding */}
+      <div className="flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+        <div className="max-w-7xl mx-auto">
+          <main className="flex flex-1 overflow-hidden">
+            {currentView === 'apps' ? (
               <>
-                <AppList 
-                  apps={apps}
-                  onSelectApp={setSelectedApp}
-                  selectedApp={selectedApp}
-                  onToggleCompare={handleToggleCompare}
-                  comparisonApps={comparisonApps}
-                  searchTerm={searchTerm}
-                  onSearchChange={setSearchTerm}
-                />
-                
-                {isCompareMode ? (
-                  <CompareView 
-                    apps={comparisonApps}
-                    onClose={() => setIsCompareMode(false)}
-                    onRemoveApp={handleRemoveFromCompare}
+                {/* Show module details when navigating from app */}
+                {navigationState.showingModuleFromApp && selectedModule ? (
+                  <ModuleDetails 
+                    module={selectedModule} 
+                    onBack={handleBackToApp}
+                    showBackButton={true}
+                    backToApp={navigationState.fromApp}
                   />
                 ) : (
-                  selectedApp && (
-                    <AppDetails 
-                      app={selectedApp} 
-                      onModuleClick={handleModuleClick}
+                  <>
+                    <AppList 
+                      apps={apps}
+                      onSelectApp={setSelectedApp}
+                      selectedApp={selectedApp}
+                      onToggleCompare={handleToggleCompare}
+                      comparisonApps={comparisonApps}
+                      searchTerm={searchTerm}
+                      onSearchChange={setSearchTerm}
+                    />
+                    
+                    {isCompareMode ? (
+                      <CompareView 
+                        apps={comparisonApps}
+                        onClose={() => setIsCompareMode(false)}
+                        onRemoveApp={handleRemoveFromCompare}
+                      />
+                    ) : (
+                      selectedApp && (
+                        <AppDetails 
+                          app={selectedApp} 
+                          onModuleClick={handleModuleClick}
+                        />
+                      )
+                    )}
+                  </>
+                )}
+              </>
+            ) : currentView === 'modules' ? (
+              <>
+                <ModuleList 
+                  modules={allModules}
+                  onSelectModule={setSelectedModule}
+                  selectedModule={selectedModule}
+                  onToggleCompare={handleToggleModuleCompare}
+                  comparisonModules={comparisonModules}
+                  searchTerm={moduleSearchTerm}
+                  onSearchChange={setModuleSearchTerm}
+                />
+                
+                {isModuleCompareMode ? (
+                  <ModuleCompareView 
+                    modules={comparisonModules}
+                    onClose={() => setIsModuleCompareMode(false)}
+                    onRemoveModule={handleRemoveModuleFromCompare}
+                  />
+                ) : (
+                  selectedModule && (
+                    <ModuleDetails 
+                      module={selectedModule} 
+                      showBackButton={false}
                     />
                   )
                 )}
               </>
-            )}
-          </>
-        ) : currentView === 'modules' ? (
-          <>
-            <ModuleList 
-              modules={allModules}
-              onSelectModule={setSelectedModule}
-              selectedModule={selectedModule}
-              onToggleCompare={handleToggleModuleCompare}
-              comparisonModules={comparisonModules}
-              searchTerm={moduleSearchTerm}
-              onSearchChange={setModuleSearchTerm}
-            />
-            
-            {isModuleCompareMode ? (
-              <ModuleCompareView 
-                modules={comparisonModules}
-                onClose={() => setIsModuleCompareMode(false)}
-                onRemoveModule={handleRemoveModuleFromCompare}
-              />
             ) : (
-              selectedModule && (
-                <ModuleDetails 
-                  module={selectedModule} 
-                  showBackButton={false}
-                />
-              )
+              <LegalInfo type={currentView} />
             )}
-          </>
-        ) : (
-          <LegalInfo type={currentView} />
-        )}
-      </main>
+          </main>
+        </div>
+      </div>
 
       <Footer />
     </div>
