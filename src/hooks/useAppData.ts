@@ -14,6 +14,15 @@ async function fetchYaml<T>(url: string): Promise<T | null> {
   }
 }
 
+interface ManifestApp {
+  name: string;
+  app_yml_url: string;
+}
+
+interface Manifest {
+  apps: ManifestApp[];
+}
+
 const useAppData = () => {
   const [apps, setApps] = useState<CityApp[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,41 +31,57 @@ const useAppData = () => {
   useEffect(() => {
     const fetchApps = async () => {
       try {
-       // 1. Fetch the list of app folders (from JSON manifest)
+        // 1. Fetch the manifest with app names and URLs
         const manifestUrl = '/apps/manifest.json';
         const res = await fetch(manifestUrl);
         if (!res.ok) throw new Error('Could not load app manifest');
-        const manifest: { apps: string[] } = await res.json();
+        const manifest: Manifest = await res.json();
 
-        // 2. For each app, fetch its info
-        const appPromises = manifest.apps.map(async (appFolder) => {
-          const appData = await fetchYaml<any>(`/apps/${appFolder}/city_app.yml`);
-          if (!appData) return null;
+        console.log('Loaded manifest:', manifest);
+
+        // 2. For each app, fetch its YAML data from the specified URL
+        const appPromises = manifest.apps.map(async (manifestApp) => {
+          console.log(`Fetching app data from: ${manifestApp.app_yml_url}`);
+          const appData = await fetchYaml<any>(manifestApp.app_yml_url);
+          if (!appData) {
+            console.warn(`Failed to load app data from ${manifestApp.app_yml_url}`);
+            return null;
+          }
           
-          const modulePaths: string[] = appData.modules || [];
-          console.log(`Modules defined in city_app.yml for ${appFolder}:`, modulePaths);
+          // 3. For each module URL in the app, fetch the module data
+          const moduleUrls: string[] = appData.modules || [];
+          console.log(`Module URLs for ${manifestApp.name}:`, moduleUrls);
 
-          const modulePromises = modulePaths.map((relPath) =>
-            fetchYaml<AppModule>(`/apps/${appFolder}/${relPath}`)
-          );
+          const modulePromises = moduleUrls.map(async (moduleUrl) => {
+            console.log(`Fetching module from: ${moduleUrl}`);
+            const moduleData = await fetchYaml<AppModule>(moduleUrl);
+            if (!moduleData) {
+              console.warn(`Failed to load module from ${moduleUrl}`);
+            }
+            return moduleData;
+          });
+          
           const modules = (await Promise.all(modulePromises)).filter(Boolean) as AppModule[];
+          console.log(`Loaded ${modules.length} modules for ${manifestApp.name}`);
 
+          // Remove the modules URLs from app data and replace with actual module objects
           const { modules: _, ...appCoreData } = appData;
 
           return {
             ...appCoreData,
             modules,
-            modulePaths,
+            moduleUrls, // Keep the original URLs for reference if needed
           } as CityApp;
         });
 
         const loadedApps = (await Promise.all(appPromises)).filter(Boolean) as CityApp[];
+        console.log(`Successfully loaded ${loadedApps.length} apps`);
         setApps(loadedApps);
         setLoading(false);
       } catch (err) {
+        console.error('Error loading app data:', err);
         setError('Failed to load app data');
         setLoading(false);
-        console.error('Error loading app data:', err);
       }
     };
 

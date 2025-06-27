@@ -12,8 +12,8 @@ opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
 documentation: "https://github.com/smart-village-solutions/smart-village-app-app/wiki"
 
 modules:
-  - "modules/maengelmelder.yml"
-  - "modules/merkliste.yml"
+  - "/apps/SmartVillageApp/modules/maengelmelder.yml"
+  - "/apps/SmartVillageApp/modules/merkliste.yml"
   
 development_status: "Stable"
 last_update: "2025-06-06"

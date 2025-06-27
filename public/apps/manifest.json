@@ -1,3 +1,16 @@
 {
-  "apps": ["DorfFunk", "SmartVillageApp", "Smart-City-Platform"]
+  "apps": [
+    {
+      "name": "DorfFunk",
+      "app_yml_url": "/apps/dorffunk/city_app.yml"
+    },
+    {
+      "name": "SmartVillageApp", 
+      "app_yml_url": "/apps/SmartVillageApp/city_app.yml"
+    },
+    {
+      "name": "Smart-City-Platform",
+      "app_yml_url": "/apps/Smart-City-Platform/city_app.yml"
+    }
+  ]
 }

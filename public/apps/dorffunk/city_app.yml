@@ -17,8 +17,8 @@ opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfe
 documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
 
 modules:
-  - "modules/events.yml"
-  - "modules/sags_uns.yml"
+  - "/apps/dorffunk/modules/events.yml"
+  - "/apps/dorffunk/modules/sags_uns.yml"
 
 development_status: "Stable"
 last_update: "2025-04-16"

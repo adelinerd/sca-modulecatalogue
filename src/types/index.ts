@@ -32,13 +32,15 @@ export interface CityApp {
   short_description?: string;
   website?: string;
   contact?: {
+    name?: string;
     email?: string;
     telefon?: string;
   }[];
   deployed_in_municipalities?: string[];
   opencode_repository?: string;
   documentation?: string;
-  modules?: string[] | AppModule[];
+  modules?: AppModule[];
+  moduleUrls?: string[]; // Keep track of original module URLs
   development_status?: string;
   last_update?: string;
 }
@@ -51,4 +53,3 @@ export interface AppState {
   isDarkMode: boolean;
   searchTerm: string;
 }
-

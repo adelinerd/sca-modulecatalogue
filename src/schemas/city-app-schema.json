@@ -3,7 +3,7 @@
   "$id": "https://example.com/schemas/city-app-schema.json",
   "title": "City App Schema",
   "description": "Schema for city application YAML files",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "object",
   "required": ["name"],
   "properties": {
@@ -30,6 +30,10 @@
       "items": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string",
+            "description": "Contact person name"
+          },
           "email": {
             "type": "string",
             "description": "Email address or contact form URL"
@@ -61,10 +65,10 @@
     },
     "modules": {
       "type": "array",
-      "description": "List of module file paths relative to the application directory",
+      "description": "List of module URLs (can be absolute or relative)",
       "items": {
         "type": "string",
-        "pattern": "^modules/.+\\.yml$"
+        "format": "uri-reference"
       }
     },
     "development_status": {
