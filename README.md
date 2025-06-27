@@ -2,7 +2,7 @@
 
 # SCA-Modulbibliothek
 
-**SCA-Modulbibliothek** is a web-based catalog that showcases reusable modules extracted from open source Smart City applications. Built with [Vite](https://vitejs.dev/), it provides an interactive interface to explore, understand, and evaluate building blocks for Smart City software projects.
+**SCA-Modulbibliothek** is a web-based catalog that showcases reusable modules extracted from open source Smart City applications. It provides an interactive interface to explore, understand, and evaluate building blocks for Smart City software projects.
 
 ## 📁 Project Structure
 
@@ -10,8 +10,10 @@ sca-modulbibliothek/
 ├── public/ # Static assets
 ├── src/
 │ ├── components/ # UI components
-│ ├── modules/ # JSON files describing each Smart City module
-│ ├── views/ # Application views
+│ ├── hooks/ # JSON files describing each Smart City module
+│ ├── i18n/ # Language files
+│ ├── schemas/ # JSON Schema files for the YML
+│ ├── types / # Type definitions
 │ ├── App.tsx # Root React component
 │ └── main.tsx # Entry point
 ├── index.html
@@ -29,10 +31,10 @@ sca-modulbibliothek/
 ### Installation
 
 ```bash
-git clone https://github.com/adelinerd/sca-modulbibliothek.git
-cd sca-modulbibliothek
-npm install
-
+git clone https://github.com/adelinerd/sca-modulecatalogue.git
+cd sca-modulecatalogue
+npm start
+```
 
 ## Licenses
 
