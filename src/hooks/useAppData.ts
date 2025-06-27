@@ -64,18 +64,29 @@ const useAppData = () => {
           const modules = (await Promise.all(modulePromises)).filter(Boolean) as AppModule[];
           console.log(`Loaded ${modules.length} modules for ${manifestApp.name}`);
 
-          // Remove the modules URLs from app data and replace with actual module objects
-          const { modules: _, ...appCoreData } = appData;
-
-          return {
-            ...appCoreData,
+          // Create the final app object, ensuring we have the name field
+          const finalApp: CityApp = {
+            // Use the name from YAML if available, otherwise fall back to manifest name
+            name: appData.name || manifestApp.name,
+            provider: appData.provider,
+            short_description: appData.short_description,
+            website: appData.website,
+            contact: appData.contact,
+            deployed_in_municipalities: appData.deployed_in_municipalities,
+            opencode_repository: appData.opencode_repository,
+            documentation: appData.documentation,
+            development_status: appData.development_status,
+            last_update: appData.last_update,
             modules,
             moduleUrls, // Keep the original URLs for reference if needed
-          } as CityApp;
+          };
+
+          console.log(`Created app object for ${finalApp.name}:`, finalApp);
+          return finalApp;
         });
 
         const loadedApps = (await Promise.all(appPromises)).filter(Boolean) as CityApp[];
-        console.log(`Successfully loaded ${loadedApps.length} apps`);
+        console.log(`Successfully loaded ${loadedApps.length} apps:`, loadedApps.map(app => app.name));
         setApps(loadedApps);
         setLoading(false);
       } catch (err) {
