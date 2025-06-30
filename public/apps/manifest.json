@@ -10,7 +10,7 @@
     },
     {
       "name": "Smart-City-Platform",
-      "app_yml_url": "/apps/Smart-City-Platform/city_app.yml"
+      "app_yml_url": "https://raw.githubusercontent.com/adelinerd/modul_mockups/main/Smart-City-Platform/city_app.yml"
     }
   ]
 }
