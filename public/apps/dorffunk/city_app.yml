@@ -6,6 +6,10 @@ contact:
   - email: "https://www.digitale-doerfer.de/kontakt"
     telefon: "+49 631 205-0"
 
+development_partnership:
+  - name: "DD Community"
+    kontakt: "E-Mail: support@digitale-doerfer.de"
+
 deployed_in_municipalities:
   - "Niedersachsen"
   - "RLP"
@@ -15,6 +19,7 @@ deployed_in_municipalities:
 
 opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk"
 documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
+app_type: "Native App"
 
 modules:
   - "/apps/dorffunk/modules/events.yml"

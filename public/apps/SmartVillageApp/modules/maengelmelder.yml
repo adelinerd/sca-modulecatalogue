@@ -1,6 +1,7 @@
 name: "Mängel"
 optional: "nein"
 topic: "Mängelmelder"
+app_name: "Smart Village App"
 opencode_repository: "https://opencode.de/en/software/smart-village-app-2777"
 short_description: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"
 usage_scenario: "Erfassung und Darstellung von Problemen in  kommunaler Infrastruktur"

@@ -1,4 +1,5 @@
 name: "Sag’s uns"
+app_name: "DorfFunk"
 optional: ja
 topic: "Mängelmelder"
 short_description: "Sag's uns ist ein Mängelmelder, der es Bürger*innen ermöglicht, Vorschläge oder Mängel der Gemeinde direkt zu melden."
@@ -21,7 +22,7 @@ customization_options:
 involved_actors: 
   - name: "Gemeindemitarbeiter*innen"
     role: "Fälle verwalten"
-technical_documentation: ""
+technical_documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs"
 deployed_in_municipalities:
   - "Amt Haddeby"
   - "Gleichen"

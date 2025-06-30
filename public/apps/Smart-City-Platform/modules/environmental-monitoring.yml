@@ -1,5 +1,6 @@
 name: "Umweltmonitoring"
 optional: "ja"
+app_name: "Smart City Platform"
 topic: "Umwelt & Nachhaltigkeit"
 short_description: "Echtzeit-Überwachung von Umweltdaten wie Luftqualität, Lärmpegel und Energieverbrauch in der Stadt."
 opencode_repository: "https://github.com/urbantechsolutions/environmental-monitoring"

@@ -7,6 +7,10 @@ contact:
     telefon: "+49 30 12345678"
   - email: "https://www.urbantechsolutions.de/kontakt"
 
+development_partnership:
+  - name: "Smart City Platform"
+    kontakt: "E-Mail: community@smart-city-platform.de"
+
 deployed_in_municipalities:
   - "Berlin"
   - "Hamburg"

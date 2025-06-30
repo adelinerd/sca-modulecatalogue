@@ -6,6 +6,7 @@
 
 ## 📁 Project Structure
 
+```
 sca-modulbibliothek/
 ├── public/ # Static assets
 ├── src/
@@ -19,7 +20,7 @@ sca-modulbibliothek/
 ├── index.html
 ├── vite.config.ts
 └── README.md
-
+```
 
 ## 🚀 Getting Started
 

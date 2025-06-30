@@ -1,6 +1,8 @@
 name: "Merkliste"
-optional: ja
 topic: "Veranstaltungskalender"
+optional: ja
+app_name: "Smart Village App"
+
 opencode_repository: "https://github.com/smart-village-solutions/smart-village-app-app"
 
 screenshots: 
@@ -15,7 +17,7 @@ external_services: []
 customization_options: []  
 involved_actors: []
   
-technical_documentation: "LINK"
+technical_documentation: "https://github.com/smart-village-solutions/smart-village-app-app/wiki"
 deployed_in_municipalities:
   - "Detmold"
   - "Bad Belzig"

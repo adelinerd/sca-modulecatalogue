@@ -5,6 +5,11 @@ website: "https://smart-village.app/"
 contact:
   - name: "Philipp Wilimzig"
   - email: "p.wilimzig@smart-village.solutions"
+
+development_partnership:
+  - name: "Smart Village"
+    kontakt: "E-Mail: community@smart-village.solutions"
+
 deployed_in_municipalities:
   - "Bad Belzig"
   - "Detmold"
