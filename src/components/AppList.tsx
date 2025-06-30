@@ -25,11 +25,22 @@ const AppList: React.FC<AppListProps> = ({
 }) => {
   const { t } = useTranslation();
   
-  const filteredApps = apps.filter(app => 
-    app.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    (app.provider && app.provider.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (app.short_description && app.short_description.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  // Add safety check for app.name
+  const filteredApps = apps.filter(app => {
+    if (!app || !app.name) {
+      console.warn('App with missing name found:', app);
+      return false;
+    }
+    
+    return (
+      app.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      (app.provider && app.provider.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (app.short_description && app.short_description.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  });
+
+  console.log('Apps in AppList:', apps);
+  console.log('Filtered apps:', filteredApps);
 
   return (
     <div className="w-full md:w-80 lg:w-96 border-r border-primary-100 dark:border-primary-900 overflow-y-auto">
@@ -56,9 +67,9 @@ const AppList: React.FC<AppListProps> = ({
 
       <div className="p-4 space-y-3">
         {filteredApps.length > 0 ? (
-          filteredApps.map((app) => (
+          filteredApps.map((app, index) => (
             <AppCard
-              key={app.name}
+              key={`${app.name}-${index}`}
               app={app}
               onClick={() => onSelectApp(app)}
               isSelected={selectedApp?.name === app.name}
@@ -68,7 +79,7 @@ const AppList: React.FC<AppListProps> = ({
           ))
         ) : (
           <div className="text-center py-8 text-primary-500 dark:text-primary-400">
-            {t('appList.noResults', { searchTerm })}
+            {searchTerm ? t('appList.noResults', { searchTerm }) : 'No apps available'}
           </div>
         )}
       </div>
