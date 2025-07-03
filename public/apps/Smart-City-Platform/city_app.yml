@@ -22,8 +22,8 @@ opencode_repository: "https://github.com/urbantechsolutions/smart-city-platform"
 documentation: "https://docs.urbantechsolutions.de/smart-city-platform"
 
 modules:
-  - "/apps/Smart-City-Platform/modules/citizen-participation.yml"
-  - "/apps/Smart-City-Platform/modules/environmental-monitoring.yml"
+  - "https://raw.githubusercontent.com/adelinerd/modul_mockups/refs/heads/main/Smart-City-Platform/modules/citizen-participation.yml"  
+  - "https://raw.githubusercontent.com/adelinerd/modul_mockups/refs/heads/main/Smart-City-Platform/modules/environmental-monitoring.yml"
 
 development_status: "Stable"
 last_update: "2025-01-15"

@@ -1,17 +1,20 @@
 name: "Events"
-optional: nein
+app_name: "DorfFunk"
 topic: "Veranstaltungskalender"
 opencode_repository: "https://opencode.de/en/software/dorf-funk-4774"
 technology_stack: 
   - frontend: "MAUI.NET"
     backend: "Java, MySQL"   
 
+screenshots: 
+ - "https://sheng.iese.de/wp-content/uploads/sites/15/2024/04/Events-2.png" 
+
 usage_scenario: "Veröffentlichung von Veranstaltungen, Terminen und Events in der Gemeinde. Bürger*innen können Veranstaltungen erstellen und teilen."
 short_description: "Veröffentlichung von Veranstaltungen, Terminen und Events in der Gemeinde. Bürger*innen können Veranstaltungen erstellen und teilen."
 description: "Hier können Bürger*innen Vorschläge oder Mängel der Gemeinde mitteilen. Die Nachricht landet direkt bei der richtigen Ansprechperson."
 cost: ""
 interfaces: []
-dependencies: []
+module_dependencies: []
 external_services:
   - name: DorfNews
     description: "Der Kanal wird nur aktiviert, wenn LösBar mitbestellt ist."
@@ -23,7 +26,7 @@ involved_actors:
   - name: "Gemeindemitarbeiter*innen"
     role: "Inhalt bereitstellen und verwalten"
   
-technical_documentation: "LINK"
+technical_documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs"
 deployed_in_municipalities:
   - "Amt Haddeby"
   - "Gleichen"

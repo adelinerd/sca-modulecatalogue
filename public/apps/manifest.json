@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "DorfFunk",
-      "app_yml_url": "/apps/dorffunk/city_app.yml"
+      "app_yml_url": "/apps/DorfFunk/city_app.yml"
     },
     {
       "name": "SmartVillageApp", 
@@ -10,7 +10,7 @@
     },
     {
       "name": "Smart-City-Platform",
-      "app_yml_url": "https://raw.githubusercontent.com/adelinerd/modul_mockups/main/Smart-City-Platform/city_app.yml"
+      "app_yml_url": "https://github.com/adelinerd/modul_mockups/blob/main/Smart-City-Platform/city_app.yml"
     }
   ]
 }

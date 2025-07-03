@@ -22,8 +22,8 @@ documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorf
 app_type: "Native App"
 
 modules:
-  - "/apps/dorffunk/modules/events.yml"
-  - "/apps/dorffunk/modules/sags_uns.yml"
+  - "/apps/DorfFunk/modules/events.yml"
+  - "/apps/DorfFunk/modules/sags_uns.yml"
 
 development_status: "Stable"
 last_update: "2025-04-16"
