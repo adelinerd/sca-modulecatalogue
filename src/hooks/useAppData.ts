@@ -115,18 +115,17 @@ const useAppData = () => {
             console.log(`Module URLs for ${manifestApp.name} (${moduleUrls.length} modules):`, moduleUrls);
 
             if (moduleUrls.length === 0) {
-              console.log(`ℹ️  No modules defined for ${manifestApp.name}`);
+              console.log(`No modules defined for ${manifestApp.name}`);
             }
 
             const modulePromises = moduleUrls.map(async (moduleUrl, moduleIndex) => {
               try {
-                console.log(`  📦 Fetching module ${moduleIndex + 1}/${moduleUrls.length} from: ${moduleUrl}`);
+                console.log(`Fetching module ${moduleIndex + 1}/${moduleUrls.length} from: ${moduleUrl}`);
                 const moduleData = await fetchYaml<AppModule>(moduleUrl);
                 if (!moduleData) {
                   console.warn(`Failed to load module from ${moduleUrl}`);
                   return null;
-                }
-                console.log(`Successfully loaded module "${moduleData.name}" from ${moduleUrl}`);
+                }                
                 return moduleData;
               } catch (error) {
                 console.error(`Error loading module from ${moduleUrl}:`, error);
@@ -135,7 +134,7 @@ const useAppData = () => {
             });
             
             const modules = (await Promise.all(modulePromises)).filter(Boolean) as AppModule[];
-            console.log(`✅ Loaded ${modules.length}/${moduleUrls.length} modules for ${manifestApp.name}`);
+            console.log(`Loaded ${modules.length}/${moduleUrls.length} modules for ${manifestApp.name}`);
 
             // Create the final app object, ensuring we have the name field
             const finalApp: CityApp = {

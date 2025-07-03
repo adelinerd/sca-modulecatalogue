@@ -38,10 +38,7 @@ const AppList: React.FC<AppListProps> = ({
       (app.short_description && app.short_description.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   });
-
-  console.log('Apps in AppList:', apps);
-  console.log('Filtered apps:', filteredApps);
-
+  
   return (
     <div className="w-full md:w-80 lg:w-96 border-r border-primary-100 dark:border-primary-900 overflow-y-auto">
       <div className="p-4 border-b border-primary-100 dark:border-primary-900">
