@@ -21,4 +21,5 @@ modules:
   - "/apps/SmartVillageApp/modules/merkliste.yml"
   
 development_status: "Stable"
+app_type: "Native App"
 last_update: "2025-06-06"

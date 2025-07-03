@@ -2,7 +2,7 @@ name: "Merkliste"
 topic: "Veranstaltungskalender"
 optional: ja
 app_name: "Smart Village App"
-
+topic: "Merkeliste"
 opencode_repository: "https://github.com/smart-village-solutions/smart-village-app-app"
 
 screenshots: 
