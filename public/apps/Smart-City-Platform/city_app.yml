@@ -1,5 +1,6 @@
 name: "Smart City Platform"
 provider: "Urban Tech Solutions GmbH"
+city-app-yml-version: "1.0"
 short_description: "Eine umfassende Smart City Plattform für Bürgerbeteiligung und städtische Dienstleistungen mit Fokus auf Nachhaltigkeit und Transparenz."
 website: "https://www.urbantechsolutions.de/smart-city-platform"
 contact: 

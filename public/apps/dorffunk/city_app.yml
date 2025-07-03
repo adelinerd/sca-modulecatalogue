@@ -1,5 +1,6 @@
 name: "DorfFunk"
 provider: "Fraunhofer IESE"
+city-app-yml-version: "1.0"
 short_description: "DorfFunk ist eine Kommunikationsplattform für Bürger*innen, um sich über lokale Themen auszutauschen und Veranstaltungen zu organisieren."
 website: "https://www.digitale-doerfer.de/unsere-loesungen/dorffunk"
 contact: 

@@ -3,13 +3,19 @@
   "$id": "https://example.com/schemas/city-app-schema.json",
   "title": "City App Schema",
   "description": "Schema for city application YAML files",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "object",
   "required": ["name"],
   "properties": {
     "name": {
       "type": "string",
       "description": "The name of the city application"
+    },
+    "city-app-yml-version": {
+      "type": "string",
+      "description": "Version of the city app YAML schema being used",
+      "pattern": "^\\d+\\.\\d+$",
+      "examples": ["1.0", "1.1", "2.0"]
     },
     "provider": {
       "type": "string",
@@ -46,6 +52,24 @@
         "additionalProperties": false
       }
     },
+    "development_partnership": {
+      "type": "array",
+      "description": "Information about development partnerships",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the development partner"
+          },
+          "kontakt": {
+            "type": "string",
+            "description": "Contact information for the partner"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "deployed_in_municipalities": {
       "type": "array",
       "description": "List of municipalities where the application is deployed",
@@ -62,6 +86,11 @@
       "type": "string",
       "format": "uri",
       "description": "URL to the application documentation"
+    },
+    "app_type": {
+      "type": "string",
+      "description": "Type of application (e.g., Native App, Web App, Desktop App)",
+      "examples": ["Native App", "Web App", "Desktop App", "Progressive Web App", "Hybrid App"]
     },
     "modules": {
       "type": "array",

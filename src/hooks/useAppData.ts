@@ -43,13 +43,21 @@ const useAppData = () => {
             
             console.log(`Raw app data for ${manifestApp.name}:`, appData);
             
+            // Log city-app-yml-version specifically
+            if (appData['city-app-yml-version']) {
+              console.log(`✅ City app YAML version found for ${manifestApp.name}: "${appData['city-app-yml-version']}"`);
+            } else {
+              console.log(`⚠️  No city-app-yml-version field found for ${manifestApp.name}`);
+            }
+            
             // Log app_type specifically
             if (appData.app_type) {
               console.log(`✅ App type found for ${manifestApp.name}: "${appData.app_type}"`);
             } else {
               console.log(`⚠️  No app_type field found for ${manifestApp.name}`);
-              console.log(`Available fields in app data:`, Object.keys(appData));
             }
+            
+            console.log(`Available fields in app data:`, Object.keys(appData));
             
             // Validate that we have a name
             if (!appData.name && !manifestApp.name) {
@@ -95,10 +103,12 @@ const useAppData = () => {
             const finalApp: CityApp = {
               // Use the name from YAML if available, otherwise fall back to manifest name
               name: appData.name || manifestApp.name,
+              'city-app-yml-version': appData['city-app-yml-version'], // Include city-app-yml-version
               provider: appData.provider,
               short_description: appData.short_description,
               website: appData.website,
               contact: appData.contact,
+              development_partnership: appData.development_partnership,
               deployed_in_municipalities: appData.deployed_in_municipalities,
               opencode_repository: appData.opencode_repository,
               documentation: appData.documentation,
@@ -109,9 +119,10 @@ const useAppData = () => {
               moduleUrls, // Keep the original URLs for reference if needed
             };
             
-            // Log final app object with app_type
+            // Log final app object with version and app_type
             console.log(`Final app object for ${finalApp.name}:`);
             console.log(`  - Name: ${finalApp.name}`);
+            console.log(`  - YAML Version: ${finalApp['city-app-yml-version'] || 'Not specified'}`);
             console.log(`  - Provider: ${finalApp.provider || 'Not specified'}`);
             console.log(`  - App Type: ${finalApp.app_type || 'Not specified'}`);
             console.log(`  - Development Status: ${finalApp.development_status || 'Not specified'}`);
@@ -128,10 +139,11 @@ const useAppData = () => {
         const loadedApps = (await Promise.all(appPromises)).filter(Boolean) as CityApp[];
         console.log(`\n🎉 FINAL RESULT: Successfully loaded ${loadedApps.length}/${manifest.apps.length} apps`);
         
-        // Log summary of all loaded apps with their app_types
+        // Log summary of all loaded apps with their versions and app_types
         console.log('\n📋 LOADED APPS SUMMARY:');
         loadedApps.forEach((app, index) => {
           console.log(`${index + 1}. ${app.name}`);
+          console.log(`   - YAML Version: ${app['city-app-yml-version'] || 'Not specified'}`);
           console.log(`   - Provider: ${app.provider || 'Not specified'}`);
           console.log(`   - App Type: ${app.app_type || 'Not specified'}`);
           console.log(`   - Status: ${app.development_status || 'Not specified'}`);

@@ -29,6 +29,7 @@ export interface AppModule {
 
 export interface CityApp {
   name: string;
+  'city-app-yml-version'?: string; // Add city-app-yml-version field
   provider?: string;
   short_description?: string;
   website?: string;
