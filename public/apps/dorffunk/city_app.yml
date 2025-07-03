@@ -1,6 +1,7 @@
 name: "DorfFunk"
 provider: "Fraunhofer IESE"
 city-app-yml-version: "1.0"
+app_type: "Native App"
 short_description: "DorfFunk ist eine Kommunikationsplattform für Bürger*innen, um sich über lokale Themen auszutauschen und Veranstaltungen zu organisieren."
 website: "https://www.digitale-doerfer.de/unsere-loesungen/dorffunk"
 contact: 
@@ -20,7 +21,7 @@ deployed_in_municipalities:
 
 opencode_repository: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk"
 documentation: "https://gitlab.opencode.de/fraunhofer-iese/digitale-doerfer/dorffunk/-/tree/main/docs?ref_type=heads"
-app_type: "Native App"
+
 
 modules:
   - "/apps/DorfFunk/modules/events.yml"

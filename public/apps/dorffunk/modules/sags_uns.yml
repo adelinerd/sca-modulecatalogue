@@ -16,7 +16,6 @@ screenshots:
 usage_scenario: "Ermöglicht es Bürgerinnen und Bürgern, Schäden oder Störungen im öffentlichen Raum – wie defekte Straßenlaternen oder Schlaglöcher – schnell und unkompliziert an die zuständige Behörde zu melden"
 
 cost: "50 € pro Monat (zzgl. MwSt.)"
-interfaces: []
 module_dependencies: 
 external_services:
   - name: "LösBar"

@@ -6,13 +6,13 @@
     "compareModules": "Module vergleichen",
     "selected": "Ausgewählt",
     "toggleLanguage": "Sprache ändern",
-    "apps": "Anwendungen",
+    "apps": "Apps",
     "modules": "Module"
   },
   "appList": {
-    "title": "Anwendungen",
-    "searchPlaceholder": "Anwendungen suchen...",
-    "noResults": "Keine Anwendungen gefunden für '{{searchTerm}}'"
+    "title": "Apps",
+    "searchPlaceholder": "App suchen...",
+    "noResults": "Keine App gefunden für '{{searchTerm}}'"
   },
   "moduleList": {
     "title": "Module",
@@ -34,10 +34,10 @@
     "fromApp": "aus {{appName}}"
   },
   "compareView": {
-    "title": "Anwendungen vergleichen ({{count}}/2)",
+    "title": "Apps vergleichen ({{count}}/2)",
     "empty": {
-      "title": "Keine Anwendungen ausgewählt",
-      "description": "Wählen Sie bis zu zwei Anwendungen aus, um ihre Funktionen zu vergleichen"
+      "title": "Keine App ausgewählt",
+      "description": "Wählen Sie bis zu zwei Apps aus, um ihre Funktionen zu vergleichen"
     },
     "details": {
       "title": "Details",
@@ -94,7 +94,7 @@
   },
   "appDetails": {
     "overview": "Übersicht",
-    "appType": "App-Typ",
+    "appType": "Art der App",
     "status": "Entwicklungsstatus",
     "lastUpdate": "Letzte Aktualisierung",
     "contact": "Kontakt",
@@ -144,7 +144,7 @@
     "fromApp": "aus {{appName}}"
   },
   "loading": {
-    "title": "Anwendungen werden geladen...",
+    "title": "Apps werden geladen...",
     "error": {
       "title": "Fehler beim Laden der Daten",
       "retry": "Erneut versuchen"
