@@ -1,68 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CityApp, AppModule } from '../types';
-import yaml from 'js-yaml';
-
-
-
-export function toRawURL(url: string): string {
-  try {
-    const u = new URL(url);
-    const parts = u.pathname.split('/').filter(Boolean); // remove empty elements
-
-    // GitHub.com
-    if (u.hostname === 'github.com') {
-      const [user, repo, blob, branch, ...path] = parts;
-      if (blob !== 'blob') throw new Error('Invalid GitHub blob URL format');
-      return `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${path.join('/')}`;
-    }
-
-    // GitLab (self-hosted or gitlab.com)
-    if (u.hostname.includes('gitlab')) {
-      const blobIndex = parts.indexOf('blob');
-      if (blobIndex === -1 || parts[blobIndex - 1] !== '-') {
-        throw new Error('Invalid GitLab blob URL format');
-      }
-
-      const groupAndProject = parts.slice(0, blobIndex - 1).join('/');
-      const branch = parts[blobIndex + 1];
-      const filePath = parts.slice(blobIndex + 2).join('/');
-
-      return `${u.origin}/${groupAndProject}/-/raw/${branch}/${filePath}`;
-    }
-
-    // Fallback: return original (might already be raw)
-    return url;
-  } catch (err) {
-    console.error('Invalid URL:', (err as Error).message);
-    return url; // fallback for invalid URLs
-  }
-}
-
-
-// Helper to fetch YAML safely
-export async function fetchYaml<T>(url: string): Promise<T | null> {
-  const rawUrl = toRawURL(url);
-
-  try {
-    console.log(`Fetching YAML from: ${rawUrl}`);
-    const res = await fetch(rawUrl);
-    
-    if (!res.ok) {
-      console.error(`Failed to fetch ${rawUrl}: ${res.status} ${res.statusText}`);
-      return null;
-    }
-
-    const text = await res.text();
-    console.log(`Successfully fetched YAML from ${rawUrl}, content length: ${text.length}`);    
-
-    const parsed = yaml.load(text) as T;
-
-    return parsed;
-  } catch (error) {
-    console.error(`Error fetching YAML from ${rawUrl}:`, error);
-    return null;
-  }
-}
+import { fetchYaml } from '../utils/yamlLoader';
 
 interface ManifestApp {
   name: string;
