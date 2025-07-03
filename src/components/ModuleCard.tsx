@@ -140,11 +140,19 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
               <h3 className="text-lg font-medium text-primary-900 dark:text-primary-50 truncate">
                 {module.name}
               </h3>
-              {module.topic && (
-                <p className="text-sm text-primary-600 dark:text-primary-400 truncate">
-                  {module.topic}
-                </p>
-              )}
+              <div className="flex items-center space-x-2 text-sm text-primary-600 dark:text-primary-400">
+                {module.app_name && (
+                  <span className="truncate">
+                    {t('moduleCard.fromApp', { appName: module.app_name })}
+                  </span>
+                )}
+                {module.topic && module.app_name && (
+                  <span>•</span>
+                )}
+                {module.topic && (
+                  <span className="truncate">{module.topic}</span>
+                )}
+              </div>
             </div>
           </div>
           

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppModule, CityApp } from '../types';
-import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench, ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench, ArrowLeft, ChevronLeft, ChevronRight, X, Layers } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface ModuleDetailsProps {
@@ -105,11 +105,22 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
         )}
         
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{module.name}</h1>
-        {module.topic && (
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {t('moduleDetails.topic')}: {module.topic}
-          </p>
-        )}
+        
+        {/* App Name and Topic */}
+        <div className="flex items-center space-x-4 mt-2">
+          {module.app_name && (
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              <Layers className="h-4 w-4 mr-1" />
+              <span>{t('moduleDetails.fromApp', { appName: module.app_name })}</span>
+            </div>
+          )}
+          {module.topic && (
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {t('moduleDetails.topic')}: {module.topic}
+            </div>
+          )}
+        </div>
+        
         {module.short_description && (
           <p className="text-gray-600 dark:text-gray-300 mt-2">{module.short_description}</p>
         )}

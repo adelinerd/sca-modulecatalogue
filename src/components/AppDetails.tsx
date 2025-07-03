@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CityApp, AppModule } from '../types';
-import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image } from 'lucide-react';
+import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppDetailsProps {
@@ -63,6 +63,21 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
     if (onModuleClick) {
       onModuleClick(module, app);
     }
+  };
+
+  // Get app type icon
+  const getAppTypeIcon = (appType?: string) => {
+    if (!appType) return <Package className="h-4 w-4" />;
+    
+    const type = appType.toLowerCase();
+    if (type.includes('native') || type.includes('mobile')) {
+      return <Smartphone className="h-4 w-4" />;
+    } else if (type.includes('web')) {
+      return <Globe className="h-4 w-4" />;
+    } else if (type.includes('desktop')) {
+      return <Monitor className="h-4 w-4" />;
+    }
+    return <Package className="h-4 w-4" />;
   };
 
   const ModuleImageGallery: React.FC<{ module: any; moduleKey: string; className?: string }> = ({ 
@@ -178,6 +193,21 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
             {t('appDetails.overview')}
           </h2>
           
+          {/* App Type */}
+          {app.app_type && (
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t('appDetails.appType')}
+              </h3>
+              <div className="flex items-center">
+                <span className="mr-2 text-gray-500 dark:text-gray-400">
+                  {getAppTypeIcon(app.app_type)}
+                </span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">{app.app_type}</span>
+              </div>
+            </div>
+          )}
+          
           {app.development_status && (
             <div className="mb-4">
               <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -236,6 +266,25 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                         <Phone className="h-4 w-4 mr-1" />
                         {contact.telefon}
                       </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Development Partnership */}
+          {app.development_partnership && app.development_partnership.length > 0 && (
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {t('appDetails.developmentPartnership')}
+              </h3>
+              <div className="space-y-2">
+                {app.development_partnership.map((partnership, index) => (
+                  <div key={index} className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="font-medium">{partnership.name}</div>
+                    {partnership.kontakt && (
+                      <div className="text-xs">{partnership.kontakt}</div>
                     )}
                   </div>
                 ))}

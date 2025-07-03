@@ -30,7 +30,8 @@
     "compare": "Compare",
     "selected": "Selected",
     "optional": "Optional",
-    "noImage": "No image available"
+    "noImage": "No image available",
+    "fromApp": "from {{appName}}"
   },
   "compareView": {
     "title": "Comparing Applications ({{count}}/2)",
@@ -93,10 +94,12 @@
   },
   "appDetails": {
     "overview": "Overview",
+    "appType": "App Type",
     "status": "Development Status",
     "lastUpdate": "Last Updated",
     "contact": "Contact",
     "contactForm": "Contact Form",
+    "developmentPartnership": "Development Partnership",
     "documentation": "Documentation",
     "viewDocumentation": "View Documentation",
     "website": "Website",
@@ -137,7 +140,8 @@
     "involvedActors": "Involved Actors",
     "back": "Back",
     "backToApp": "Back to {{appName}}",
-    "screenshots": "Screenshots"
+    "screenshots": "Screenshots",
+    "fromApp": "from {{appName}}"
   },
   "loading": {
     "title": "Loading applications...",

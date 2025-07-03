@@ -1,5 +1,6 @@
 export interface AppModule {
   name: string;
+  app_name?: string; // Add app_name field
   optional?: string;
   topic?: string;
   short_description?: string;
@@ -36,9 +37,14 @@ export interface CityApp {
     email?: string;
     telefon?: string;
   }[];
+  development_partnership?: {
+    name?: string;
+    kontakt?: string;
+  }[];
   deployed_in_municipalities?: string[];
   opencode_repository?: string;
   documentation?: string;
+  app_type?: string; // Add app_type field
   modules?: AppModule[];
   moduleUrls?: string[]; // Keep track of original module URLs
   development_status?: string;
