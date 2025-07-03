@@ -82,22 +82,6 @@ const AppCard: React.FC<AppCardProps> = ({
           </p>
         </div>
       )}
-      
-      {app.development_status && (
-        <div className="absolute top-3 right-3">
-          <span className={`
-            text-xs px-2 py-1 rounded-full font-medium
-            ${app.development_status === 'Stable' 
-              ? 'bg-accent-100 text-accent-800 dark:bg-accent-900/30 dark:text-accent-300' 
-              : app.development_status === 'Beta'
-                ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300'
-                : 'bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300'
-            }
-          `}>
-            {app.development_status}
-          </span>
-        </div>
-      )}
     </div>
   );
 };
