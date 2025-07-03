@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 
-
 @font-face {
   font-family: 'BundesSans Web';
   src: url('https://www.smart-city-dialog.de/fonts/BundesSansWeb-Regular.woff2') format('woff2');
@@ -44,7 +43,7 @@ body {
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar with Smart City Dialog colors */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -55,18 +54,27 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 92, 149, 0.3);
+  background-color: rgba(0, 112, 186, 0.3); /* Smart City Dialog blue */
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 92, 149, 0.5);
+  background-color: rgba(0, 112, 186, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 92, 149, 0.5);
+  background-color: rgba(0, 112, 186, 0.5);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 92, 149, 0.7);
+  background-color: rgba(0, 112, 186, 0.7);
+}
+
+/* Additional Smart City Dialog inspired styles */
+.scd-gradient-bg {
+  background: linear-gradient(135deg, #0070BA 0%, #00A651 100%);
+}
+
+.scd-accent-gradient {
+  background: linear-gradient(135deg, #00A0B0 0%, #96C11F 100%);
 }

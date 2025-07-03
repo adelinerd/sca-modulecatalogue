@@ -47,17 +47,22 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 border-b border-primary-100 dark:border-primary-900 transition-colors duration-200">
+    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-colors duration-200 shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="py-4 flex items-center justify-between">
             <div className="flex items-center space-x-6">
               <div 
-                className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={handleLogoClick}
               >
-                <Layers className="h-6 w-6 text-primary-500 dark:text-primary-400" />
-                <h1 className="text-xl font-bold text-primary-900 dark:text-primary-50">{t('header.title')}</h1>
+                <div className="p-2 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500">
+                  <Layers className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('header.title')}</h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Smart City Dialog</p>
+                </div>
               </div>
 
               {/* View Toggle */}
@@ -65,46 +70,50 @@ const Header: React.FC<HeaderProps> = ({
                 <button
                   onClick={() => handleViewChange('apps')}
                   className={`
-                    flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
+                    flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
                     ${currentView === 'apps'
-                      ? 'bg-white dark:bg-gray-700 text-primary-700 dark:text-primary-300 shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-primary-700 dark:hover:text-primary-300'
+                      ? 'bg-white dark:bg-gray-700 text-primary-600 dark:text-primary-400 shadow-sm border border-primary-200 dark:border-primary-700'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                     }
                   `}
                 >
-                  <Layers className="h-4 w-4 mr-1.5" />
+                  <Layers className="h-4 w-4 mr-2" />
                   {t('header.apps')}
                 </button>
                 <button
                   onClick={() => handleViewChange('modules')}
                   className={`
-                    flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
+                    flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
                     ${currentView === 'modules'
-                      ? 'bg-white dark:bg-gray-700 text-primary-700 dark:text-primary-300 shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-primary-700 dark:hover:text-primary-300'
+                      ? 'bg-white dark:bg-gray-700 text-primary-600 dark:text-primary-400 shadow-sm border border-primary-200 dark:border-primary-700'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                     }
                   `}
                 >
-                  <Package className="h-4 w-4 mr-1.5" />
+                  <Package className="h-4 w-4 mr-2" />
                   {t('header.modules')}
                 </button>
               </nav>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               {/* App Comparison Button */}
               {comparisonApps.length > 0 && currentView === 'apps' && (
                 <button
                   onClick={onToggleCompareView}
                   className={`
-                    flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
+                    flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm
                     ${isCompareMode 
-                      ? 'bg-teal-100 text-teal-700 dark:bg-teal-900 dark:text-teal-300' 
-                      : 'bg-gray-100 text-primary-700 dark:bg-gray-800 dark:text-primary-300 hover:bg-teal-50 dark:hover:bg-teal-900/50'}
+                      ? 'bg-accent-500 text-white hover:bg-accent-600' 
+                      : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-accent-50 dark:hover:bg-accent-900/20 border border-gray-200 dark:border-gray-700'}
                   `}
                 >
                   <span>{t('header.compare')}</span>
-                  <span className="ml-1.5 bg-teal-200 dark:bg-teal-700 text-teal-800 dark:text-teal-200 text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className={`ml-2 text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold ${
+                    isCompareMode 
+                      ? 'bg-white/20 text-white' 
+                      : 'bg-accent-500 text-white'
+                  }`}>
                     {comparisonApps.length}
                   </span>
                 </button>
@@ -115,14 +124,18 @@ const Header: React.FC<HeaderProps> = ({
                 <button
                   onClick={onToggleModuleCompareView}
                   className={`
-                    flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
+                    flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm
                     ${isModuleCompareMode 
-                      ? 'bg-teal-100 text-teal-700 dark:bg-teal-900 dark:text-teal-300' 
-                      : 'bg-gray-100 text-primary-700 dark:bg-gray-800 dark:text-primary-300 hover:bg-teal-50 dark:hover:bg-teal-900/50'}
+                      ? 'bg-accent-500 text-white hover:bg-accent-600' 
+                      : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-accent-50 dark:hover:bg-accent-900/20 border border-gray-200 dark:border-gray-700'}
                   `}
                 >
                   <span>{t('header.compareModules')}</span>
-                  <span className="ml-1.5 bg-teal-200 dark:bg-teal-700 text-teal-800 dark:text-teal-200 text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className={`ml-2 text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold ${
+                    isModuleCompareMode 
+                      ? 'bg-white/20 text-white' 
+                      : 'bg-accent-500 text-white'
+                  }`}>
                     {comparisonModules.length}
                   </span>
                 </button>
@@ -130,7 +143,7 @@ const Header: React.FC<HeaderProps> = ({
 
               <button
                 onClick={toggleLanguage}
-                className="p-2 rounded-full bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors duration-200"
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 border border-gray-200 dark:border-gray-700"
                 aria-label={t('header.toggleLanguage')}
               >
                 <Languages className="h-5 w-5" />
@@ -138,7 +151,7 @@ const Header: React.FC<HeaderProps> = ({
               
               <button
                 onClick={onToggleDarkMode}
-                className="p-2 rounded-full bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors duration-200"
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 border border-gray-200 dark:border-gray-700"
                 aria-label={t('header.darkMode')}
               >
                 {isDarkMode ? (
