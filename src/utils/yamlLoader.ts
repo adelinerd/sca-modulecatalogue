@@ -51,7 +51,7 @@ export async function fetchYaml<T>(url: string): Promise<T | null> {
 
   // Fetch and parse
   try {
-    const res = await fetch(rawUrl);
+    const res = await fetch(rawUrl, { headers: { 'Access-Control-Allow-Origin': '*' }});
     if (!res.ok) throw new Error(`HTTP ${res.status} - ${res.statusText}`);
 
     const text = await res.text();
