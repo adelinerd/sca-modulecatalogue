@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CityApp, AppModule } from '../types';
-import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor } from 'lucide-react';
+import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor, Layers } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppDetailsProps {
@@ -70,7 +70,9 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
     if (!appType) return <Package className="h-4 w-4" />;
     
     const type = appType.toLowerCase();
-    if (type.includes('native') || type.includes('mobile')) {
+    if (type.includes('hybrid')) {
+      return <Layers className="h-4 w-4" />;
+    } else if (type.includes('native') || type.includes('mobile')) {
       return <Smartphone className="h-4 w-4" />;
     } else if (type.includes('web')) {
       return <Globe className="h-4 w-4" />;

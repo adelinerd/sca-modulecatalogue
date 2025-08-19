@@ -90,7 +90,7 @@
     "app_type": {
       "type": "string",
       "description": "Type of application (e.g., Native App, Web App, Desktop App)",
-      "examples": ["Native App", "Web App", "Desktop App", "Progressive Web App", "Hybrid App"]
+      "examples": ["Native App", "Web App", "Desktop App", "Progressive Web App", "Hybrid App", "Cross-Platform App"]
     },
     "modules": {
       "type": "array",
