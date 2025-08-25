@@ -1,0 +1,27 @@
+name: "Onboarding"
+app_name: "URBO"
+optional: "ja"
+topic: "Onboarding & Einführung"
+short_description: "Modul zur Einführung neuer Nutzer*innen in die Funktionen und Nutzung der URBO-App."
+opencode_repository: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/tree/main/app/libs/feature-onboarding?ref_type=heads"
+screenshots:
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/onboarding-1.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/onboarding-2.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/onboarding-3.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/onboarding-4.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/onboarding-5.png"
+usage_scenario: "Begleitet neue Nutzer*innen beim ersten App-Start mit interaktiven Erklärungen, Funktionsübersichten und Einrichtungsmöglichkeiten (z. B. Sprache, Benachrichtigungen)."
+description: "Das Onboarding-Modul erleichtert den Einstieg in die URBO-App. Es führt Nutzer*innen Schritt für Schritt durch die wichtigsten Funktionen, erlaubt das Setzen persönlicher Einstellungen wie Sprache oder Interessen und informiert über den Datenschutz. Interaktive Elemente, wie Tooltips oder Highlight-Overlays, helfen beim Kennenlernen der Benutzeroberfläche. Das Modul kann optional beim ersten Start automatisch aktiviert werden oder über das Hilfe-Menü erneut aufgerufen werden."
+cost: "Kostenlos (Open-Source)"
+interfaces:
+  - "REST API v2.1"
+customization_options:
+  - "Corporate Design anpassbar"
+  - "Anpassung der Inhalte und Texte"
+  - "Mehrsprachigkeit"
+  - "Dynamische Steuerung über Nutzerstatus (neu/wiederkehrend)"
+  - "Integration ins Design der App"
+technical_documentation: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/app/README.md?ref_type=heads"
+deployed_in_municipalities:
+  - "Soest"
+development_status: "Stable"

@@ -1,0 +1,23 @@
+name: "Karte"
+app_name: "URBO"
+optional: "nein"
+topic: "Points of Interest (POI)"
+short_description: "Interaktive Stadtkarte mit Points of Interest, Sehenswürdigkeiten und wichtigen Einrichtungen."
+opencode_repository: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/tree/main/app/apps/app?ref_type=heads"
+screenshots:
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/map-1.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/map-2.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/map-3.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/map-4.png"
+usage_scenario: "Ermöglicht Bürgerinnen und Bürgern, interessante Orte wie Sehenswürdigkeiten, Gastronomie, Geschäfte, Parks oder städtische Einrichtungen auf einer interaktiven Karte zu finden."
+description: "Das Kartenmodul bündelt alle relevanten Points of Interest (POIs) einer Stadt in einer intuitiv bedienbaren Kartenansicht. Nutzer können gezielt nach Kategorien filtern, Orte suchen und Detailinformationen wie Öffnungszeiten, Kontaktmöglichkeiten oder Bilder abrufen. Ideal für Einwohner und Besucher, um Angebote und Infrastruktur schnell zu entdecken."
+cost: "Kostenlos (Open-Source)"
+interfaces:
+  - "REST API v2.1"
+customization_options:
+  - "Corporate Design anpassbar"
+  - "Mehrsprachigkeit"
+technical_documentation: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/app/README.md?ref_type=heads"
+deployed_in_municipalities:
+  - "Soest"
+development_status: "Stable"

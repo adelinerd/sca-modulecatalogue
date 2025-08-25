@@ -1,0 +1,22 @@
+name: "Rechtliches"
+app_name: "URBO"
+optional: "ja"
+topic: "Legal"
+short_description: "Modul zur Bereitstellung rechtlicher Informationen wie Impressum, Datenschutz und Lizenzhinweise."
+opencode_repository: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/tree/main/app/libs/feature-legal?ref_type=heads"
+screenshots:
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/legal.png"
+usage_scenario: "Ermöglicht es Nutzer*innen, alle rechtlich vorgeschriebenen Informationen wie Impressum, Datenschutzerklärung und Lizenzhinweise zentral und transparent einzusehen."
+description: "Das Modul 'Rechtliches' stellt alle gesetzlich erforderlichen Angaben bereit, die für digitale Angebote öffentlicher Stellen notwendig sind. Dazu gehören Impressum, Datenschutzerklärung, Lizenzhinweise für verwendete Open-Source-Software und ggf. Barrierefreiheitserklärungen. Inhalte können zentral gepflegt und mehrsprachig veröffentlicht werden."
+cost: "Kostenlos (Open-Source)"
+interfaces:
+  - "REST API v2.1"
+customization_options:
+  - "Corporate Design anpassbar"
+  - "Texte vollständig anpassbar"
+  - "Mehrsprachigkeit"
+  - "Flexible Einbindung in bestehende Modulstruktur (z.B. For-You, Kategorien, Suche)"
+technical_documentation: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/app/README.md?ref_type=heads"
+deployed_in_municipalities:
+  - "Soest"
+development_status: "Stable"

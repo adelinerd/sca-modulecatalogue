@@ -25,7 +25,7 @@ export function toRawURL(url: string): string {
       const branch = parts[blobIndex + 1];
       const path = parts.slice(blobIndex + 2).join('/');
 
-      return `https://cors-everywhere.netlify.app/${u.origin}/${groupAndProject}/-/raw/${branch}/${path}`;
+      return `https://cors-anywhere.herokuapp.com/corsdemo/${u.origin}/${groupAndProject}/-/raw/${branch}/${path}`;
     }
 
     // If already raw or unsupported, return as-is

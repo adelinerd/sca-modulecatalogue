@@ -1,0 +1,29 @@
+name: "Mängelmelder"
+app_name: "URBO"
+optional: "ja"
+topic: "Bürgerbeteiligung & Mängelmeldungen"
+short_description: "Ermöglicht Bürgerinnen und Bürgern, städtische Mängel wie defekte Straßenlaternen oder Schlaglöcher zu melden."
+opencode_repository: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/tree/main/app/libs/feature-citizen-participation?ref_type=heads"
+screenshots:
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/maengelmelder.png"
+usage_scenario: "Bürger können Schäden, Störungen oder andere Probleme im öffentlichen Raum direkt an die Stadtverwaltung melden – mit Standortangabe und optionalem Foto."
+description: "Der Mängelmelder ist ein Werkzeug für direkte Bürgerbeteiligung. Nutzer können Probleme wie defekte Straßenbeleuchtung, Schlaglöcher, beschädigte Spielgeräte oder wilde Müllablagerungen unkompliziert melden. Die Meldungen lassen sich mit Geodaten, Fotos und einer kurzen Beschreibung ergänzen. Die Stadtverwaltung kann die Meldungen kategorisieren, an zuständige Fachabteilungen weiterleiten und den Bearbeitungsstatus transparent zurückmelden."
+cost: "Kostenlos (Open-Source)"
+interfaces:
+  - "REST API v2.1"
+dependencies:
+  - "@angular/core"
+  - "@jsverse/transloco"
+  - "@ionic/angular"
+  - "@sw-code/urbo-core"
+  - "@sw-code/urbo-ui"
+  - "rxjs"
+customization_options:
+  - "Corporate Design anpassbar"
+  - "Meldeformulare konfigurierbar"
+  - "Mehrsprachigkeit"
+  - "Flexible Einbindung in bestehende Modulstruktur (z.B. For-You, Kategorien, Suche)"
+technical_documentation: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/app/README.md?ref_type=heads"
+deployed_in_municipalities:
+  - "Soest"
+development_status: "Stable"

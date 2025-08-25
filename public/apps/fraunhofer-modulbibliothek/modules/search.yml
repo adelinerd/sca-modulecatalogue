@@ -1,0 +1,22 @@
+name: "Suche"
+app_name: "URBO"
+optional: "nein"
+topic: "Suche"
+short_description: "Modul zur durchsuchbaren Navigation aller Inhalte und Funktionen der URBO-App."
+opencode_repository: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/tree/main/app/apps/app?ref_type=heads"
+screenshots:
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/search-1.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/search-2.png"
+  - "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/raw/main/fraunhofer-modulbibliothek/modules/images/search-3.png"
+usage_scenario: "Ermöglicht es Bürgerinnen und Bürgern, sich aktiv an städtischen Planungsprozessen zu beteiligen, Vorschläge einzureichen und über wichtige Stadtentwicklungsprojekte abzustimmen"
+description: "Das Modul bietet eine umfassende Plattform für demokratische Teilhabe. Bürger können Ideen einreichen, an Umfragen teilnehmen, Kommentare zu Stadtprojekten abgeben und sich über lokale Initiativen informieren. Die Verwaltung kann transparente Entscheidungsprozesse gestalten und direktes Feedback der Bevölkerung einholen."
+cost: "Kostenlos (Open-Source)"
+interfaces:
+  - "REST API v2.1"
+customization_options:
+  - "Corporate Design anpassbar"
+  - "Mehrsprachigkeit"
+technical_documentation: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/app/README.md?ref_type=heads"
+deployed_in_municipalities:
+  - "Soest"
+development_status: "Stable"
