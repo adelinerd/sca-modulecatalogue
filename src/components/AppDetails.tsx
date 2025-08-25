@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CityApp, AppModule } from '../types';
-import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor, Layers } from 'lucide-react';
+import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor, Layers, Scale, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface AppDetailsProps {
@@ -13,6 +13,8 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
   const [currentModulePage, setCurrentModulePage] = useState(1);
   const [moduleViewMode, setModuleViewMode] = useState<'grid' | 'list'>('grid');
   const [moduleImageIndices, setModuleImageIndices] = useState<{[key: string]: number}>({});
+  const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState(0);
+  const [isScreenshotLightboxOpen, setIsScreenshotLightboxOpen] = useState(false);
   const modulesPerPage = 6;
   
   if (!app) return null;
@@ -177,7 +179,17 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
   return (
     <div className="flex-1 p-6 overflow-y-auto animate-fadeIn">
       <header className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{app.name}</h1>
+        <div className="flex items-center space-x-3 mb-2">
+          {app.logo?.url && (
+            <img
+              src={app.logo.url}
+              alt={app.logo.description || `${app.name} logo`}
+              className="w-16 h-16 object-contain"
+              onError={handleImageError}
+            />
+          )}
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{app.name}</h1>
+        </div>
         {app.provider && (
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {t('appCard.provider', { provider: app.provider })}
@@ -344,6 +356,33 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
               </a>
             </div>
           )}
+
+          {app.license && (
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                License
+              </h3>
+              <div className="flex items-start space-x-2">
+                <Scale className="h-4 w-4 mt-0.5 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+                <div>
+                  <div className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                    {app.license.name}
+                  </div>
+                  {app.license.url && (
+                    <a
+                      href={app.license.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center mt-1"
+                    >
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      View License
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {app.deployed_in_municipalities && app.deployed_in_municipalities.length > 0 && (
@@ -370,6 +409,155 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
           </section>
         )}
       </div>
+
+      {/* Screenshots Section */}
+      {app.screenshots && app.screenshots.length > 0 && (
+        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
+            <Image className="h-5 w-5 mr-2 text-blue-500" />
+            Screenshots
+          </h2>
+          
+          <div className="relative">
+            {/* Main Screenshot Display */}
+            <div className="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              <div className="w-full h-full flex items-center justify-center p-4">
+                <img
+                  src={app.screenshots[currentScreenshotIndex].url}
+                  alt={app.screenshots[currentScreenshotIndex].description || `Screenshot ${currentScreenshotIndex + 1}`}
+                  className="max-w-full max-h-full object-contain shadow-lg rounded cursor-pointer"
+                  onError={handleImageError}
+                  onClick={() => setIsScreenshotLightboxOpen(true)}
+                />
+              </div>
+              
+              {/* Navigation Arrows */}
+              {app.screenshots.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setCurrentScreenshotIndex(prev => prev === 0 ? app.screenshots!.length - 1 : prev - 1)}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors z-10"
+                    aria-label="Previous screenshot"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  
+                  <button
+                    onClick={() => setCurrentScreenshotIndex(prev => prev === app.screenshots!.length - 1 ? 0 : prev + 1)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors z-10"
+                    aria-label="Next screenshot"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </>
+              )}
+              
+              {/* Screenshot Counter */}
+              {app.screenshots.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
+                  {currentScreenshotIndex + 1} / {app.screenshots.length}
+                </div>
+              )}
+            </div>
+            
+            {/* Screenshot Description */}
+            {app.screenshots[currentScreenshotIndex].description && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
+                {app.screenshots[currentScreenshotIndex].description}
+              </p>
+            )}
+            
+            {/* Thumbnail Navigation */}
+            {app.screenshots.length > 1 && (
+              <div className="flex justify-center mt-4 space-x-2 overflow-x-auto pb-2">
+                {app.screenshots.map((screenshot, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentScreenshotIndex(index)}
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+                      index === currentScreenshotIndex 
+                        ? 'border-blue-500' 
+                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                    }`}
+                  >
+                    <img
+                      src={screenshot.url}
+                      alt={screenshot.description || `Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={handleImageError}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Screenshot Lightbox */}
+      {isScreenshotLightboxOpen && app.screenshots && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50" onClick={() => setIsScreenshotLightboxOpen(false)}>
+          <div className="relative max-w-7xl max-h-full w-full h-full flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center p-8">
+              <img
+                src={app.screenshots[currentScreenshotIndex].url}
+                alt={app.screenshots[currentScreenshotIndex].description || `Screenshot ${currentScreenshotIndex + 1}`}
+                className="max-w-full max-h-full object-contain"
+                onError={handleImageError}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setIsScreenshotLightboxOpen(false)}
+              className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+              aria-label="Close lightbox"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            
+            {/* Navigation in Lightbox */}
+            {app.screenshots.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentScreenshotIndex(prev => prev === 0 ? app.screenshots!.length - 1 : prev - 1);
+                  }}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors"
+                  aria-label="Previous screenshot"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+                
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentScreenshotIndex(prev => prev === app.screenshots!.length - 1 ? 0 : prev + 1);
+                  }}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors"
+                  aria-label="Next screenshot"
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </button>
+                
+                {/* Screenshot Counter in Lightbox */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full">
+                  {currentScreenshotIndex + 1} / {app.screenshots.length}
+                </div>
+              </>
+            )}
+            
+            {/* Description in Lightbox */}
+            {app.screenshots[currentScreenshotIndex].description && (
+              <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-lg max-w-md text-center">
+                {app.screenshots[currentScreenshotIndex].description}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {modules.length > 0 && (
         <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow">

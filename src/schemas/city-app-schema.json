@@ -109,6 +109,57 @@
       "type": "string",
       "format": "date",
       "description": "Date of the last update in YYYY-MM-DD format"
+    },
+    "license": {
+      "type": "object",
+      "description": "License information for the application",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the license"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the license text"
+        }
+      },
+      "additionalProperties": false
+    },
+    "logo": {
+      "type": "object",
+      "description": "Logo information for the application",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the logo image"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description or alt text for the logo"
+        }
+      },
+      "additionalProperties": false
+    },
+    "screenshots": {
+      "type": "array",
+      "description": "Screenshots of the application",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the screenshot image"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description or caption for the screenshot"
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false

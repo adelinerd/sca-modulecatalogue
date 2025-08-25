@@ -24,3 +24,17 @@ modules:
   
 development_status: "Stable"
 last_update: "2025-06-06"
+
+license:
+  name: "GNU GENERAL PUBLIC LICENSE, Version 3"
+  url: "https://gitlab.opencode.de/bad-belzig/smart-village-app/-/blob/master/LICENSE.md"
+
+logo:
+  url: "https://raw.githubusercontent.com/smart-village-solutions/smart-village-app-admin-doku/da205451a1d38759d542a8ff00bec58776c93869/images/SVA_Logo_rgb.png"
+  description: "Logo der Smart Village App"
+
+screenshots:
+  - url: "https://raw.githubusercontent.com/smart-village-solutions/smart-village-app-admin-doku/refs/heads/main/images/Symbolbild-1.png"
+    description: "Symbolbild 1"
+  - url: "https://raw.githubusercontent.com/smart-village-solutions/smart-village-app-admin-doku/refs/heads/main/images/Symbolbild-2.png"
+    description: "Symbolbild 2"

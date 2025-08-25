@@ -50,6 +50,18 @@ export interface CityApp {
   moduleUrls?: string[]; // Keep track of original module URLs
   development_status?: string;
   last_update?: string;
+  license?: {
+    name?: string;
+    url?: string;
+  };
+  logo?: {
+    url?: string;
+    description?: string;
+  };
+  screenshots?: {
+    url: string;
+    description?: string;
+  }[];
 }
 
 export interface AppState {

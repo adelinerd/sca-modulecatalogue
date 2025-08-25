@@ -115,6 +115,9 @@ const useAppData = () => {
               app_type: appData.app_type, // Include app_type
               development_status: appData.development_status,
               last_update: appData.last_update,
+              license: appData.license,
+              logo: appData.logo,
+              screenshots: appData.screenshots,
               modules,
               moduleUrls, // Keep the original URLs for reference if needed
             };
