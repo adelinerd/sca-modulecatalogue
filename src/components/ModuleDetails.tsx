@@ -492,7 +492,61 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             {t('moduleDetails.usageScenario')}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{module.usage_scenario}</p>
+          <div className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+            {module.usage_scenario.split('\n').map((paragraph, index) => {
+              // Handle empty lines as paragraph breaks
+              if (paragraph.trim() === '') {
+                return <br key={index} />;
+              }
+              
+              // Handle markdown-style headers
+              if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                const headerText = paragraph.slice(2, -2);
+                return (
+                  <h3 key={index} className="text-lg font-semibold text-gray-800 dark:text-white mt-6 mb-3">
+                    {headerText}
+                  </h3>
+                );
+              }
+              
+              // Handle bullet points
+              if (paragraph.trim().startsWith('- ') || paragraph.trim().startsWith('* ')) {
+                const bulletText = paragraph.trim().slice(2);
+                return (
+                  <li key={index} className="ml-4 mb-1 list-disc">
+                    {bulletText}
+                  </li>
+                );
+              }
+              
+              // Handle indented bullet points (sub-items)
+              if (paragraph.trim().startsWith('  - ') || paragraph.trim().startsWith('  * ')) {
+                const bulletText = paragraph.trim().slice(2);
+                return (
+                  <li key={index} className="ml-8 mb-1 list-disc text-sm">
+                    {bulletText}
+                  </li>
+                );
+              }
+              
+              // Handle italic text (role descriptions)
+              if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*') && !paragraph.startsWith('**')) {
+                const italicText = paragraph.trim().slice(1, -1);
+                return (
+                  <p key={index} className="italic text-gray-500 dark:text-gray-400 mb-2 ml-4">
+                    {italicText}
+                  </p>
+                );
+              }
+              
+              // Regular paragraphs
+              return (
+                <p key={index} className="mb-3">
+                  {paragraph}
+                </p>
+              );
+            })}
+          </div>
         </section>
       )}
 
