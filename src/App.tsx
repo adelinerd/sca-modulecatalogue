@@ -148,6 +148,7 @@ function App() {
   // Handle module navigation from app view
   const handleModuleClick = (module: AppModule, fromApp: CityApp) => {
     setSelectedModule(module);
+    setCurrentView('apps'); // Ensure we stay in apps view
     setNavigationState({
       fromApp,
       showingModuleFromApp: true
@@ -160,6 +161,8 @@ function App() {
       setSelectedApp(navigationState.fromApp);
       setSelectedModule(null);
       setNavigationState({});
+      // Force a re-render by updating the URL state
+      window.history.replaceState({}, '', '/');
     }
   };
 
@@ -169,25 +172,25 @@ function App() {
       const path = window.location.pathname;
       if (path === '/impressum') {
         setCurrentView('impressum');
+        // Clear navigation state when switching views
+        setNavigationState({});
       } else if (path === '/datenschutz') {
         setCurrentView('privacy');
+        // Clear navigation state when switching views
+        setNavigationState({});
       } else if (path === '/modules') {
         setCurrentView('modules');
         // Clear navigation state when switching to modules view
         setNavigationState({});
       } else {
         setCurrentView('apps');
-        // Clear navigation state when switching to apps view
-        if (!navigationState.showingModuleFromApp) {
-          setNavigationState({});
-        }
+        // Don't clear navigation state here if we're showing a module from an app
       }
     };
 
     handleNavigation();
     window.addEventListener('popstate', handleNavigation);
     return () => window.removeEventListener('popstate', handleNavigation);
-  }, [navigationState.showingModuleFromApp]);
 
   if (loading) {
     return (
