@@ -673,10 +673,6 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                           <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 font-medium line-clamp-3">{module.short_description}</p>
                         )}
                         
-                        {module.description && (
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-4">{module.description}</p>
-                        )}
-
                         {/* Quick Info */}
                         <div className="space-y-2 text-xs">
                           {module.cost && (
@@ -753,10 +749,6 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
 
                           {module.short_description && (
                             <p className="text-sm text-gray-600 dark:text-gray-300 mb-2 font-medium">{module.short_description}</p>
-                          )}
-                          
-                          {module.description && (
-                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{module.description}</p>
                           )}
                           
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
