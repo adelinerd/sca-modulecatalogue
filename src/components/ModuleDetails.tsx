@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppModule, CityApp } from '../types';
-import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench, ArrowLeft, ChevronLeft, ChevronRight, X, Layers } from 'lucide-react';
+import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench, ArrowLeft, ChevronLeft, ChevronRight, X, Layers, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface ModuleDetailsProps {
@@ -429,7 +429,61 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
             {t('moduleDetails.description')}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{module.description}</p>
+          <div className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+            {module.description.split('\n').map((paragraph, index) => {
+              // Handle empty lines as paragraph breaks
+              if (paragraph.trim() === '') {
+                return <br key={index} />;
+              }
+              
+              // Handle markdown-style headers
+              if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                const headerText = paragraph.slice(2, -2);
+                return (
+                  <h3 key={index} className="text-lg font-semibold text-gray-800 dark:text-white mt-6 mb-3">
+                    {headerText}
+                  </h3>
+                );
+              }
+              
+              // Handle bullet points
+              if (paragraph.trim().startsWith('- ') || paragraph.trim().startsWith('* ')) {
+                const bulletText = paragraph.trim().slice(2);
+                return (
+                  <li key={index} className="ml-4 mb-1 list-disc">
+                    {bulletText}
+                  </li>
+                );
+              }
+              
+              // Handle indented bullet points (sub-items)
+              if (paragraph.trim().startsWith('  - ') || paragraph.trim().startsWith('  * ')) {
+                const bulletText = paragraph.trim().slice(2);
+                return (
+                  <li key={index} className="ml-8 mb-1 list-disc text-sm">
+                    {bulletText}
+                  </li>
+                );
+              }
+              
+              // Handle italic text (role descriptions)
+              if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*') && !paragraph.startsWith('**')) {
+                const italicText = paragraph.trim().slice(1, -1);
+                return (
+                  <p key={index} className="italic text-gray-500 dark:text-gray-400 mb-2 ml-4">
+                    {italicText}
+                  </p>
+                );
+              }
+              
+              // Regular paragraphs
+              return (
+                <p key={index} className="mb-3">
+                  {paragraph}
+                </p>
+              );
+            })}
+          </div>
         </section>
       )}
 
@@ -498,6 +552,32 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
                 {actor.role && (
                   <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{actor.role}</div>
                 )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Roadmap Section */}
+      {module.roadmap && module.roadmap.length > 0 && (
+        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
+            <MapPin className="h-5 w-5 mr-2 text-blue-500" />
+            Roadmap
+          </h2>
+          <div className="space-y-3">
+            {module.roadmap.map((item, index) => (
+              <div key={index} className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mt-0.5">
+                  <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                    {index + 1}
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {item}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

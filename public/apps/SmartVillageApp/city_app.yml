@@ -21,6 +21,7 @@ app_type: "Native App"
 modules:
   - "/apps/SmartVillageApp/modules/maengelmelder.yml"
   - "/apps/SmartVillageApp/modules/merkliste.yml"
+  - "/apps/SmartVillageApp/modules/veranstaltungen.yml"
   
 development_status: "Stable"
 last_update: "2025-06-06"

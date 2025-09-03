@@ -204,6 +204,13 @@
       }
     }
   },
+  "roadmap": {
+    "type": "array",
+    "description": "List of planned features and improvements for the module",
+    "items": {
+      "type": "string"
+    }
+  },
   "additionalProperties": false,
   "example_topic_enum_info": [
     {

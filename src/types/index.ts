@@ -25,6 +25,7 @@ export interface AppModule {
   deployed_in_municipalities?: string[];
   development_status?: string;
   last_update?: string;
+  roadmap?: string[];
 }
 
 export interface CityApp {

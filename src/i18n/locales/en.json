@@ -141,7 +141,8 @@
     "back": "Back",
     "backToApp": "Back to {{appName}}",
     "screenshots": "Screenshots",
-    "fromApp": "from {{appName}}"
+    "fromApp": "from {{appName}}",
+    "roadmap": "Roadmap"
   },
   "loading": {
     "title": "Loading applications...",
