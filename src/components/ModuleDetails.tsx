@@ -97,7 +97,7 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
         {showBackButton && onBack && (
           <button
             onClick={onBack}
-            className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-4 transition-colors"
+            className="flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mb-4 transition-colors font-medium"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             {backToApp ? t('moduleDetails.backToApp', { appName: backToApp.name }) : t('moduleDetails.back')}

@@ -191,6 +191,7 @@ function App() {
     handleNavigation();
     window.addEventListener('popstate', handleNavigation);
     return () => window.removeEventListener('popstate', handleNavigation);
+  }, []);
 
   if (loading) {
     return (
