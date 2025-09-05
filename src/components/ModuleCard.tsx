@@ -42,30 +42,30 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
   };
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    // Hide the image if it fails to load
     e.currentTarget.style.display = 'none';
   };
 
   return (
     <div 
       className={`
-        relative rounded-lg transition-all duration-300 cursor-pointer overflow-hidden
+        card position-relative cursor-pointer overflow-hidden transition-all
         ${isSelected 
-          ? 'bg-primary-50 dark:bg-primary-900 border-2 border-primary-500'
-          : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border-2 border-transparent'
+          ? 'bg-primary-subtle border-primary border-2 shadow-sm' 
+          : 'hover-shadow border-2 border-transparent'
         }
-        shadow-sm hover:shadow-md
       `}
       onClick={onClick}
+      style={{ cursor: 'pointer' }}
     >
       {/* Image Gallery Section */}
-      <div className="relative h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden">
+      <div className="position-relative overflow-hidden" style={{ height: '192px', backgroundColor: '#f8f9fa' }}>
         {hasImages ? (
           <>
             <img
               src={screenshots[currentImageIndex]}
               alt={`${module.name} screenshot ${currentImageIndex + 1}`}
-              className="w-full h-full object-cover transition-opacity duration-300"
+              className="w-100 h-100 object-fit-cover"
+              style={{ transition: 'opacity 0.3s' }}
               onError={handleImageError}
             />
             
@@ -74,22 +74,24 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
               <>
                 <button
                   onClick={handlePreviousImage}
-                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 transition-colors"
+                  className="btn btn-sm position-absolute top-50 start-0 translate-middle-y ms-2 p-1 rounded-circle"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft size={16} />
                 </button>
                 
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 transition-colors"
+                  className="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2 p-1 rounded-circle"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
                   aria-label="Next image"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight size={16} />
                 </button>
                 
                 {/* Image Indicators */}
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                <div className="position-absolute bottom-0 start-50 translate-middle-x mb-2 d-flex gap-1">
                   {screenshots.map((_, index) => (
                     <button
                       key={index}
@@ -97,11 +99,12 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
                         e.stopPropagation();
                         setCurrentImageIndex(index);
                       }}
-                      className={`w-2 h-2 rounded-full transition-colors ${
+                      className={`btn p-0 rounded-circle ${
                         index === currentImageIndex 
                           ? 'bg-white' 
-                          : 'bg-white/50 hover:bg-white/75'
+                          : 'bg-white bg-opacity-50'
                       }`}
+                      style={{ width: '8px', height: '8px', border: 'none' }}
                       aria-label={`Go to image ${index + 1}`}
                     />
                   ))}
@@ -111,10 +114,10 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
           </>
         ) : (
           // Placeholder when no images
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-800 dark:to-primary-900">
+          <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-primary-subtle">
             <div className="text-center">
-              <Image className="h-12 w-12 text-primary-400 dark:text-primary-500 mx-auto mb-2" />
-              <p className="text-xs text-primary-600 dark:text-primary-400 font-medium">
+              <Image className="text-primary mb-2" size={48} />
+              <p className="small text-primary fw-medium mb-0">
                 {t('moduleCard.noImage')}
               </p>
             </div>
@@ -123,26 +126,28 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
         
         {/* Image Count Badge */}
         {hasImages && screenshots.length > 1 && (
-          <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
-            {currentImageIndex + 1}/{screenshots.length}
+          <div className="position-absolute top-0 start-0 mt-2 ms-2">
+            <span className="badge text-bg-dark small">
+              {currentImageIndex + 1}/{screenshots.length}
+            </span>
           </div>
         )}
       </div>
 
       {/* Content Section */}
-      <div className="p-4">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center flex-1 min-w-0">
-            <div className="bg-primary-50 dark:bg-primary-900 p-2 rounded-lg flex-shrink-0">
-              <Package className="h-5 w-5 text-primary-500 dark:text-primary-400" />
+      <div className="card-body p-3">
+        <div className="d-flex align-items-start justify-content-between mb-3">
+          <div className="d-flex align-items-center flex-grow-1 min-width-0">
+            <div className="bg-primary-subtle p-2 rounded flex-shrink-0">
+              <Package className="text-primary" size={20} />
             </div>
-            <div className="ml-3 min-w-0 flex-1">
-              <h3 className="text-lg font-medium text-primary-900 dark:text-primary-50 truncate">
+            <div className="ms-3 min-width-0 flex-grow-1">
+              <h5 className="card-title mb-1 text-truncate">
                 {module.name}
-              </h3>
-              <div className="flex items-center space-x-2 text-sm text-primary-600 dark:text-primary-400">
+              </h5>
+              <div className="d-flex align-items-center gap-2 small text-muted">
                 {module.app_name && (
-                  <span className="truncate">
+                  <span className="text-truncate">
                     {t('moduleCard.fromApp', { appName: module.app_name })}
                   </span>
                 )}
@@ -150,7 +155,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
                   <span>•</span>
                 )}
                 {module.topic && (
-                  <span className="truncate">{module.topic}</span>
+                  <span className="text-truncate">{module.topic}</span>
                 )}
               </div>
             </div>
@@ -162,38 +167,38 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
               onToggleCompare();
             }}
             className={`
-              text-xs px-3 py-1 rounded-full flex-shrink-0 ml-2
+              btn btn-sm rounded-pill flex-shrink-0 ms-2
               ${isInCompareList 
-                ? 'bg-teal-100 text-teal-700 dark:bg-teal-900 dark:text-teal-300' 
-                : 'bg-gray-100 text-primary-600 dark:bg-gray-700 dark:text-primary-300 hover:bg-teal-50 dark:hover:bg-teal-900/50'}
-              transition-colors duration-200
+                ? 'btn-success' 
+                : 'btn-outline-secondary'}
             `}
+            style={{ fontSize: '0.75rem' }}
           >
             {isInCompareList ? t('moduleCard.selected') : t('moduleCard.compare')}
           </button>
         </div>
 
         {module.short_description && (
-          <p className="text-xs text-primary-500 dark:text-primary-400 mb-3 line-clamp-2">
+          <p className="card-text small text-muted mb-3 line-clamp-2">
             {module.short_description}
           </p>
         )}
         
-        <div className="flex items-center justify-between">
+        <div className="d-flex align-items-center justify-content-between">
           {module.optional && (
-            <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+            <span className="badge text-bg-warning small">
               {t('moduleCard.optional')}: {module.optional}
             </span>
           )}
           
           {module.development_status && (
             <span className={`
-              text-xs px-2 py-0.5 rounded-full
+              badge small
               ${module.development_status === 'Stable' 
-                ? 'bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300' 
+                ? 'text-bg-success' 
                 : module.development_status === 'Beta'
-                  ? 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300'
-                  : 'bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300'
+                  ? 'text-bg-info'
+                  : 'text-bg-primary'
               }
             `}>
               {module.development_status}

@@ -33,45 +33,47 @@ const ModuleList: React.FC<ModuleListProps> = ({
   );
 
   return (
-    <div className="w-full md:w-80 lg:w-96 border-r border-primary-100 dark:border-primary-900 overflow-y-auto">
-      <div className="p-4 border-b border-primary-100 dark:border-primary-900">
-        <h2 className="text-xl font-semibold mb-4 text-primary-900 dark:text-primary-50">
+    <div className="col-12 col-md-4 col-lg-3 border-end overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+      <div className="p-3 border-bottom bg-white sticky-top">
+        <h2 className="h4 mb-3 text-dark">
           {t('moduleList.title')}
         </h2>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-primary-400" />
+        <div className="position-relative">
+          <div className="position-absolute top-50 start-0 translate-middle-y ms-3">
+            <Search size={20} className="text-muted" />
           </div>
           <input
             type="text"
             placeholder={t('moduleList.searchPlaceholder')}
-            className="pl-10 pr-4 py-2 w-full border border-primary-200 dark:border-primary-800 rounded-lg 
-                     focus:ring-2 focus:ring-primary-500 focus:border-primary-500 
-                     bg-white dark:bg-gray-800 text-primary-900 dark:text-primary-50
-                     placeholder-primary-400 dark:placeholder-primary-500"
+            className="form-control ps-5"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
       </div>
 
-      <div className="p-4 space-y-3">
-        {filteredModules.length > 0 ? (
-          filteredModules.map((module, index) => (
-            <ModuleCard
-              key={`${module.name}-${index}`}
-              module={module}
-              onClick={() => onSelectModule(module)}
-              isSelected={selectedModule?.name === module.name}
-              onToggleCompare={() => onToggleCompare(module)}
-              isInCompareList={comparisonModules.some(m => m.name === module.name)}
-            />
-          ))
-        ) : (
-          <div className="text-center py-8 text-primary-500 dark:text-primary-400">
-            {t('moduleList.noResults', { searchTerm })}
-          </div>
-        )}
+      <div className="p-3">
+        <div className="row g-3">
+          {filteredModules.length > 0 ? (
+            filteredModules.map((module, index) => (
+              <div key={`${module.name}-${index}`} className="col-12">
+                <ModuleCard
+                  module={module}
+                  onClick={() => onSelectModule(module)}
+                  isSelected={selectedModule?.name === module.name}
+                  onToggleCompare={() => onToggleCompare(module)}
+                  isInCompareList={comparisonModules.some(m => m.name === module.name)}
+                />
+              </div>
+            ))
+          ) : (
+            <div className="col-12">
+              <div className="text-center py-5 text-muted">
+                {t('moduleList.noResults', { searchTerm })}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

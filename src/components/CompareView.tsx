@@ -1,6 +1,7 @@
 import React from 'react';
 import { CityApp } from '../types';
 import { X, Calendar, Server, ExternalLink, Package, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface CompareViewProps {
   apps: CityApp[];
@@ -9,16 +10,18 @@ interface CompareViewProps {
 }
 
 const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp }) => {
+  const { t } = useTranslation();
+
   if (apps.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <div className="text-center p-8">
-          <AlertCircle className="h-12 w-12 text-primary-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-primary-900 dark:text-primary-50 mb-2">
-            No Applications Selected
+      <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-light">
+        <div className="text-center p-4">
+          <AlertCircle className="text-primary mb-3" size={48} />
+          <h3 className="h5 text-dark mb-2">
+            {t('compareView.empty.title')}
           </h3>
-          <p className="text-primary-600 dark:text-primary-400">
-            Select up to two applications to compare their features
+          <p className="text-muted">
+            {t('compareView.empty.description')}
           </p>
         </div>
       </div>
@@ -26,158 +29,165 @@ const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp })
   }
 
   return (
-    <div className="w-full h-full overflow-y-auto animate-fadeIn">
-      <header className="sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-primary-100 dark:border-primary-900 p-4 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-primary-900 dark:text-primary-50">
-          Comparing Applications ({apps.length}/2)
+    <div className="w-100 h-100 overflow-auto animate-fadeIn">
+      <header className="sticky-top bg-white border-bottom p-3 d-flex align-items-center justify-content-between">
+        <h2 className="h4 mb-0 text-dark">
+          {t('compareView.title', { count: apps.length })}
         </h2>
         <button
           onClick={onClose}
-          className="p-2 rounded-full hover:bg-primary-50 dark:hover:bg-primary-900 transition-colors"
+          className="btn btn-outline-secondary btn-sm rounded-circle p-2"
           aria-label="Close comparison view"
         >
-          <X className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+          <X size={16} />
         </button>
       </header>
 
-      <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="p-4">
+        <div className="row g-4">
           {apps.map((app) => (
-            <div key={app.name} className="relative">
-              <button
-                onClick={() => onRemoveApp(app)}
-                className="absolute right-2 top-2 p-1.5 rounded-full bg-primary-50 dark:bg-primary-900 hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors"
-                aria-label={`Remove ${app.name} from comparison`}
-              >
-                <X className="h-4 w-4 text-primary-600 dark:text-primary-400" />
-              </button>
-              
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-primary-100 dark:border-primary-900">
-                <div className="bg-primary-50 dark:bg-primary-900/50 px-4 py-3 border-b border-primary-100 dark:border-primary-900">
-                  <h3 className="text-lg font-medium text-primary-900 dark:text-primary-50">{app.name}</h3>
-                  {app.provider && (
-                    <p className="text-sm text-primary-600 dark:text-primary-400">by {app.provider}</p>
-                  )}
-                  {app.short_description && (
-                    <p className="text-sm text-primary-600 dark:text-primary-400 mt-1">{app.short_description}</p>
-                  )}
-                </div>
+            <div key={app.name} className="col-12 col-md-6">
+              <div className="position-relative">
+                <button
+                  onClick={() => onRemoveApp(app)}
+                  className="btn btn-sm btn-outline-danger rounded-circle p-1 position-absolute top-0 end-0 mt-2 me-2"
+                  style={{ zIndex: 10 }}
+                  aria-label={`Remove ${app.name} from comparison`}
+                >
+                  <X size={14} />
+                </button>
                 
-                <div className="p-4 space-y-6">
-                  {/* Basic Information */}
-                  <div>
-                    <h4 className="text-sm font-medium text-primary-900 dark:text-primary-50 mb-3 flex items-center">
-                      <Calendar className="h-4 w-4 mr-2 text-primary-500" />
-                      Details
-                    </h4>
-                    <dl className="grid grid-cols-2 gap-2 text-sm">
-                      <dt className="text-primary-600 dark:text-primary-400">Status</dt>
-                      <dd className="text-primary-900 dark:text-primary-50">
-                        {app.development_status || 'Not specified'}
-                      </dd>
-                      <dt className="text-primary-600 dark:text-primary-400">Last Update</dt>
-                      <dd className="text-primary-900 dark:text-primary-50">
-                        {app.last_update || 'Not specified'}
-                      </dd>
-                    </dl>
+                <div className="card h-100 shadow-sm">
+                  <div className="card-header bg-primary-subtle">
+                    <h3 className="h5 mb-1 text-dark">{app.name}</h3>
+                    {app.provider && (
+                      <p className="small text-muted mb-1">{t('appCard.provider', { provider: app.provider })}</p>
+                    )}
+                    {app.short_description && (
+                      <p className="small text-muted mb-0">{app.short_description}</p>
+                    )}
                   </div>
                   
-                  {/* Links */}
-                  <div>
-                    <h4 className="text-sm font-medium text-primary-900 dark:text-primary-50 mb-3 flex items-center">
-                      <ExternalLink className="h-4 w-4 mr-2 text-primary-500" />
-                      Resources
-                    </h4>
-                    <div className="space-y-2">
-                      {app.documentation && (
-                        <a
-                          href={app.documentation}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center"
-                        >
-                          Documentation
-                        </a>
-                      )}
-                      {app.website && (
-                        <a
-                          href={app.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center"
-                        >
-                          Website
-                        </a>
-                      )}
-                      {app.opencode_repository && (
-                        <a
-                          href={app.opencode_repository}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center"
-                        >
-                          Repository
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  
-                  {/* Deployments */}
-                  {app.deployed_in_municipalities && app.deployed_in_municipalities.length > 0 && (
-                    <div>
-                      <h4 className="text-sm font-medium text-primary-900 dark:text-primary-50 mb-3 flex items-center">
-                        <Server className="h-4 w-4 mr-2 text-primary-500" />
-                        Deployments
+                  <div className="card-body">
+                    {/* Basic Information */}
+                    <div className="mb-4">
+                      <h4 className="h6 mb-3 d-flex align-items-center">
+                        <Calendar className="me-2 text-primary" size={16} />
+                        {t('compareView.details.title')}
                       </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {app.deployed_in_municipalities.map((municipality, index) => (
-                          <span 
-                            key={index}
-                            className="inline-block px-2 py-1 text-xs bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full"
-                          >
-                            {municipality}
-                          </span>
-                        ))}
+                      <div className="row g-2 small">
+                        <div className="col-6">
+                          <dt className="text-muted">{t('compareView.details.status')}</dt>
+                          <dd className="text-dark mb-2">
+                            {app.development_status || t('compareView.details.notSpecified')}
+                          </dd>
+                        </div>
+                        <div className="col-6">
+                          <dt className="text-muted">{t('compareView.details.lastUpdate')}</dt>
+                          <dd className="text-dark mb-2">
+                            {app.last_update || t('compareView.details.notSpecified')}
+                          </dd>
+                        </div>
                       </div>
                     </div>
-                  )}
-                  
-                  {/* Modules */}
-                  {app.modules && app.modules.length > 0 && (
-                    <div>
-                      <h4 className="text-sm font-medium text-primary-900 dark:text-primary-50 mb-3 flex items-center">
-                        <Package className="h-4 w-4 mr-2 text-primary-500" />
-                        Modules ({app.modules.length})
+                    
+                    {/* Links */}
+                    <div className="mb-4">
+                      <h4 className="h6 mb-3 d-flex align-items-center">
+                        <ExternalLink className="me-2 text-primary" size={16} />
+                        {t('compareView.resources.title')}
                       </h4>
-                      <div className="space-y-3">
-                        {app.modules.map((module, index) => (
-                          <div 
-                            key={index}
-                            className="border border-primary-100 dark:border-primary-900 rounded p-2"
+                      <div className="d-flex flex-column gap-2">
+                        {app.documentation && (
+                          <a
+                            href={app.documentation}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="small text-decoration-none"
                           >
-                            <div className="font-medium text-primary-900 dark:text-primary-50 mb-1">
-                              {module.name}
+                            {t('compareView.resources.documentation')}
+                          </a>
+                        )}
+                        {app.website && (
+                          <a
+                            href={app.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="small text-decoration-none"
+                          >
+                            {t('compareView.resources.website')}
+                          </a>
+                        )}
+                        {app.opencode_repository && (
+                          <a
+                            href={app.opencode_repository}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="small text-decoration-none"
+                          >
+                            {t('compareView.resources.repository')}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Deployments */}
+                    {app.deployed_in_municipalities && app.deployed_in_municipalities.length > 0 && (
+                      <div className="mb-4">
+                        <h4 className="h6 mb-3 d-flex align-items-center">
+                          <Server className="me-2 text-primary" size={16} />
+                          {t('compareView.deployments.title')}
+                        </h4>
+                        <div className="d-flex flex-wrap gap-1">
+                          {app.deployed_in_municipalities.map((municipality, index) => (
+                            <span 
+                              key={index}
+                              className="badge text-bg-secondary small"
+                            >
+                              {municipality}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Modules */}
+                    {app.modules && app.modules.length > 0 && (
+                      <div>
+                        <h4 className="h6 mb-3 d-flex align-items-center">
+                          <Package className="me-2 text-primary" size={16} />
+                          {t('compareView.modules.title', { count: app.modules.length })}
+                        </h4>
+                        <div className="d-flex flex-column gap-2">
+                          {app.modules.map((module, index) => (
+                            <div 
+                              key={index}
+                              className="border rounded p-2"
+                            >
+                              <div className="fw-medium text-dark small mb-1">
+                                {module.name}
+                              </div>
+                              {module.topic && (
+                                <span className="badge text-bg-info small me-2">
+                                  {module.topic}
+                                </span>
+                              )}
+                              {module.short_description && (
+                                <p className="small text-muted mb-1 fw-medium line-clamp-2">
+                                  {module.short_description}
+                                </p>
+                              )}
+                              {module.description && (
+                                <p className="small text-muted mb-0 line-clamp-3">
+                                  {module.description}
+                                </p>
+                              )}
                             </div>
-                            {module.topic && (
-                              <span className="inline-block px-2 py-0.5 text-xs bg-teal-50 dark:bg-teal-900 text-teal-700 dark:text-teal-300 rounded-full mb-2">
-                                {module.topic}
-                              </span>
-                            )}
-                            {module.short_description && (
-                              <p className="text-xs text-primary-600 dark:text-primary-400 line-clamp-2 mb-1 font-medium">
-                                {module.short_description}
-                              </p>
-                            )}
-                            {module.description && (
-                              <p className="text-xs text-primary-600 dark:text-primary-400 line-clamp-3">
-                                {module.description}
-                              </p>
-                            )}
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
