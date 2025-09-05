@@ -9,7 +9,7 @@ screenshots: "https://mock-repo.de/veranstaltungen/screenshots/"
 usage_scenario: |
   Das Modul dient als zentrale Plattform für die Veröffentlichung und Verwaltung von Veranstaltungen in der Kommune. Es ermöglicht die Darstellung vielfältiger Veranstaltungsformate von verschiedenen Anbietern.
   
-  Typische Anwendungsfälle:
+  **Typische Anwendungsfälle:**
   - Kulturelle Veranstaltungen (Konzerte, Ausstellungen, Theater)
   - Öffentliche Termine der Stadtverwaltung
   - Sitzungstermine
