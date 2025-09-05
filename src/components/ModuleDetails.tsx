@@ -69,312 +69,331 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
     if (isLightbox) {
       switch (orientation) {
         case 'portrait':
-          return 'px-20 py-8'; // More horizontal padding for vertical images
+          return 'px-5 py-3'; // More horizontal padding for vertical images
         case 'landscape':
-          return 'px-8 py-16'; // More vertical padding for horizontal images
+          return 'px-3 py-5'; // More vertical padding for horizontal images
         case 'square':
-          return 'p-12'; // Equal padding for square images
+          return 'p-4'; // Equal padding for square images
         default:
-          return 'p-8'; // Default padding while loading
+          return 'p-3'; // Default padding while loading
       }
     } else {
       switch (orientation) {
         case 'portrait':
-          return 'px-16 py-4'; // More horizontal padding for vertical images
+          return 'px-4 py-2'; // More horizontal padding for vertical images
         case 'landscape':
-          return 'px-4 py-8'; // More vertical padding for horizontal images
+          return 'px-2 py-4'; // More vertical padding for horizontal images
         case 'square':
-          return 'p-6'; // Equal padding for square images
+          return 'p-3'; // Equal padding for square images
         default:
-          return 'p-4'; // Default padding while loading
+          return 'p-2'; // Default padding while loading
       }
     }
   };
 
   return (
-    <div className="flex-1 p-6 overflow-y-auto animate-fadeIn">
-      <header className="mb-6">
+    <div className="flex-fill p-4 overflow-auto animate-fadeIn">
+      <header className="mb-4">
         {showBackButton && onBack && (
           <button
             onClick={onBack}
-            className="flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mb-4 transition-colors font-medium"
+            className="btn btn-link text-decoration-none p-0 mb-3 d-flex align-items-center text-primary"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <ArrowLeft className="me-2" size={16} />
             {backToApp ? t('moduleDetails.backToApp', { appName: backToApp.name }) : t('moduleDetails.back')}
           </button>
         )}
         
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{module.name}</h1>
+        <h1 className="h2 fw-bold text-dark mb-2">{module.name}</h1>
         
         {/* App Name and Topic */}
-        <div className="flex items-center space-x-4 mt-2">
+        <div className="d-flex align-items-center gap-3 mb-2">
           {module.app_name && (
-            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <Layers className="h-4 w-4 mr-1" />
+            <div className="d-flex align-items-center small text-muted">
+              <Layers className="me-1" size={16} />
               <span>{t('moduleDetails.fromApp', { appName: module.app_name })}</span>
             </div>
           )}
           {module.topic && (
-            <div className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="small text-muted">
               {t('moduleDetails.topic')}: {module.topic}
             </div>
           )}
         </div>
         
         {module.short_description && (
-          <p className="text-gray-600 dark:text-gray-300 mt-2">{module.short_description}</p>
+          <p className="text-muted">{module.short_description}</p>
         )}
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <section className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
-            <Info className="h-5 w-5 mr-2 text-blue-500" />
-            {t('moduleDetails.overview')}
-          </h2>
-          
-          {module.optional && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                {t('moduleDetails.optional')}
-              </h3>
-              <span className={`
-                inline-block px-2 py-1 text-xs font-medium rounded-full
-                ${module.optional === 'ja' || module.optional === 'yes'
-                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
-                  : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
-                }
-              `}>
-                {module.optional}
-              </span>
-            </div>
-          )}
-          
-          {module.development_status && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                {t('moduleDetails.status')}
-              </h3>
-              <span className={`
-                inline-block px-2 py-1 text-xs font-medium rounded-full
-                ${module.development_status === 'Stable' 
-                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' 
-                  : module.development_status === 'Beta'
-                    ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
-                    : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
-                }
-              `}>
-                {module.development_status}
-              </span>
-            </div>
-          )}
-          
-          {module.last_update && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                {t('moduleDetails.lastUpdate')}
-              </h3>
-              <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-1 text-gray-500 dark:text-gray-400" />
-                <span className="text-sm text-gray-700 dark:text-gray-300">{module.last_update}</span>
-              </div>
-            </div>
-          )}
-
-          {module.cost && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                {t('moduleDetails.cost')}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{module.cost}</p>
-            </div>
-          )}
-
-          {module.opencode_repository && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                {t('moduleDetails.repository')}
-              </h3>
-              <a
-                href={module.opencode_repository}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center"
-              >
-                <ExternalLink className="h-4 w-4 mr-1" />
-                {t('moduleDetails.viewRepository')}
-              </a>
-            </div>
-          )}
-
-          {module.technical_documentation && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                {t('moduleDetails.documentation')}
-              </h3>
-              <a
-                href={module.technical_documentation}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center"
-              >
-                <ExternalLink className="h-4 w-4 mr-1" />
-                {t('moduleDetails.viewDocumentation')}
-              </a>
-            </div>
-          )}
-        </section>
-
-        <section className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
-            <Wrench className="h-5 w-5 mr-2 text-blue-500" />
-            {t('moduleDetails.technical')}
-          </h2>
-
-          {module.interfaces && module.interfaces.length > 0 && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t('moduleDetails.interfaces')}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {module.interfaces.map((interface_, index) => (
-                  <span 
-                    key={index}
-                    className="inline-block px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full"
-                  >
-                    {interface_}
+      <div className="row g-4">
+        <div className="col-12 col-lg-6">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3 d-flex align-items-center">
+                <Info className="me-2 text-primary" size={20} />
+                {t('moduleDetails.overview')}
+              </h2>
+              
+              {module.optional && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-1">
+                    {t('moduleDetails.optional')}
+                  </h3>
+                  <span className={`badge ${
+                    module.optional === 'ja' || module.optional === 'yes'
+                      ? 'text-bg-warning'
+                      : 'text-bg-success'
+                  }`}>
+                    {module.optional}
                   </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {module.dependencies && module.dependencies.length > 0 && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t('moduleDetails.dependencies')}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {module.dependencies.map((dependency, index) => (
-                  <span 
-                    key={index}
-                    className="inline-block px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full"
-                  >
-                    {dependency}
+                </div>
+              )}
+              
+              {module.development_status && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-1">
+                    {t('moduleDetails.status')}
+                  </h3>
+                  <span className={`badge ${
+                    module.development_status === 'Stable' 
+                      ? 'text-bg-success' 
+                      : module.development_status === 'Beta'
+                        ? 'text-bg-warning'
+                        : 'text-bg-info'
+                  }`}>
+                    {module.development_status}
                   </span>
-                ))}
-              </div>
-            </div>
-          )}
+                </div>
+              )}
+              
+              {module.last_update && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-1">
+                    {t('moduleDetails.lastUpdate')}
+                  </h3>
+                  <div className="d-flex align-items-center">
+                    <Calendar className="me-1 text-muted" size={16} />
+                    <span className="small">{module.last_update}</span>
+                  </div>
+                </div>
+              )}
 
-          {module.deployed_in_municipalities && module.deployed_in_municipalities.length > 0 && (
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t('moduleDetails.deployments')}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {module.deployed_in_municipalities.map((municipality, index) => (
-                  <span 
-                    key={index}
-                    className="inline-block px-2 py-1 text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full"
+              {module.cost && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-1">
+                    {t('moduleDetails.cost')}
+                  </h3>
+                  <p className="small">{module.cost}</p>
+                </div>
+              )}
+
+              {module.opencode_repository && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-1">
+                    {t('moduleDetails.repository')}
+                  </h3>
+                  <a
+                    href={module.opencode_repository}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="small text-decoration-none d-flex align-items-center"
                   >
-                    {municipality}
-                  </span>
-                ))}
-              </div>
+                    <ExternalLink className="me-1" size={16} />
+                    {t('moduleDetails.viewRepository')}
+                  </a>
+                </div>
+              )}
+
+              {module.technical_documentation && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-1">
+                    {t('moduleDetails.documentation')}
+                  </h3>
+                  <a
+                    href={module.technical_documentation}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="small text-decoration-none d-flex align-items-center"
+                  >
+                    <ExternalLink className="me-1" size={16} />
+                    {t('moduleDetails.viewDocumentation')}
+                  </a>
+                </div>
+              )}
             </div>
-          )}
-        </section>
+          </div>
+        </div>
+
+        <div className="col-12 col-lg-6">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3 d-flex align-items-center">
+                <Wrench className="me-2 text-primary" size={20} />
+                {t('moduleDetails.technical')}
+              </h2>
+
+              {module.interfaces && module.interfaces.length > 0 && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-2">
+                    {t('moduleDetails.interfaces')}
+                  </h3>
+                  <div className="d-flex flex-wrap gap-1">
+                    {module.interfaces.map((interface_, index) => (
+                      <span 
+                        key={index}
+                        className="badge text-bg-info"
+                        style={{ fontSize: '0.75rem' }}
+                      >
+                        {interface_}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {module.dependencies && module.dependencies.length > 0 && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-2">
+                    {t('moduleDetails.dependencies')}
+                  </h3>
+                  <div className="d-flex flex-wrap gap-1">
+                    {module.dependencies.map((dependency, index) => (
+                      <span 
+                        key={index}
+                        className="badge text-bg-secondary"
+                        style={{ fontSize: '0.75rem' }}
+                      >
+                        {dependency}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {module.deployed_in_municipalities && module.deployed_in_municipalities.length > 0 && (
+                <div className="mb-3">
+                  <h3 className="small fw-medium text-muted mb-2">
+                    {t('moduleDetails.deployments')}
+                  </h3>
+                  <div className="d-flex flex-wrap gap-1">
+                    {module.deployed_in_municipalities.map((municipality, index) => (
+                      <span 
+                        key={index}
+                        className="badge text-bg-success"
+                        style={{ fontSize: '0.75rem' }}
+                      >
+                        {municipality}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Screenshots Section - Only show if screenshots exist */}
       {hasScreenshots && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
-            <Package className="h-5 w-5 mr-2 text-blue-500" />
-            {t('moduleDetails.screenshots')}
-          </h2>
-          
-          <div className="relative">
-            {/* Main Gallery Image */}
-            <div className="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
-              <div className={`w-full h-full flex items-center justify-center ${getImagePaddingClass(currentImageIndex)}`}>
-                <img
-                  src={screenshots[currentImageIndex]}
-                  alt={`${module.name} screenshot ${currentImageIndex + 1}`}
-                  className="max-w-full max-h-full object-contain shadow-lg rounded"
-                  onError={handleImageError}
-                  onLoad={(e) => handleImageLoad(e, currentImageIndex)}
-                  onClick={() => setIsLightboxOpen(true)}
-                  style={{ cursor: 'pointer' }}
-                />
-              </div>
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3 d-flex align-items-center">
+                <Package className="me-2 text-primary" size={20} />
+                {t('moduleDetails.screenshots')}
+              </h2>
               
-              {/* Navigation Arrows */}
-              {screenshots.length > 1 && (
-                <>
-                  <button
-                    onClick={handlePreviousImage}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors z-10"
-                    aria-label="Previous image"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-                  
-                  <button
-                    onClick={handleNextImage}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors z-10"
-                    aria-label="Next image"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                </>
-              )}
-              
-              {/* Image Counter */}
-              {screenshots.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
-                  {currentImageIndex + 1} / {screenshots.length}
-                </div>
-              )}
-            </div>
-            
-            {/* Thumbnail Navigation */}
-            {screenshots.length > 1 && (
-              <div className="flex justify-center mt-4 space-x-2 overflow-x-auto pb-2">
-                {screenshots.map((screenshot, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
-                      index === currentImageIndex 
-                        ? 'border-blue-500' 
-                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
-                    }`}
-                  >
+              <div className="position-relative">
+                {/* Main Gallery Image */}
+                <div className="position-relative bg-light rounded overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                  <div className={`w-100 h-100 d-flex align-items-center justify-content-center ${getImagePaddingClass(currentImageIndex)}`}>
                     <img
-                      src={screenshot}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      src={screenshots[currentImageIndex]}
+                      alt={`${module.name} screenshot ${currentImageIndex + 1}`}
+                      className="img-fluid rounded shadow-sm"
+                      style={{ maxHeight: '100%', cursor: 'pointer' }}
                       onError={handleImageError}
+                      onLoad={(e) => handleImageLoad(e, currentImageIndex)}
+                      onClick={() => setIsLightboxOpen(true)}
                     />
-                  </button>
-                ))}
+                  </div>
+                  
+                  {/* Navigation Arrows */}
+                  {screenshots.length > 1 && (
+                    <>
+                      <button
+                        onClick={handlePreviousImage}
+                        className="btn position-absolute top-50 start-0 translate-middle-y ms-3 p-2 rounded-circle"
+                        style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white', zIndex: 10 }}
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft size={20} />
+                      </button>
+                      
+                      <button
+                        onClick={handleNextImage}
+                        className="btn position-absolute top-50 end-0 translate-middle-y me-3 p-2 rounded-circle"
+                        style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white', zIndex: 10 }}
+                        aria-label="Next image"
+                      >
+                        <ChevronRight size={20} />
+                      </button>
+                    </>
+                  )}
+                  
+                  {/* Image Counter */}
+                  {screenshots.length > 1 && (
+                    <div className="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                      <span className="badge text-bg-dark">
+                        {currentImageIndex + 1} / {screenshots.length}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Thumbnail Navigation */}
+                {screenshots.length > 1 && (
+                  <div className="d-flex justify-content-center mt-3 gap-2 overflow-auto pb-2">
+                    {screenshots.map((screenshot, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`btn p-0 rounded overflow-hidden border-2 ${
+                          index === currentImageIndex 
+                            ? 'border-primary' 
+                            : 'border-secondary'
+                        }`}
+                        style={{ width: '64px', height: '64px' }}
+                      >
+                        <img
+                          src={screenshot}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="w-100 h-100 object-fit-cover"
+                          onError={handleImageError}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
-        </section>
+        </div>
       )}
 
       {/* Lightbox */}
       {isLightboxOpen && (
-        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50" onClick={() => setIsLightboxOpen(false)}>
-          <div className="relative max-w-7xl max-h-full w-full h-full flex items-center justify-center">
-            <div className={`w-full h-full flex items-center justify-center ${getImagePaddingClass(currentImageIndex, true)}`}>
+        <div className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+             style={{ backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 1050 }} 
+             onClick={() => setIsLightboxOpen(false)}>
+          <div className="position-relative w-100 h-100 d-flex align-items-center justify-content-center">
+            <div className={`w-100 h-100 d-flex align-items-center justify-content-center ${getImagePaddingClass(currentImageIndex, true)}`}>
               <img
                 src={screenshots[currentImageIndex]}
                 alt={`${module.name} screenshot ${currentImageIndex + 1}`}
-                className="max-w-full max-h-full object-contain"
+                className="img-fluid"
+                style={{ maxHeight: '100%', maxWidth: '100%' }}
                 onError={handleImageError}
                 onClick={(e) => e.stopPropagation()}
               />
@@ -383,10 +402,11 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
             {/* Close Button */}
             <button
               onClick={() => setIsLightboxOpen(false)}
-              className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+              className="btn position-absolute top-0 end-0 mt-3 me-3 p-2 rounded-circle"
+              style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
               aria-label="Close lightbox"
             >
-              <X className="h-6 w-6" />
+              <X size={24} />
             </button>
             
             {/* Navigation in Lightbox */}
@@ -397,10 +417,11 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
                     e.stopPropagation();
                     handlePreviousImage();
                   }}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors"
+                  className="btn position-absolute top-50 start-0 translate-middle-y ms-3 p-3 rounded-circle"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="h-6 w-6" />
+                  <ChevronLeft size={24} />
                 </button>
                 
                 <button
@@ -408,15 +429,18 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
                     e.stopPropagation();
                     handleNextImage();
                   }}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors"
+                  className="btn position-absolute top-50 end-0 translate-middle-y me-3 p-3 rounded-circle"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
                   aria-label="Next image"
                 >
-                  <ChevronRight className="h-6 w-6" />
+                  <ChevronRight size={24} />
                 </button>
                 
                 {/* Image Counter in Lightbox */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full">
-                  {currentImageIndex + 1} / {screenshots.length}
+                <div className="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                  <span className="badge text-bg-dark px-3 py-2">
+                    {currentImageIndex + 1} / {screenshots.length}
+                  </span>
                 </div>
               </>
             )}
@@ -425,217 +449,245 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
       )}
 
       {module.description && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            {t('moduleDetails.description')}
-          </h2>
-          <div className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
-            {module.description.split('\n').map((paragraph, index) => {
-              // Handle empty lines as paragraph breaks
-              if (paragraph.trim() === '') {
-                return <br key={index} />;
-              }
-              
-              // Handle markdown-style headers
-              if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                const headerText = paragraph.slice(2, -2);
-                return (
-                  <h3 key={index} className="text-lg font-semibold text-gray-800 dark:text-white mt-6 mb-3">
-                    {headerText}
-                  </h3>
-                );
-              }
-              
-              // Handle bullet points
-              if (paragraph.trim().startsWith('- ') || paragraph.trim().startsWith('* ')) {
-                const bulletText = paragraph.trim().slice(2);
-                return (
-                  <li key={index} className="ml-4 mb-1 list-disc">
-                    {bulletText}
-                  </li>
-                );
-              }
-              
-              // Handle indented bullet points (sub-items)
-              if (paragraph.trim().startsWith('  - ') || paragraph.trim().startsWith('  * ')) {
-                const bulletText = paragraph.trim().slice(2);
-                return (
-                  <li key={index} className="ml-8 mb-1 list-disc text-sm">
-                    {bulletText}
-                  </li>
-                );
-              }
-              
-              // Handle italic text (role descriptions)
-              if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*') && !paragraph.startsWith('**')) {
-                const italicText = paragraph.trim().slice(1, -1);
-                return (
-                  <p key={index} className="italic text-gray-500 dark:text-gray-400 mb-2 ml-4">
-                    {italicText}
-                  </p>
-                );
-              }
-              
-              // Regular paragraphs
-              return (
-                <p key={index} className="mb-3">
-                  {paragraph}
-                </p>
-              );
-            })}
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3">
+                {t('moduleDetails.description')}
+              </h2>
+              <div className="text-muted lh-lg">
+                {module.description.split('\n').map((paragraph, index) => {
+                  // Handle empty lines as paragraph breaks
+                  if (paragraph.trim() === '') {
+                    return <br key={index} />;
+                  }
+                  
+                  // Handle markdown-style headers
+                  if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                    const headerText = paragraph.slice(2, -2);
+                    return (
+                      <h3 key={index} className="h6 fw-semibold text-dark mt-4 mb-2">
+                        {headerText}
+                      </h3>
+                    );
+                  }
+                  
+                  // Handle bullet points
+                  if (paragraph.trim().startsWith('- ') || paragraph.trim().startsWith('* ')) {
+                    const bulletText = paragraph.trim().slice(2);
+                    return (
+                      <li key={index} className="ms-3 mb-1">
+                        {bulletText}
+                      </li>
+                    );
+                  }
+                  
+                  // Handle indented bullet points (sub-items)
+                  if (paragraph.trim().startsWith('  - ') || paragraph.trim().startsWith('  * ')) {
+                    const bulletText = paragraph.trim().slice(2);
+                    return (
+                      <li key={index} className="ms-5 mb-1 small">
+                        {bulletText}
+                      </li>
+                    );
+                  }
+                  
+                  // Handle italic text (role descriptions)
+                  if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*') && !paragraph.startsWith('**')) {
+                    const italicText = paragraph.trim().slice(1, -1);
+                    return (
+                      <p key={index} className="fst-italic text-muted mb-2 ms-3">
+                        {italicText}
+                      </p>
+                    );
+                  }
+                  
+                  // Regular paragraphs
+                  return (
+                    <p key={index} className="mb-3">
+                      {paragraph}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
       )}
 
       {module.usage_scenario && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            {t('moduleDetails.usageScenario')}
-          </h2>
-          <div className="text-gray-600 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
-            {module.usage_scenario.split('\n').map((paragraph, index) => {
-              // Handle empty lines as paragraph breaks
-              if (paragraph.trim() === '') {
-                return <br key={index} />;
-              }
-              
-              // Handle markdown-style headers
-              if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-                const headerText = paragraph.slice(2, -2);
-                return (
-                  <h3 key={index} className="text-lg font-semibold text-gray-800 dark:text-white mt-6 mb-3">
-                    {headerText}
-                  </h3>
-                );
-              }
-              
-              // Handle bullet points
-              if (paragraph.trim().startsWith('- ') || paragraph.trim().startsWith('* ')) {
-                const bulletText = paragraph.trim().slice(2);
-                return (
-                  <li key={index} className="ml-4 mb-1 list-disc">
-                    {bulletText}
-                  </li>
-                );
-              }
-              
-              // Handle indented bullet points (sub-items)
-              if (paragraph.trim().startsWith('  - ') || paragraph.trim().startsWith('  * ')) {
-                const bulletText = paragraph.trim().slice(2);
-                return (
-                  <li key={index} className="ml-8 mb-1 list-disc text-sm">
-                    {bulletText}
-                  </li>
-                );
-              }
-              
-              // Handle italic text (role descriptions)
-              if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*') && !paragraph.startsWith('**')) {
-                const italicText = paragraph.trim().slice(1, -1);
-                return (
-                  <p key={index} className="italic text-gray-500 dark:text-gray-400 mb-2 ml-4">
-                    {italicText}
-                  </p>
-                );
-              }
-              
-              // Regular paragraphs
-              return (
-                <p key={index} className="mb-3">
-                  {paragraph}
-                </p>
-              );
-            })}
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3">
+                {t('moduleDetails.usageScenario')}
+              </h2>
+              <div className="text-muted lh-lg">
+                {module.usage_scenario.split('\n').map((paragraph, index) => {
+                  // Handle empty lines as paragraph breaks
+                  if (paragraph.trim() === '') {
+                    return <br key={index} />;
+                  }
+                  
+                  // Handle markdown-style headers
+                  if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
+                    const headerText = paragraph.slice(2, -2);
+                    return (
+                      <h3 key={index} className="h6 fw-semibold text-dark mt-4 mb-2">
+                        {headerText}
+                      </h3>
+                    );
+                  }
+                  
+                  // Handle bullet points
+                  if (paragraph.trim().startsWith('- ') || paragraph.trim().startsWith('* ')) {
+                    const bulletText = paragraph.trim().slice(2);
+                    return (
+                      <li key={index} className="ms-3 mb-1">
+                        {bulletText}
+                      </li>
+                    );
+                  }
+                  
+                  // Handle indented bullet points (sub-items)
+                  if (paragraph.trim().startsWith('  - ') || paragraph.trim().startsWith('  * ')) {
+                    const bulletText = paragraph.trim().slice(2);
+                    return (
+                      <li key={index} className="ms-5 mb-1 small">
+                        {bulletText}
+                      </li>
+                    );
+                  }
+                  
+                  // Handle italic text (role descriptions)
+                  if (paragraph.trim().startsWith('*') && paragraph.trim().endsWith('*') && !paragraph.startsWith('**')) {
+                    const italicText = paragraph.trim().slice(1, -1);
+                    return (
+                      <p key={index} className="fst-italic text-muted mb-2 ms-3">
+                        {italicText}
+                      </p>
+                    );
+                  }
+                  
+                  // Regular paragraphs
+                  return (
+                    <p key={index} className="mb-3">
+                      {paragraph}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
       )}
 
       {module.external_services && module.external_services.length > 0 && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-            {t('moduleDetails.externalServices')}
-          </h2>
-          <div className="space-y-4">
-            {module.external_services.map((service, index) => (
-              <div key={index} className="border dark:border-gray-700 rounded-lg p-4">
-                <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-2">{service.name}</h3>
-                {service.description && (
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{service.description}</p>
-                )}
-                {service.url && (
-                  <a
-                    href={service.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center"
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" />
-                    {t('moduleDetails.learnMore')}
-                  </a>
-                )}
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3">
+                {t('moduleDetails.externalServices')}
+              </h2>
+              <div className="d-flex flex-column gap-3">
+                {module.external_services.map((service, index) => (
+                  <div key={index} className="border rounded p-3">
+                    <h3 className="h6 fw-medium mb-2">{service.name}</h3>
+                    {service.description && (
+                      <p className="small text-muted mb-2">{service.description}</p>
+                    )}
+                    {service.url && (
+                      <a
+                        href={service.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="small text-decoration-none d-flex align-items-center"
+                      >
+                        <ExternalLink className="me-1" size={12} />
+                        {t('moduleDetails.learnMore')}
+                      </a>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </section>
+        </div>
       )}
 
       {module.customization_options && module.customization_options.length > 0 && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
-            <Settings className="h-5 w-5 mr-2 text-blue-500" />
-            {t('moduleDetails.customizationOptions')}
-          </h2>
-          <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-            {module.customization_options.map((option, index) => (
-              <li key={index}>{option}</li>
-            ))}
-          </ul>
-        </section>
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3 d-flex align-items-center">
+                <Settings className="me-2 text-primary" size={20} />
+                {t('moduleDetails.customizationOptions')}
+              </h2>
+              <ul className="list-unstyled">
+                {module.customization_options.map((option, index) => (
+                  <li key={index} className="small text-muted mb-1 d-flex align-items-start">
+                    <span className="me-2">•</span>
+                    <span>{option}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       )}
 
       {module.involved_actors && module.involved_actors.length > 0 && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
-            <Users className="h-5 w-5 mr-2 text-blue-500" />
-            {t('moduleDetails.involvedActors')}
-          </h2>
-          <div className="space-y-3">
-            {module.involved_actors.map((actor, index) => (
-              <div key={index} className="border dark:border-gray-700 rounded-lg p-3">
-                <div className="font-medium text-gray-800 dark:text-white">{actor.name}</div>
-                {actor.role && (
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{actor.role}</div>
-                )}
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3 d-flex align-items-center">
+                <Users className="me-2 text-primary" size={20} />
+                {t('moduleDetails.involvedActors')}
+              </h2>
+              <div className="d-flex flex-column gap-2">
+                {module.involved_actors.map((actor, index) => (
+                  <div key={index} className="border rounded p-2">
+                    <div className="fw-medium">{actor.name}</div>
+                    {actor.role && (
+                      <div className="small text-muted">{actor.role}</div>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </section>
+        </div>
       )}
 
       {/* Roadmap Section */}
       {module.roadmap && module.roadmap.length > 0 && (
-        <section className="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center">
-            <MapPin className="h-5 w-5 mr-2 text-blue-500" />
-            Roadmap
-          </h2>
-          <div className="space-y-3">
-            {module.roadmap.map((item, index) => (
-              <div key={index} className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mt-0.5">
-                  <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-                    {index + 1}
-                  </span>
-                </div>
-                <div className="flex-1">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {item}
-                  </p>
-                </div>
+        <div className="mt-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h5 mb-3 d-flex align-items-center">
+                <MapPin className="me-2 text-primary" size={20} />
+                Roadmap
+              </h2>
+              <div className="d-flex flex-column gap-2">
+                {module.roadmap.map((item, index) => (
+                  <div key={index} className="d-flex align-items-start gap-3">
+                    <div className="flex-shrink-0 rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center mt-1" 
+                         style={{ width: '24px', height: '24px' }}>
+                      <span className="small fw-medium text-primary">
+                        {index + 1}
+                      </span>
+                    </div>
+                    <div className="flex-fill">
+                      <p className="text-muted lh-base mb-0">
+                        {item}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </section>
+        </div>
       )}
     </div>
   );

@@ -86,6 +86,20 @@ body {
   }
 }
 
+/* Object fit utilities for images */
+.object-fit-cover {
+  object-fit: cover;
+}
+
+.object-fit-contain {
+  object-fit: contain;
+}
+
+/* Flex utilities */
+.flex-fill {
+  flex: 1 1 auto;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
