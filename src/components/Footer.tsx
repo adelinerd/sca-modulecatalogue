@@ -12,25 +12,27 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-primary-100 dark:border-primary-900">
-      <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="py-4 flex flex-col md:flex-row justify-between items-center text-sm text-primary-600 dark:text-primary-400">
-            <div className="mb-2 md:mb-0">
+    <footer className="bg-white border-top mt-auto">
+      <div className="container-fluid px-3 px-md-4 px-lg-5">
+        <div className="row align-items-center py-3">
+          <div className="col-12 col-md-6">
+            <div className="small text-muted">
               © {currentYear} {t('footer.copyright')}
             </div>
-            <div className="flex space-x-4">
+          </div>
+          <div className="col-12 col-md-6">
+            <div className="d-flex justify-content-md-end gap-3 mt-2 mt-md-0">
               <a
                 href="/impressum"
                 onClick={handleNavigation('/impressum')}
-                className="hover:text-primary-800 dark:hover:text-primary-300 transition-colors"
+                className="small text-muted text-decoration-none"
               >
                 {t('footer.impressum')}
               </a>
               <a
                 href="/datenschutz"
                 onClick={handleNavigation('/datenschutz')}
-                className="hover:text-primary-800 dark:hover:text-primary-300 transition-colors"
+                className="small text-muted text-decoration-none"
               >
                 {t('footer.privacy')}
               </a>

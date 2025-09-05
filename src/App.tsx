@@ -38,10 +38,10 @@ function App() {
     
     if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
       setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
     } else {
       setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-bs-theme', 'light');
     }
 
     // Load saved language preference
@@ -54,10 +54,10 @@ function App() {
   // Update the DOM when dark mode changes
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
       localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-bs-theme', 'light');
       localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
@@ -195,10 +195,12 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="flex flex-col items-center">
-          <Loader className="h-10 w-10 text-blue-500 animate-spin" />
-          <p className="mt-4 text-gray-600 dark:text-gray-300">{t('loading.title')}</p>
+      <div className="min-vh-100 bg-light d-flex align-items-center justify-content-center">
+        <div className="d-flex flex-column align-items-center">
+          <div className="spinner-border text-primary mb-3" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="text-muted">{t('loading.title')}</p>
         </div>
       </div>
     );
@@ -206,10 +208,119 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md max-w-md w-full">
-          <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-4">{t('loading.error.title')}</h2>
-          <p className="text-gray-700 dark:text-gray-300">{error}</p>
+      <div className="min-vh-100 bg-light d-flex align-items-center justify-content-center px-3">
+        <div className="card shadow-sm" style={{ maxWidth: '400px', width: '100%' }}>
+          <div className="card-body p-4">
+            <h2 className="h4 text-danger mb-3">{t('loading.error.title')}</h2>
+            <p className="card-text text-muted">{error}</p>
+            <button 
+              className="btn btn-primary mt-3"
+              onClick={() => window.location.reload()}
+            >
+              {t('loading.error.retry')}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-vh-100 bg-light d-flex flex-column">
+      <Header 
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={() => setIsDarkMode(prev => !prev)}
+        comparisonApps={comparisonApps}
+        comparisonModules={comparisonModules}
+        onToggleCompareView={handleToggleCompareView}
+        onToggleModuleCompareView={handleToggleModuleCompareView}
+        isCompareMode={isCompareMode}
+        isModuleCompareMode={isModuleCompareMode}
+        currentView={currentView}
+        onViewChange={setCurrentView}
+      />
+      
+      {/* Main content with horizontal padding */}
+      <div className="flex-grow-1 px-3 px-md-4 px-lg-5">
+        <div className="container-fluid">
+          <main className="d-flex flex-grow-1 overflow-hidden">
+            {currentView === 'apps' ? (
+              <>
+                {/* Show module details when navigating from app */}
+                {navigationState.showingModuleFromApp && selectedModule ? (
+                  <ModuleDetails 
+                    module={selectedModule} 
+                    onBack={handleBackToApp}
+                    showBackButton={true}
+                    backToApp={navigationState.fromApp}
+                  />
+                ) : (
+                  <>
+                    <AppList 
+                      apps={apps}
+                      onSelectApp={setSelectedApp}
+                      selectedApp={selectedApp}
+                      onToggleCompare={handleToggleCompare}
+                      comparisonApps={comparisonApps}
+                      searchTerm={searchTerm}
+                      onSearchChange={setSearchTerm}
+                    />
+                    
+                    {isCompareMode ? (
+                      <CompareView 
+                        apps={comparisonApps}
+                        onClose={() => setIsCompareMode(false)}
+                        onRemoveApp={handleRemoveFromCompare}
+                      />
+                    ) : (
+                      selectedApp && (
+                        <AppDetails 
+                          app={selectedApp} 
+                          onModuleClick={handleModuleClick}
+                        />
+                      )
+                    )}
+                  </>
+                )}
+              </>
+            ) : currentView === 'modules' ? (
+              <>
+                <ModuleList 
+                  modules={allModules}
+                  onSelectModule={setSelectedModule}
+                  selectedModule={selectedModule}
+                  onToggleCompare={handleToggleModuleCompare}
+                  comparisonModules={comparisonModules}
+                  searchTerm={moduleSearchTerm}
+                  onSearchChange={setModuleSearchTerm}
+                />
+                
+                {isModuleCompareMode ? (
+                  <ModuleCompareView 
+                    modules={comparisonModules}
+                    onClose={() => setIsModuleCompareMode(false)}
+                    onRemoveModule={handleRemoveModuleFromCompare}
+                  />
+                ) : (
+                  selectedModule && (
+                    <ModuleDetails 
+                      module={selectedModule} 
+                      showBackButton={false}
+                    />
+                  )
+                )}
+              </>
+            ) : (
+              <LegalInfo type={currentView} />
+            )}
+          </main>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+}
           <button 
             className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-colors"
             onClick={() => window.location.reload()}

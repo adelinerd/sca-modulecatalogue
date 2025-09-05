@@ -47,72 +47,70 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-colors duration-200 shadow-sm">
-      <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="py-4 flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div 
-                className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
-                onClick={handleLogoClick}
-              >
-                <div className="p-2 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500">
-                  <Layers className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('header.title')}</h1>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Smart City Dialog</p>
-                </div>
+    <header className="bg-white border-bottom shadow-sm">
+      <div className="container-fluid px-3 px-md-4 px-lg-5">
+        <div className="row align-items-center py-3">
+          <div className="col-auto">
+            <div 
+              className="d-flex align-items-center cursor-pointer"
+              onClick={handleLogoClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="p-2 rounded scd-gradient-bg me-3">
+                <Layers className="text-white" size={24} />
               </div>
-
-              {/* View Toggle */}
-              <nav className="flex space-x-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-                <button
-                  onClick={() => handleViewChange('apps')}
-                  className={`
-                    flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
-                    ${currentView === 'apps'
-                      ? 'bg-white dark:bg-gray-700 text-primary-600 dark:text-primary-400 shadow-sm border border-primary-200 dark:border-primary-700'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                    }
-                  `}
-                >
-                  <Layers className="h-4 w-4 mr-2" />
-                  {t('header.apps')}
-                </button>
-                <button
-                  onClick={() => handleViewChange('modules')}
-                  className={`
-                    flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200
-                    ${currentView === 'modules'
-                      ? 'bg-white dark:bg-gray-700 text-primary-600 dark:text-primary-400 shadow-sm border border-primary-200 dark:border-primary-700'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                    }
-                  `}
-                >
-                  <Package className="h-4 w-4 mr-2" />
-                  {t('header.modules')}
-                </button>
-              </nav>
+              <div>
+                <h1 className="h4 mb-0 text-dark">{t('header.title')}</h1>
+                <p className="small text-muted mb-0">Smart City Dialog</p>
+              </div>
             </div>
-            
-            <div className="flex items-center space-x-3">
+          </div>
+
+          <div className="col-auto ms-4">
+            {/* View Toggle */}
+            <div className="btn-group" role="group">
+              <button
+                onClick={() => handleViewChange('apps')}
+                className={`btn btn-sm ${
+                  currentView === 'apps'
+                    ? 'btn-primary'
+                    : 'btn-outline-secondary'
+                }`}
+              >
+                <Layers size={16} className="me-1" />
+                {t('header.apps')}
+              </button>
+              <button
+                onClick={() => handleViewChange('modules')}
+                className={`btn btn-sm ${
+                  currentView === 'modules'
+                    ? 'btn-primary'
+                    : 'btn-outline-secondary'
+                }`}
+              >
+                <Package size={16} className="me-1" />
+                {t('header.modules')}
+              </button>
+            </div>
+          </div>
+          
+          <div className="col d-flex justify-content-end align-items-center">
+            <div className="d-flex align-items-center gap-2">
               {/* App Comparison Button */}
               {comparisonApps.length > 0 && currentView === 'apps' && (
                 <button
                   onClick={onToggleCompareView}
-                  className={`
-                    flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm
-                    ${isCompareMode 
-                      ? 'bg-accent-500 text-white hover:bg-accent-600' 
-                      : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-accent-50 dark:hover:bg-accent-900/20 border border-gray-200 dark:border-gray-700'}
-                  `}
+                  className={`btn btn-sm ${
+                    isCompareMode 
+                      ? 'btn-success' 
+                      : 'btn-outline-primary'
+                  }`}
                 >
                   <span>{t('header.compare')}</span>
-                  <span className={`ml-2 text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold ${
+                  <span className={`badge ms-2 ${
                     isCompareMode 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-accent-500 text-white'
+                      ? 'bg-white text-success' 
+                      : 'bg-primary'
                   }`}>
                     {comparisonApps.length}
                   </span>
@@ -123,18 +121,17 @@ const Header: React.FC<HeaderProps> = ({
               {comparisonModules.length > 0 && currentView === 'modules' && (
                 <button
                   onClick={onToggleModuleCompareView}
-                  className={`
-                    flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-sm
-                    ${isModuleCompareMode 
-                      ? 'bg-accent-500 text-white hover:bg-accent-600' 
-                      : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-accent-50 dark:hover:bg-accent-900/20 border border-gray-200 dark:border-gray-700'}
-                  `}
+                  className={`btn btn-sm ${
+                    isModuleCompareMode 
+                      ? 'btn-success' 
+                      : 'btn-outline-primary'
+                  }`}
                 >
                   <span>{t('header.compareModules')}</span>
-                  <span className={`ml-2 text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold ${
+                  <span className={`badge ms-2 ${
                     isModuleCompareMode 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-accent-500 text-white'
+                      ? 'bg-white text-success' 
+                      : 'bg-primary'
                   }`}>
                     {comparisonModules.length}
                   </span>
@@ -143,21 +140,21 @@ const Header: React.FC<HeaderProps> = ({
 
               <button
                 onClick={toggleLanguage}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 border border-gray-200 dark:border-gray-700"
-                aria-label={t('header.toggleLanguage')}
+                className="btn btn-outline-secondary btn-sm"
+                title={t('header.toggleLanguage')}
               >
-                <Languages className="h-5 w-5" />
+                <Languages size={18} />
               </button>
               
               <button
                 onClick={onToggleDarkMode}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 border border-gray-200 dark:border-gray-700"
-                aria-label={t('header.darkMode')}
+                className="btn btn-outline-secondary btn-sm"
+                title={t('header.darkMode')}
               >
                 {isDarkMode ? (
-                  <Sun className="h-5 w-5" />
+                  <Sun size={18} />
                 ) : (
-                  <Moon className="h-5 w-5" />
+                  <Moon size={18} />
                 )}
               </button>
             </div>
