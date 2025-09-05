@@ -35,7 +35,10 @@ const AppList: React.FC<AppListProps> = ({
     return (
       app.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
       (app.provider && app.provider.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (app.short_description && app.short_description.toLowerCase().includes(searchTerm.toLowerCase()))
+      (app.short_description && app.short_description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (app.modules && app.modules.some(module => 
+        module.topic && module.topic.toLowerCase().includes(searchTerm.toLowerCase())
+      ))
     );
   });
   

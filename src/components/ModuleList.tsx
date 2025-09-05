@@ -28,6 +28,7 @@ const ModuleList: React.FC<ModuleListProps> = ({
   const filteredModules = modules.filter(module => 
     module.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     (module.topic && module.topic.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (module.app_name && module.app_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (module.short_description && module.short_description.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
