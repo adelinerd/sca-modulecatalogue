@@ -147,8 +147,8 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                       }}
                       className={`btn p-0 rounded-circle ${
                         index === currentIndex 
-                          ? 'bg-white' 
-                          : 'bg-white bg-opacity-50'
+                          ? 'bg-body' 
+                          : 'bg-body bg-opacity-50'
                       }`}
                       style={{ width: '6px', height: '6px', border: 'none' }}
                       aria-label={`Go to image ${index + 1}`}
@@ -195,7 +195,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
               onError={handleImageError}
             />
           )}
-          <h1 className="h2 fw-bold text-dark mb-0">{app.name}</h1>
+          <h1 className="h2 fw-bold mb-0">{app.name}</h1>
         </div>
         {app.provider && (
           <p className="small text-muted mb-2">
@@ -435,7 +435,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
               
               <div className="position-relative">
                 {/* Main Screenshot Display */}
-                <div className="position-relative bg-light rounded overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                <div className="position-relative bg-body-secondary rounded overflow-hidden" style={{ aspectRatio: '16/9' }}>
                   <div className="w-100 h-100 d-flex align-items-center justify-content-center p-3">
                     <img
                       src={app.screenshots[currentScreenshotIndex].url}
@@ -595,7 +595,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
         <div className="mt-4">
           <div className="card shadow-sm">
             {/* Module Header */}
-            <div className="card-header bg-light">
+            <div className="card-header bg-body-secondary">
               <div className="d-flex align-items-center justify-content-between">
                 <h2 className="h5 mb-0 d-flex align-items-center">
                   <Package className="me-2 text-primary" size={20} />

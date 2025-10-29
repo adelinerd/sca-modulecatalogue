@@ -10,7 +10,7 @@
     },
     {
       "name": "Soest City App",
-      "app_yml_url": "/apps/fraunhofer-modulbibliothek/city_app.yml"
+      "app_yml_url": "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/fraunhofer-modulbibliothek/city_app.yml"
 
     },
     {

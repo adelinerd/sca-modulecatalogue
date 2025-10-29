@@ -11,7 +11,6 @@ import ModuleCompareView from './components/ModuleCompareView';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LegalInfo from './components/LegalInfo';
-import { Loader } from 'lucide-react';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -195,7 +194,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-vh-100 bg-light d-flex align-items-center justify-content-center">
+      <div className="min-vh-100 bg-body d-flex align-items-center justify-content-center">
         <div className="d-flex flex-column align-items-center">
           <div className="spinner-border text-primary mb-3" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -208,7 +207,7 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-vh-100 bg-light d-flex align-items-center justify-content-center px-3">
+      <div className="min-vh-100 bg-body d-flex align-items-center justify-content-center px-3">
         <div className="card shadow-sm" style={{ maxWidth: '400px', width: '100%' }}>
           <div className="card-body p-4">
             <h2 className="h4 text-danger mb-3">{t('loading.error.title')}</h2>
@@ -226,7 +225,7 @@ function App() {
   }
 
   return (
-    <div className="min-vh-100 bg-light d-flex flex-column">
+    <div className="min-vh-100 bg-body d-flex flex-column">
       <Header 
         isDarkMode={isDarkMode}
         onToggleDarkMode={() => setIsDarkMode(prev => !prev)}

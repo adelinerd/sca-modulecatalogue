@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-white border-top mt-auto">
+    <footer className="bg-body border-top mt-auto">
       <div className="container-fluid px-3 px-md-4 px-lg-5">
         <div className="row align-items-center py-3">
           <div className="col-12 col-md-6">

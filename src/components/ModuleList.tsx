@@ -34,8 +34,8 @@ const ModuleList: React.FC<ModuleListProps> = ({
 
   return (
     <div className="col-12 col-md-4 col-lg-3 border-end overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
-      <div className="p-3 border-bottom bg-white sticky-top">
-        <h2 className="h4 mb-3 text-dark">
+      <div className="p-3 border-bottom bg-body sticky-top">
+        <h2 className="h4 mb-3">
           {t('moduleList.title')}
         </h2>
         <div className="position-relative">

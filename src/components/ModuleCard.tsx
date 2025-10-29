@@ -101,8 +101,8 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
                       }}
                       className={`btn p-0 rounded-circle ${
                         index === currentImageIndex 
-                          ? 'bg-white' 
-                          : 'bg-white bg-opacity-50'
+                          ? 'bg-body' 
+                          : 'bg-body bg-opacity-50'
                       }`}
                       style={{ width: '8px', height: '8px', border: 'none' }}
                       aria-label={`Go to image ${index + 1}`}

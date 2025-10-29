@@ -14,10 +14,10 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
 
   if (modules.length === 0) {
     return (
-      <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-light">
+      <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-body">
         <div className="text-center p-4">
           <AlertCircle className="text-primary mb-3" size={48} />
-          <h3 className="h5 text-dark mb-2">
+          <h3 className="h5 mb-2">
             {t('moduleCompareView.empty.title')}
           </h3>
           <p className="text-muted">
@@ -30,8 +30,8 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
 
   return (
     <div className="w-100 h-100 overflow-auto animate-fadeIn">
-      <header className="sticky-top bg-white border-bottom p-3 d-flex align-items-center justify-content-between">
-        <h2 className="h4 mb-0 text-dark">
+      <header className="sticky-top bg-body border-bottom p-3 d-flex align-items-center justify-content-between">
+        <h2 className="h4 mb-0 ">
           {t('moduleCompareView.title', { count: modules.length })}
         </h2>
         <button
@@ -59,7 +59,7 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
                 
                 <div className="card h-100 shadow-sm">
                   <div className="card-header bg-primary-subtle">
-                    <h3 className="h5 mb-1 text-dark">{module.name}</h3>
+                    <h3 className="h5 mb-1 ">{module.name}</h3>
                     {module.topic && (
                       <p className="small text-muted mb-1">{module.topic}</p>
                     )}
@@ -78,25 +78,25 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
                       <div className="row g-2 small">
                         <div className="col-6">
                           <dt className="text-muted">{t('moduleCompareView.details.status')}</dt>
-                          <dd className="text-dark mb-2">
+                          <dd className=" mb-2">
                             {module.development_status || t('moduleCompareView.details.notSpecified')}
                           </dd>
                         </div>
                         <div className="col-6">
                           <dt className="text-muted">{t('moduleCompareView.details.lastUpdate')}</dt>
-                          <dd className="text-dark mb-2">
+                          <dd className=" mb-2">
                             {module.last_update || t('moduleCompareView.details.notSpecified')}
                           </dd>
                         </div>
                         <div className="col-6">
                           <dt className="text-muted">{t('moduleCompareView.details.optional')}</dt>
-                          <dd className="text-dark mb-2">
+                          <dd className=" mb-2">
                             {module.optional || t('moduleCompareView.details.notSpecified')}
                           </dd>
                         </div>
                         <div className="col-6">
                           <dt className="text-muted">{t('moduleCompareView.details.cost')}</dt>
-                          <dd className="text-dark mb-2">
+                          <dd className=" mb-2">
                             {module.cost || t('moduleCompareView.details.notSpecified')}
                           </dd>
                         </div>
@@ -221,7 +221,7 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
                               key={index}
                               className="border rounded p-2"
                             >
-                              <div className="fw-medium text-dark small">
+                              <div className="fw-medium  small">
                                 {service.name}
                               </div>
                               {service.description && (
@@ -250,7 +250,7 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
                         <div className="d-flex flex-column gap-1">
                           {module.involved_actors.slice(0, 3).map((actor, index) => (
                             <div key={index} className="small">
-                              <span className="fw-medium text-dark">{actor.name}</span>
+                              <span className="fw-medium ">{actor.name}</span>
                               {actor.role && (
                                 <span className="text-muted ms-1">- {actor.role}</span>
                               )}

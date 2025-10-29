@@ -104,7 +104,7 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
           </button>
         )}
         
-        <h1 className="h2 fw-bold text-dark mb-2">{module.name}</h1>
+        <h1 className="h2 fw-bold mb-2">{module.name}</h1>
         
         {/* App Name and Topic */}
         <div className="d-flex align-items-center gap-3 mb-2">
@@ -306,7 +306,7 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
               
               <div className="position-relative">
                 {/* Main Gallery Image */}
-                <div className="position-relative bg-light rounded overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                <div className="position-relative bg-body-secondary rounded overflow-hidden" style={{ aspectRatio: '16/9' }}>
                   <div className={`w-100 h-100 d-flex align-items-center justify-content-center ${getImagePaddingClass(currentImageIndex)}`}>
                     <img
                       src={screenshots[currentImageIndex]}
@@ -466,7 +466,7 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
                   if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                     const headerText = paragraph.slice(2, -2);
                     return (
-                      <h3 key={index} className="h6 fw-semibold text-dark mt-4 mb-2">
+                      <h3 key={index} className="h6 fw-semibold mt-4 mb-2">
                         {headerText}
                       </h3>
                     );
@@ -533,7 +533,7 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
                   if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                     const headerText = paragraph.slice(2, -2);
                     return (
-                      <h3 key={index} className="h6 fw-semibold text-dark mt-4 mb-2">
+                      <h3 key={index} className="h6 fw-semibold mt-4 mb-2">
                         {headerText}
                       </h3>
                     );

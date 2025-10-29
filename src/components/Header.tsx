@@ -47,11 +47,11 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-white border-bottom shadow-sm">
+    <header className="bg-body border-bottom shadow-sm">
       <div className="container-fluid px-3 px-md-4 px-lg-5">
         <div className="row align-items-center py-3">
           <div className="col-auto">
-            <div 
+            <div
               className="d-flex align-items-center cursor-pointer"
               onClick={handleLogoClick}
               style={{ cursor: 'pointer' }}
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({
                 <Layers className="text-white" size={24} />
               </div>
               <div>
-                <h1 className="h4 mb-0 text-dark">{t('header.title')}</h1>
+                <h1 className="h4 mb-0">{t('header.title')}</h1>
                 <p className="small text-muted mb-0">Smart City Dialog</p>
               </div>
             </div>
@@ -108,8 +108,8 @@ const Header: React.FC<HeaderProps> = ({
                 >
                   <span>{t('header.compare')}</span>
                   <span className={`badge ms-2 ${
-                    isCompareMode 
-                      ? 'bg-white text-success' 
+                    isCompareMode
+                      ? 'bg-body-secondary text-success'
                       : 'bg-primary'
                   }`}>
                     {comparisonApps.length}
@@ -129,8 +129,8 @@ const Header: React.FC<HeaderProps> = ({
                 >
                   <span>{t('header.compareModules')}</span>
                   <span className={`badge ms-2 ${
-                    isModuleCompareMode 
-                      ? 'bg-white text-success' 
+                    isModuleCompareMode
+                      ? 'bg-body-secondary text-success'
                       : 'bg-primary'
                   }`}>
                     {comparisonModules.length}
