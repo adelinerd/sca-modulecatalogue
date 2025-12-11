@@ -20,9 +20,9 @@ const useAppData = () => {
     const fetchApps = async () => {
       try {
         // 1. Fetch the manifest with app names and URLs
-        const manifestUrl = '/apps/manifest.json';        
+        const manifestUrl = '/apps/manifest.json';
         console.log('Fetching manifest from:', manifestUrl);
-        
+
         const res = await fetch(manifestUrl);
         if (!res.ok) throw new Error(`Could not load app manifest: ${res.status} ${res.statusText}`);
         const manifest: Manifest = await res.json();
@@ -32,9 +32,10 @@ const useAppData = () => {
         // 2. For each app, fetch its YAML data from the specified URL
         const appPromises = manifest.apps.map(async (manifestApp, index) => {
           try {
-            console.log(`\n=== Processing app ${index + 1}/${manifest.apps.length}: ${manifestApp.name} ===`);            
-            console.log(`App YAML URL: ${manifestApp.app_yml_url}`);
-            
+            console.log(`\n=== Processing app ${index + 1}/${manifest.apps.length}: ${manifestApp.name} ===`);
+            console.log(`Original App YAML URL: ${manifestApp.app_yml_url}`);
+
+            // fetchYaml will handle blob-to-raw conversion and proxy wrapping automatically
             const appData = await fetchYaml<any>(manifestApp.app_yml_url);
             if (!appData) {
               console.warn(`Failed to load app data for ${manifestApp.name} from ${manifestApp.app_yml_url}`);
@@ -43,18 +44,14 @@ const useAppData = () => {
             
             console.log(`Raw app data for ${manifestApp.name}:`, appData);
             
-            // Log city-app-yml-version specifically
-            if (appData['city-app-yml-version']) {
-              console.log(`✅ City app YAML version found for ${manifestApp.name}: "${appData['city-app-yml-version']}"`);
-            } else {
-              console.log(`⚠️  No city-app-yml-version field found for ${manifestApp.name}`);
+            // No city-app-yml-version
+            if (!appData['city-app-yml-version']) {              
+              console.log(`No city-app-yml-version field found for ${manifestApp.name}`);
             }
             
-            // Log app_type specifically
-            if (appData.app_type) {
-              console.log(`✅ App type found for ${manifestApp.name}: "${appData.app_type}"`);
-            } else {
-              console.log(`⚠️  No app_type field found for ${manifestApp.name}`);
+            // No app_type found
+            if (!appData.app_type) {              
+              console.log(`No app_type field found for ${manifestApp.name}`);
             }
             
             console.log(`Available fields in app data:`, Object.keys(appData));
@@ -88,10 +85,10 @@ const useAppData = () => {
                   console.log(`  Added app_name "${moduleData.app_name}" to module "${moduleData.name}"`);
                 }
                 
-                console.log(`  ✅ Successfully loaded module: ${moduleData.name}`);
+                console.log(`Successfully loaded module: ${moduleData.name}`);
                 return moduleData;
               } catch (error) {
-                console.error(`  Error loading module from ${moduleUrl}:`, error);
+                console.error(`Error loading module from ${moduleUrl}:`, error);
                 return null;
               }
             });
@@ -140,10 +137,10 @@ const useAppData = () => {
         });
 
         const loadedApps = (await Promise.all(appPromises)).filter(Boolean) as CityApp[];
-        console.log(`\n🎉 FINAL RESULT: Successfully loaded ${loadedApps.length}/${manifest.apps.length} apps`);
+        console.log(`\nFINAL RESULT: Successfully loaded ${loadedApps.length}/${manifest.apps.length} apps`);
         
         // Log summary of all loaded apps with their versions and app_types
-        console.log('\n📋 LOADED APPS SUMMARY:');
+        console.log('\nLOADED APPS SUMMARY:');
         loadedApps.forEach((app, index) => {
           console.log(`${index + 1}. ${app.name}`);
           console.log(`   - YAML Version: ${app['city-app-yml-version'] || 'Not specified'}`);

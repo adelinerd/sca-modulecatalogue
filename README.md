@@ -5,13 +5,16 @@
 ## Features
 
 - Browse modules from various Smart City applications (DorfFunk, Smart Village App, Smart City Platform, etc.)
+- Load modules from local files or remote GitLab repositories
 - Multi-language support (i18n) with automatic language detection
 - Interactive filtering and search capabilities
 - Detailed module information including technical specifications and metadata
 - YAML-based module definitions with JSON schema validation
 - Responsive design with Bootstrap 5 and modern UI components
+- Secure CORS proxy server for fetching remote YAML files
+- Client-side and server-side caching for improved performance
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sca-modulecatalogue/
@@ -27,19 +30,25 @@ sca-modulecatalogue/
 │   ├── i18n/              # Internationalization (i18next) language files
 │   ├── schemas/           # JSON Schema files for YAML validation
 │   ├── types/             # TypeScript type definitions
-│   ├── utils/             # Utility functions
+│   ├── utils/             # Utility functions (cache, YAML loader with proxy support)
 │   ├── App.tsx            # Root React component
 │   ├── main.tsx           # Application entry point
 │   └── index.css          # Global styles
+├── sca-proxy/             # CORS proxy server for GitLab YAML files
+│   ├── server.ts          # Express server with rate limiting and security
+│   ├── package.json       # Proxy dependencies
+│   ├── .env.example       # Environment configuration template
+│   └── README.md          # Proxy documentation
 ├── index.html             # HTML template
 ├── vite.config.ts         # Vite configuration
 ├── package.json           # Project dependencies
+├── .env.example           # Environment variables template
 ├── LICENSE                # Apache 2.0 license
 ├── CONTRIBUTING.md        # Contribution guidelines
 └── README.md              # This file
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -59,7 +68,27 @@ cd sca-modulecatalogue
 npm install
 ```
 
-3. Start the development server:
+3. Configure environment variables (optional, required for remote GitLab YAML loading):
+```bash
+cp .env.example .env
+```
+Edit [.env](.env) and set `VITE_YAML_PROXY_SERVER` to your proxy server URL (default: `http://localhost:8080/api/yaml`).
+
+4. Set up the proxy server (required for loading YAML files from GitLab):
+```bash
+cd sca-proxy
+npm install
+cp .env.example .env
+```
+Edit [sca-proxy/.env](sca-proxy/.env) and configure your GitLab instances and tokens. See the [SCA Proxy README](sca-proxy/README.md) for details.
+
+5. Start the proxy server (in a separate terminal):
+```bash
+cd sca-proxy
+npm run dev
+```
+
+6. Start the development server:
 ```bash
 npm start
 ```
@@ -75,13 +104,24 @@ The application will be available at `http://localhost:5173` (default Vite port)
 
 ## Technology Stack
 
-- **Frontend Framework**: React 19.1.0 with TypeScript
+### Frontend
+- **Framework**: React 19.1.0 with TypeScript
 - **Build Tool**: Vite 6.3.5
 - **Styling**: Bootstrap 5.3.2
 - **Internationalization**: i18next with browser language detection
 - **Data Format**: YAML with JSON Schema validation
 - **Icons**: Lucide React
 - **Code Quality**: ESLint with TypeScript support
+
+### Backend (Proxy Server)
+- **Runtime**: Node.js v18+
+- **Framework**: Express 5.2.1
+- **Language**: TypeScript 5.7.2
+- **HTTP Client**: Undici 7.16.0
+- **Security**: Helmet (security headers), CORS protection
+- **Rate Limiting**: rate-limiter-flexible 9.0.0
+- **Validation**: Zod 4.1.13
+- **Development**: tsx for TypeScript execution
 
 ## Usage
 
@@ -95,14 +135,24 @@ The catalogue displays modules from multiple Smart City applications. Each modul
 
 ### Adding New Modules
 
-Module definitions are stored as YAML files in `public/apps/[app-name]/modules/`. Each module file should follow the JSON schema defined in `src/schemas/`.
+Module definitions can be stored locally or referenced from remote GitLab repositories:
+
+**Option 1: Local YAML files**
+- Store in `public/apps/[app-name]/modules/`
+- Reference in [city_app.yml](public/apps/fraunhofer-modulbibliothek/city_app.yml) with relative path: `/apps/[app-name]/modules/your-module.yml`
+
+**Option 2: Remote GitLab URLs**
+- Host YAML files in a GitLab repository
+- Reference in [city_app.yml](public/apps/fraunhofer-modulbibliothek/city_app.yml) with full URL: `https://gitlab.opencode.de/group/project/-/blob/main/path/module.yml`
+- The proxy server will automatically convert blob URLs to raw URLs and handle CORS
 
 **Steps to add a new module:**
 
-1. Create a new YAML file in the appropriate app directory: `public/apps/[app-name]/modules/your-module.yml`
-2. Follow the schema structure for module definitions
-3. Ensure all required fields are populated
-4. Test locally before submitting
+1. Create a new YAML file following the schema defined in [src/schemas/](src/schemas/)
+2. Either place it locally or upload to GitLab
+3. Add the path or URL to the `modules` array in the app's [city_app.yml](public/apps/fraunhofer-modulbibliothek/city_app.yml)
+4. Ensure all required fields are populated
+5. Test locally before submitting
 
 Example module structure:
 ```yaml
@@ -122,12 +172,24 @@ To add a new Smart City application:
 
 ### Internationalization
 
-The application supports multiple languages. Language files are located in `src/i18n/`. The browser language detector automatically selects the appropriate language.
+The application supports multiple languages. Language files are located in [src/i18n/](src/i18n/). The browser language detector automatically selects the appropriate language.
 
 To add a new language:
-1. Create a new language file in `src/i18n/locales/`
+1. Create a new language file in [src/i18n/locales/](src/i18n/locales/)
 2. Register the language in the i18next configuration
 3. Translate all keys from the reference language file
+
+### Caching
+
+The application implements a two-tier caching system for YAML files:
+
+1. **Memory Cache**: Fast in-memory storage for the current session
+2. **LocalStorage Cache**: Persistent browser storage across sessions
+
+**Cache debugging:**
+- Open browser console and run: `window.clearYamlCache()` to clear all cached YAML data
+- Run: `window.clearYamlCache('specific-url')` to clear a specific URL's cache
+- Cache entries expire after the configured TTL period
 
 ## Development
 
@@ -139,11 +201,55 @@ The project uses:
 - **ESLint** for code quality
 - **Bootstrap 5** for responsive UI components
 
-### Proxy Configuration
+### Environment Variables
 
-The development server includes a proxy for GitLab API requests:
-- `/gitlab` proxies to `https://gitlab.opencode.de`
-- This allows fetching module data from GitLab repositories during development
+**Frontend ([.env](.env)):**
+```env
+VITE_YAML_PROXY_SERVER=http://localhost:8080/api/yaml
+```
+
+**Proxy Server ([sca-proxy/.env](sca-proxy/.env)):**
+```env
+# CORS Configuration
+CORS_ALLOWED_ORIGINS=http://localhost:5173,https://your-production-domain.com
+
+# Server Configuration
+PORT=8080
+
+# GitLab Instances
+GITLAB_OPEN_CODE=https://gitlab.opencode.de
+GITLAB_OPEN_CODE_TOKEN=your-private-token-here
+GITLAB_OSS_BASE=https://gitlab.com
+GITLAB_OSS_TOKEN=your-personal-access-token-here
+```
+
+See [.env.example](.env.example) and [sca-proxy/.env.example](sca-proxy/.env.example) for complete configuration templates.
+
+### SCA Proxy Server
+
+The project includes a dedicated CORS proxy server ([sca-proxy/](sca-proxy/)) to enable fetching YAML files from GitLab repositories without CORS restrictions:
+
+**Features:**
+- Supports multiple GitLab instances (gitlab.opencode.de, gitlab.com, etc.)
+- Rate limiting (60 requests/minute per IP)
+- Security headers via Helmet
+- ETag-based caching for improved performance
+- Automatic blob-to-raw URL conversion
+- Private token support for authenticated GitLab access
+
+**Setup:**
+1. Navigate to [sca-proxy/](sca-proxy/)
+2. Install dependencies: `npm install`
+3. Copy [.env.example](sca-proxy/.env.example) to `.env`
+4. Configure your GitLab instances and tokens
+5. Start the server: `npm run dev` (development) or `npm start` (production)
+
+See [sca-proxy/README.md](sca-proxy/README.md) for detailed configuration options.
+
+**Frontend Integration:**
+- Set `VITE_YAML_PROXY_SERVER` in [.env](.env) to your proxy URL (default: `http://localhost:8080/api/yaml`)
+- The [yamlLoader utility](src/utils/yamlLoader.ts) automatically routes GitLab URLs through the proxy
+- Local files and GitHub raw URLs bypass the proxy
 
 ### Building for Production
 
@@ -155,6 +261,8 @@ The build output will be in the `dist/` directory, optimized for production depl
 
 ## Deployment
 
+### Frontend Application
+
 The application is a static site that can be deployed to any static hosting service:
 
 - **GitHub Pages**: Configure with GitHub Actions
@@ -163,6 +271,19 @@ The application is a static site that can be deployed to any static hosting serv
 - **Traditional hosting**: Upload the `dist/` folder contents
 
 Ensure the hosting service supports client-side routing for single-page applications.
+
+### Proxy Server
+
+The proxy server must be deployed separately to a Node.js hosting environment:
+
+- **Docker**: Use the Dockerfile in [sca-proxy/](sca-proxy/) for containerized deployment
+
+**Production considerations:**
+1. Set environment variables for CORS origins and GitLab tokens
+2. Enable HTTPS for secure token transmission
+3. Configure rate limiting based on your expected traffic
+4. Monitor server logs for errors and performance issues
+5. Update the frontend `VITE_YAML_PROXY_SERVER` to point to your production proxy URL
 
 ## Contributing
 
@@ -176,9 +297,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 This project showcases modules from various open source Smart City applications:
 - **DorfFunk** - Community communication platform
-- **Smart Village App** - Village/town information and services
+- **Smart Village App** - App for the city "Bad Belzig" developed by Smart Village Sollutions GmbH
 - **Smart City Platform** - Urban management and citizen engagement
-- **Fraunhofer Module Library** - Reference module implementations
+- **URBO** - App for the City Soest, developed by  SWCode
 
 ## Third-Party Licenses
 

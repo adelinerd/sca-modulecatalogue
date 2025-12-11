@@ -43,3 +43,20 @@ export function setCached<T>(url: string, data: T): void {
     console.warn('localStorage quota exceeded or unsupported', e);
   }
 }
+
+export function clearCache(url?: string): void {
+  if (url) {
+    // Clear specific URL
+    memoryCache.delete(url);
+    localStorage.removeItem(CACHE_PREFIX + url);
+  } else {
+    // Clear all cache
+    memoryCache.clear();
+    const keys = Object.keys(localStorage);
+    keys.forEach(key => {
+      if (key.startsWith(CACHE_PREFIX)) {
+        localStorage.removeItem(key);
+      }
+    });
+  }
+}
