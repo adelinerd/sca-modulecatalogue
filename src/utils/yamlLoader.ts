@@ -11,6 +11,12 @@ if (typeof window !== 'undefined') {
  */
 export function wrapWithProxy(url: string): string {
   try {
+    // Skip local URLs (starting with "/")
+    if (url.startsWith('/')) {
+      console.log(`Local URL detected, no proxy needed: ${url}`);
+      return url;
+    }
+
     // Skip if already proxied
     if (url.includes('/api/yaml?url=')) {
       console.log(`URL already proxied, skipping: ${url}`);
@@ -39,6 +45,12 @@ export function wrapWithProxy(url: string): string {
  * Converts a GitHub or GitLab blob URL into its raw file URL (without proxying).
  */
 export function convertBlobToRaw(url: string): string {
+  // Skip local URLs (starting with "/")
+  if (url.startsWith('/')) {
+    console.log(`Local URL detected, no conversion needed: ${url}`);
+    return url;
+  }
+
   try {
     const u = new URL(url);
     const parts = u.pathname.split('/').filter(Boolean);
@@ -120,12 +132,6 @@ export async function fetchYaml<T>(url: string): Promise<T | null> {
     if (!res.ok) throw new Error(`HTTP ${res.status} - ${res.statusText}`);
 
     const text = await res.text();
-    console.log(`Response text preview (first 200 chars): ${text.substring(0, 200)}`);
-
-    // Check if response is HTML instead of YAML
-    if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) {
-      throw new Error('Received HTML instead of YAML - blob URL not converted properly');
-    }
 
     const parsed = yaml.load(text) as T;
 

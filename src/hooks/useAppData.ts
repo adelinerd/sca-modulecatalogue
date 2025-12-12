@@ -42,8 +42,6 @@ const useAppData = () => {
               return null;
             }
             
-            console.log(`Raw app data for ${manifestApp.name}:`, appData);
-            
             // No city-app-yml-version
             if (!appData['city-app-yml-version']) {              
               console.log(`No city-app-yml-version field found for ${manifestApp.name}`);
