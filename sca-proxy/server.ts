@@ -78,11 +78,7 @@ function toRawURL(url: string): { rawUrl: string; token?: string } | null {
       const path = parts.slice(blobIndex + 2).join('/');
 
       const rawUrl = `${u.origin}/${groupAndProject}/-/raw/${branch}/${path}`;
-
-      console.log(`Converting blob URL to raw:`);
-      console.log(`  Original: ${url}`);
-      console.log(`  Raw: ${rawUrl}`);
-
+      
       // Find matching registry entry for token
       const entry = Object.values(REGISTRY).find(e => u.origin === e.base);
 
@@ -95,7 +91,7 @@ function toRawURL(url: string): { rawUrl: string; token?: string } | null {
   }
 }
 
-// Endpoint 1: Accept GitLab blob URL directly
+// Endpoint 1: Accept Git blob URL directly
 app.get("/api/yaml", async (req, res) => {
   console.log("Endpoint 1 received request:", req.query);
   const parsed = UrlQuery.safeParse(req.query);
@@ -108,8 +104,8 @@ app.get("/api/yaml", async (req, res) => {
   console.log("Converted URL:", converted);
 
   if (!converted) {
-    console.log("Invalid or unsupported GitLab URL:", url);
-    return res.status(400).json({ error: "Invalid or unsupported GitLab URL" });
+    console.log("Invalid or unsupported URL:", url);
+    return res.status(400).json({ error: "Invalid or unsupported URL" });
   }
 
   try {

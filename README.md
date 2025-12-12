@@ -133,42 +133,20 @@ The catalogue displays modules from multiple Smart City applications. Each modul
 - Source application information
 - Reusability indicators
 
-### Adding New Modules
-
-Module definitions can be stored locally or referenced from remote GitLab repositories:
-
-**Option 1: Local YAML files**
-- Store in `public/apps/[app-name]/modules/`
-- Reference in [city_app.yml](public/apps/fraunhofer-modulbibliothek/city_app.yml) with relative path: `/apps/[app-name]/modules/your-module.yml`
-
-**Option 2: Remote GitLab URLs**
-- Host YAML files in a GitLab repository
-- Reference in [city_app.yml](public/apps/fraunhofer-modulbibliothek/city_app.yml) with full URL: `https://gitlab.opencode.de/group/project/-/blob/main/path/module.yml`
-- The proxy server will automatically convert blob URLs to raw URLs and handle CORS
-
-**Steps to add a new module:**
-
-1. Create a new YAML file following the schema defined in [src/schemas/](src/schemas/)
-2. Either place it locally or upload to GitLab
-3. Add the path or URL to the `modules` array in the app's [city_app.yml](public/apps/fraunhofer-modulbibliothek/city_app.yml)
-4. Ensure all required fields are populated
-5. Test locally before submitting
-
-Example module structure:
-```yaml
-name: "Module Name"
-description: "Module description"
-# ... additional fields per schema
-```
 
 ### Adding New Applications
 
 To add a new Smart City application:
 
+1. Edit the `public/manifest.json` file to add the name of the APP and the Blob link to the `city_app.yml` file
+
+To add a new Smart City application locally:
+
 1. Create a new directory under `public/apps/[new-app-name]/`
 2. Add a `city_app.yml` file with application metadata
 3. Create a `modules/` subdirectory for module definitions
 4. Add module YAML files following the schema
+5. Adjust the `public/manifest.json` file
 
 ### Internationalization
 
@@ -267,7 +245,6 @@ The application is a static site that can be deployed to any static hosting serv
 
 - **GitHub Pages**: Configure with GitHub Actions
 - **Netlify**: Connect your repository for automatic deployments
-- **Vercel**: Import the project for serverless deployment
 - **Traditional hosting**: Upload the `dist/` folder contents
 
 Ensure the hosting service supports client-side routing for single-page applications.
@@ -296,9 +273,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## Acknowledgments
 
 This project showcases modules from various open source Smart City applications:
-- **DorfFunk** - Community communication platform
+- **DorfFunk** - Community communication platform developed by Fraunhofer IESE in context of "Digitale Dörfer" project
 - **Smart Village App** - App for the city "Bad Belzig" developed by Smart Village Sollutions GmbH
-- **Smart City Platform** - Urban management and citizen engagement
 - **URBO** - App for the City Soest, developed by  SWCode
 
 ## Third-Party Licenses
