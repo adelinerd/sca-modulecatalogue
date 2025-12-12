@@ -8,14 +8,5 @@ export default defineConfig({
   ],
   optimizeDeps: {
     exclude: ['lucide-react'],
-  },
-  server: {
-    proxy: {
-      '/gitlab': {
-        target: 'https://gitlab.opencode.de',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/gitlab/, '')
-      }
-    }
-  }
+  }  
 });

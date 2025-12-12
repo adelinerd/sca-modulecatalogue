@@ -12,7 +12,7 @@
       "name": "SmartVillageApp", 
       "app_yml_url": "https://github.com/smart-village-solutions/smart-village-app-admin-doku/blob/main/city_app.yml"
     },
-     {
+    {
       "name": "Smart-City-Platform",
       "app_yml_url": "https://github.com/adelinerd/modul_mockups/blob/main/Smart-City-Platform/city_app.yml"
     }

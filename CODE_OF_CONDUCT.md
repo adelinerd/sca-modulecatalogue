@@ -1,5 +1,5 @@
 # Comby Code of Conduct
-Effective Date: 2025-08-01
+Effective Date: 2025-12-12
 
 ## Our Pledge
 We, as contributors and maintainers of Comby, pledge to foster an open, safe, inclusive, and harassment-free environment for everyone. We are committed to making participation in our project a respectful experience for all, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Moon, Layers, Languages, Package } from 'lucide-react';
+import { Sun, Moon, Languages, Package, Layers } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AppModule } from '../types';
 
@@ -56,9 +56,11 @@ const Header: React.FC<HeaderProps> = ({
               onClick={handleLogoClick}
               style={{ cursor: 'pointer' }}
             >
-              <div className="p-2 rounded scd-gradient-bg me-3">
-                <Layers className="text-white" size={24} />
-              </div>
+              <img
+                src="/smart_city_color.svg"
+                alt="Smart City Dialog Logo"
+                style={{ height: '56px', marginRight: '1rem' }}
+              />
               <div>
                 <h1 className="h4 mb-0">{t('header.title')}</h1>
                 <p className="small text-muted mb-0">Smart City Dialog</p>
