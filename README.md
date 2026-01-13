@@ -14,6 +14,12 @@
 - Secure CORS proxy server for fetching remote YAML files
 - Client-side and server-side caching for improved performance
 
+## Documentation
+
+- **[Local Setup Guide](docs/LOCAL_SETUP.md)** - Run the app with locally stored files (no proxy server required)
+- **[SCA Proxy README](sca-proxy/README.md)** - Setup guide for loading YAML from remote Git repositories
+- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
+
 ## Project Structure
 
 ```
@@ -136,17 +142,27 @@ The catalogue displays modules from multiple Smart City applications. Each modul
 
 ### Adding New Applications
 
-To add a new Smart City application:
+There are two ways to add applications to the catalogue:
 
-1. Edit the `public/manifest.json` file to add the name of the APP and the Blob link to the `city_app.yml` file
+**Option 1: Local Files (Recommended for Development)**
 
-To add a new Smart City application locally:
+See the **[Local Setup Guide](docs/LOCAL_SETUP.md)** for a comprehensive tutorial on:
+- Setting up local application files
+- Creating YAML definitions
+- Testing without a proxy server
+- Troubleshooting common issues
 
-1. Create a new directory under `public/apps/[new-app-name]/`
-2. Add a `city_app.yml` file with application metadata
-3. Create a `modules/` subdirectory for module definitions
-4. Add module YAML files following the schema
-5. Adjust the `public/manifest.json` file
+**Option 2: Remote Git Repositories**
+
+1. Edit the `public/manifest.json` file to add your application:
+```json
+{
+  "name": "Your App Name",
+  "app_yml_url": "https://github.com/user/repo/blob/main/city_app.yml"
+}
+```
+2. For GitLab URLs, ensure the [SCA Proxy](sca-proxy/README.md) is configured and running
+3. GitHub raw URLs work directly without proxy configuration
 
 ### Internationalization
 

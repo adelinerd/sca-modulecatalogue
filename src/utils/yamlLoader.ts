@@ -27,7 +27,7 @@ export function wrapWithProxy(url: string): string {
 
     // Check if it's a GitLab URL (needs proxy for CORS)
     if (u.hostname.includes('gitlab')) {
-      const proxyUrl = import.meta.env.VITE_YAML_PROXY_SERVER || 'http://localhost:8080/api/yaml';
+      const proxyUrl = import.meta.env.VITE_YAML_PROXY_SERVER;
       console.log(`Wrapping GitLab URL with proxy: ${url}`);
       return `${proxyUrl}?url=${encodeURIComponent(url)}`;
     }
@@ -68,7 +68,7 @@ export function convertBlobToRaw(url: string): string {
       return `https://raw.githubusercontent.com/${user}/${repo}/${branch}/${path.join('/')}`;
     }
 
-    // GitLab (self-hosted or gitlab.com) - just convert blob to raw, don't proxy yet
+    // GitLab (self-hosted or gitlab.com)
     if (u.hostname.includes('gitlab') && url.includes('/blob/')) {
       const blobIndex = parts.indexOf('blob');
       if (blobIndex === -1) return url;

@@ -20,14 +20,11 @@ const useAppData = () => {
     const fetchApps = async () => {
       try {
         // 1. Fetch the manifest with app names and URLs
-        const manifestUrl = '/apps/manifest.json';
-        console.log('Fetching manifest from:', manifestUrl);
+        const manifestUrl = '/apps/manifest.json';        
 
         const res = await fetch(manifestUrl);
         if (!res.ok) throw new Error(`Could not load app manifest: ${res.status} ${res.statusText}`);
         const manifest: Manifest = await res.json();
-
-        console.log('Loaded manifest:', manifest);
 
         // 2. For each app, fetch its YAML data from the specified URL
         const appPromises = manifest.apps.map(async (manifestApp, index) => {
@@ -50,10 +47,8 @@ const useAppData = () => {
             // No app_type found
             if (!appData.app_type) {              
               console.log(`No app_type field found for ${manifestApp.name}`);
-            }
-            
-            console.log(`Available fields in app data:`, Object.keys(appData));
-            
+            }           
+                        
             // Validate that we have a name
             if (!appData.name && !manifestApp.name) {
               console.error(`No name found for app from ${manifestApp.app_yml_url}`);
@@ -116,17 +111,6 @@ const useAppData = () => {
               modules,
               moduleUrls, // Keep the original URLs for reference if needed
             };
-            
-            // Log final app object with version and app_type
-            console.log(`Final app object for ${finalApp.name}:`);
-            console.log(`  - Name: ${finalApp.name}`);
-            console.log(`  - YAML Version: ${finalApp['city-app-yml-version'] || 'Not specified'}`);
-            console.log(`  - Provider: ${finalApp.provider || 'Not specified'}`);
-            console.log(`  - App Type: ${finalApp.app_type || 'Not specified'}`);
-            console.log(`  - Development Status: ${finalApp.development_status || 'Not specified'}`);
-            console.log(`  - Modules: ${finalApp.modules?.length || 0}`);
-            console.log(`=== End processing ${finalApp.name} ===\n`);
-            
             return finalApp;
           } catch (error) {
             console.error(`Error processing app ${manifestApp.name}:`, error);
