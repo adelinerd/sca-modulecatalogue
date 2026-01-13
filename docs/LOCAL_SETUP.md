@@ -5,14 +5,12 @@ This guide explains how to run the SCA-Modulbibliothek (Smart City Apps Module C
 ## Table of Contents
 
 - [Overview](#overview)
-- [Advantages of Local Setup](#advantages-of-local-setup)
 - [Quick Start](#quick-start)
 - [File Structure](#file-structure)
 - [Adding a New Application](#adding-a-new-application)
 - [Adding Modules to an Application](#adding-modules-to-an-application)
-- [YAML File Formats](#yaml-file-formats)
 - [Converting Remote Files to Local Storage](#converting-remote-files-to-local-storage)
-- [Switching Between Local and Remote](#switching-between-local-and-remote)
+- [Deployment with Local Files](#deployment-with-local-files)
 - [Troubleshooting](#troubleshooting)
 
 ## Overview
@@ -204,32 +202,28 @@ Update `public/apps/manifest.json` to point to your local `city_app.yml`:
    Successfully loaded app: YourApp
    ```
 
-## Switching Between Local and Remote
+## Deployment with Local Files
 
-The application supports mixing local and remote sources in the same `manifest.json`:
+When deploying the application with local YAML files, only the frontend needs to be deployed. No proxy server is required.
 
-```json
-{
-  "apps": [
-    {
-      "name": "Local App",
-      "app_yml_url": "/apps/LocalApp/city_app.yml"
-    },
-    {
-      "name": "Remote App from GitHub",
-      "app_yml_url": "https://github.com/user/repo/blob/main/city_app.yml"
-    },
-    {
-      "name": "Remote App from GitLab",
-      "app_yml_url": "https://gitlab.opencode.de/group/project/-/blob/main/city_app.yml"
-    }
-  ]
-}
+### Build the Application
+
+```bash
+npm run build
 ```
 
-**Important for Remote URLs:**
-- **GitHub URLs**: Work directly without proxy
-- **GitLab URLs**: Require the SCA proxy server (see [main README](../README.md#sca-proxy-server))
+The build output will be in the `dist/` directory.
+
+### Deploy
+
+Deploy the `dist/` folder to any static hosting service:
+
+- **Docker**: Use the provided Dockerfile
+- **Netlify/Vercel**: Connect your repository
+- **GitHub Pages**: Use GitHub Actions
+- **Traditional hosting**: Upload the `dist/` folder contents
+
+The application will work with local YAML files without any backend or proxy server.
 
 ## Troubleshooting
 
