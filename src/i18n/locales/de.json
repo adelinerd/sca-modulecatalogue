@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "SCA - Modulbibliothek",
+    "title": "Modulbibliothek",
     "darkMode": "Dunkelmodus umschalten",
     "compare": "Vergleichen",
     "compareModules": "Module vergleichen",
@@ -155,5 +155,38 @@
     "copyright": "Smart City App Explorer. Alle Rechte vorbehalten.",
     "impressum": "Impressum",
     "privacy": "Datenschutz"
+  },
+  "topics": {
+    "veranstaltungskalender": "Veranstaltungskalender",
+    "maengelmelder": "Mängelmelder",
+    "nachrichten": "Nachrichten",
+    "bürgerbeteiligung": "Bürgerbeteiligung",
+    "bürgerservices": "Bürgerservices",
+    "abfallkalender": "Abfallkalender",
+    "oepnv-auskunft": "ÖPNV-Auskunft",
+    "parkinformationen": "Parkinformationen",
+    "mobilitätsdienste": "Mobilitätsdienste",
+    "notfallwarnungen": "Notfallwarnungen",
+    "wetterinformationen": "Wetterinformationen",
+    "formularservice": "Formularservice",
+    "terminbuchung": "Terminbuchung",
+    "kontaktverzeichnis": "Kontaktverzeichnis",
+    "recyclinginformationen": "Recyclinginformationen",
+    "umweltmonitoring": "Umweltmonitoring",
+    "feedbackmodul": "Feedbackmodul",
+    "branchenverzeichnis": "Branchenverzeichnis",
+    "stellenangebote": "Stellenangebote",
+    "tourismusinformationen": "Tourismusinformationen",
+    "kulturveranstaltungen": "Kulturveranstaltungen",
+    "bildungsinformationen": "Bildungsinformationen",
+    "kinder-und-jugendangebote": "Kinder- und Jugendangebote",
+    "seniorenangebote": "Seniorenangebote",
+    "sozialdienste": "Sozialdienste",
+    "push-benachrichtigungen": "Push-Benachrichtigungen",
+    "hilfe-und-faq": "Hilfe & FAQ",
+    "barrierefreiheit": "Barrierefreiheit",
+    "sprachwahl": "Sprachauswahl",
+    "marktplatz": "Marktplatz",
+    "raumbuchung": "Raumbuchung"
   }
 }

@@ -1,6 +1,6 @@
 name: "Events"
 app_name: "DorfFunk"
-topic: "Veranstaltungskalender"
+topic: "veranstaltungskalender"
 opencode_repository: "https://opencode.de/en/software/dorf-funk-4774"
 technology_stack: 
   - frontend: "MAUI.NET"

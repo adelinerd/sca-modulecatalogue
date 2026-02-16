@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppModule, CityApp } from '../types';
 import { ExternalLink, Calendar, Package, Info, Phone, Mail, Users, Settings, Wrench, ArrowLeft, ChevronLeft, ChevronRight, X, Layers, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTopicLabel } from '../hooks/useTopicLabel';
 
 interface ModuleDetailsProps {
   module: AppModule;
@@ -10,13 +11,14 @@ interface ModuleDetailsProps {
   backToApp?: CityApp;
 }
 
-const ModuleDetails: React.FC<ModuleDetailsProps> = ({ 
-  module, 
-  onBack, 
-  showBackButton = false, 
-  backToApp 
+const ModuleDetails: React.FC<ModuleDetailsProps> = ({
+  module,
+  onBack,
+  showBackButton = false,
+  backToApp
 }) => {
   const { t } = useTranslation();
+  const topicLabel = useTopicLabel(module.topic);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [imageAspectRatios, setImageAspectRatios] = useState<{[key: number]: 'portrait' | 'landscape' | 'square'}>({});
@@ -116,7 +118,7 @@ const ModuleDetails: React.FC<ModuleDetailsProps> = ({
           )}
           {module.topic && (
             <div className="small text-muted">
-              {t('moduleDetails.topic')}: {module.topic}
+              {t('moduleDetails.topic')}: {topicLabel}
             </div>
           )}
         </div>

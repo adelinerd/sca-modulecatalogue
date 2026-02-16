@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppModule } from '../types';
 import { Package, ChevronLeft, ChevronRight, Image } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTopicLabel } from '../hooks/useTopicLabel';
 
 interface ModuleCardProps {
   module: AppModule;
@@ -11,14 +12,15 @@ interface ModuleCardProps {
   isInCompareList: boolean;
 }
 
-const ModuleCard: React.FC<ModuleCardProps> = ({ 
-  module, 
-  onClick, 
-  isSelected, 
-  onToggleCompare, 
-  isInCompareList 
+const ModuleCard: React.FC<ModuleCardProps> = ({
+  module,
+  onClick,
+  isSelected,
+  onToggleCompare,
+  isInCompareList
 }) => {
   const { t } = useTranslation();
+  const topicLabel = useTopicLabel(module.topic);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // Handle screenshots - can be string or array
@@ -155,7 +157,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
                   <span>•</span>
                 )}
                 {module.topic && (
-                  <span className="text-truncate">{module.topic}</span>
+                  <span className="text-truncate">{topicLabel}</span>
                 )}
               </div>
             </div>

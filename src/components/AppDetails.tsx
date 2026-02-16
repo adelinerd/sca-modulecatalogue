@@ -2,11 +2,22 @@ import React, { useState } from 'react';
 import { CityApp, AppModule } from '../types';
 import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor, Layers, Scale, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTopicLabel } from '../hooks/useTopicLabel';
 
 interface AppDetailsProps {
   app: CityApp;
   onModuleClick?: (module: AppModule, fromApp: CityApp) => void;
 }
+
+// Helper component to display topic with translated label
+const TopicBadge: React.FC<{ topic: string }> = ({ topic }) => {
+  const topicLabel = useTopicLabel(topic);
+  return (
+    <span className="badge text-bg-primary" style={{ fontSize: '0.7rem' }}>
+      {topicLabel}
+    </span>
+  );
+};
 
 const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
   const { t } = useTranslation();
@@ -694,9 +705,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                             
                             {module.topic && (
                               <div className="mb-2">
-                                <span className="badge text-bg-primary" style={{ fontSize: '0.7rem' }}>
-                                  {module.topic}
-                                </span>
+                                <TopicBadge topic={module.topic} />
                               </div>
                             )}
 
@@ -768,9 +777,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                               
                               <div className="d-flex flex-wrap gap-2 mb-2">
                                 {module.topic && (
-                                  <span className="badge text-bg-primary" style={{ fontSize: '0.7rem' }}>
-                                    {module.topic}
-                                  </span>
+                                  <TopicBadge topic={module.topic} />
                                 )}
                                 {module.optional && (
                                   <span className="badge text-bg-warning" style={{ fontSize: '0.7rem' }}>

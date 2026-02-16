@@ -1,7 +1,7 @@
-name: "Sag’s uns"
+name: "Sag's uns"
 app_name: "DorfFunk"
-optional: ja
-topic: "Mängelmelder"
+optional: "ja"
+topic: "maengelmelder"
 short_description: "Sag's uns ist ein Mängelmelder, der es Bürger*innen ermöglicht, Vorschläge oder Mängel der Gemeinde direkt zu melden."
 description: "Hier können Bürger*innen Vorschläge oder Mängel der Gemeinde mitteilen. Die Nachricht landet direkt bei der richtigen Ansprechperson."
 

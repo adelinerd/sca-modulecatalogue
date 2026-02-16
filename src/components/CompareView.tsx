@@ -2,12 +2,23 @@ import React from 'react';
 import { CityApp } from '../types';
 import { X, Calendar, Server, ExternalLink, Package, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTopicLabel } from '../hooks/useTopicLabel';
 
 interface CompareViewProps {
   apps: CityApp[];
   onClose: () => void;
   onRemoveApp: (app: CityApp) => void;
 }
+
+// Helper component to display topic with translated label
+const TopicBadge: React.FC<{ topic: string }> = ({ topic }) => {
+  const topicLabel = useTopicLabel(topic);
+  return (
+    <span className="badge text-bg-info small me-2">
+      {topicLabel}
+    </span>
+  );
+};
 
 const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp }) => {
   const { t } = useTranslation();
@@ -168,9 +179,7 @@ const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp })
                                 {module.name}
                               </div>
                               {module.topic && (
-                                <span className="badge text-bg-info small me-2">
-                                  {module.topic}
-                                </span>
+                                <TopicBadge topic={module.topic} />
                               )}
                               {module.short_description && (
                                 <p className="small text-muted mb-1 fw-medium line-clamp-2">

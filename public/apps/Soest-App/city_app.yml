@@ -1,0 +1,36 @@
+name: "URBO"
+provider: "SWCode"
+app_type: "Hybrid App (Web & Native)"
+short_description: "URBO ist eine Open-Source-Plattform für Smart-City-Apps, die Städte individuell im eigenen Look & Feel umsetzen können. Sie bündelt zentrale Funktionen wie Veranstaltungskalender, Bürgerservices, Parkinformationen oder Abfallkalender, läuft auf iOS, Android, im Web und als PWA, ist datenschutzfreundlich (EUPL-Lizenz, DSGVO-konform) und lässt sich flexibel an bestehende Systeme anbinden."
+website: "https://urbo.digital/"
+contact:
+  - email: "info@swcode.io"
+    telefon: "+49 (0)2921 5993700"
+  - email: "https://urbo.digital/#kontakt"
+
+deployed_in_municipalities:
+  - "Soest"
+
+opencode_repository: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app"
+documentation: "https://gitlab.opencode.de/stadt-soest/city-app/soest-city-app/-/blob/main/docs/architecture/arc42.md?ref_type=heads"
+
+modules:
+  - "/apps/Soest-App/modules/citizen-participation.yml"
+  - "/apps/Soest-App/modules/events.yml"
+  - "/apps/Soest-App/modules/feed.yml"
+  - "/apps/Soest-App/modules/feedback.yml"
+  - "/apps/Soest-App/modules/help.yml"
+  - "/apps/Soest-App/modules/legal.yml"
+  - "/apps/Soest-App/modules/link.yml"
+  - "/apps/Soest-App/modules/maengelmelder.yml"
+  - "/apps/Soest-App/modules/map.yml"
+  - "/apps/Soest-App/modules/news.yml"
+  - "/apps/Soest-App/modules/onboarding.yml"
+  - "/apps/Soest-App/modules/parking_module.yml"
+  - "/apps/Soest-App/modules/search.yml"
+  - "/apps/Soest-App/modules/town_hall_online.yml"
+
+development_status: "Stable"
+
+last_update: "2025-06-27"
+city-app-yml-version: "1.0"

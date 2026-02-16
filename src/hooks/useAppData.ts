@@ -71,13 +71,13 @@ const useAppData = () => {
                   console.warn(`  Failed to load module from ${moduleUrl}`);
                   return null;
                 }
-                
-                // Add app_name to module if not present
+
+                // Add app_name to module for UI display purposes (not part of schema, added at runtime)
                 if (!moduleData.app_name) {
                   moduleData.app_name = appData.name || manifestApp.name;
                   console.log(`  Added app_name "${moduleData.app_name}" to module "${moduleData.name}"`);
                 }
-                
+
                 console.log(`Successfully loaded module: ${moduleData.name}`);
                 return moduleData;
               } catch (error) {

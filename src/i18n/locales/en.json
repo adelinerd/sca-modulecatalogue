@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "App Explorer",
+    "title": "App Modules Explorer",
     "darkMode": "Toggle dark mode",
     "compare": "Compare",
     "compareModules": "Compare Modules",
@@ -155,5 +155,38 @@
     "copyright": "Smart City App Explorer. All rights reserved.",
     "impressum": "Legal Notice",
     "privacy": "Privacy Policy"
-  }  
+  },
+  "topics": {
+    "veranstaltungskalender": "Event Calendar",
+    "maengelmelder": "Issue Reporter",
+    "nachrichten": "News",
+    "bürgerbeteiligung": "Citizen Participation",
+    "bürgerservices": "Citizen Services",
+    "abfallkalender": "Waste Calendar",
+    "oepnv-auskunft": "Public Transport Information",
+    "parkinformationen": "Parking Information",
+    "mobilitätsdienste": "Mobility Services",
+    "notfallwarnungen": "Emergency Warnings",
+    "wetterinformationen": "Weather Information",
+    "formularservice": "Form Service",
+    "terminbuchung": "Appointment Booking",
+    "kontaktverzeichnis": "Contact Directory",
+    "recyclinginformationen": "Recycling Information",
+    "umweltmonitoring": "Environmental Monitoring",
+    "feedbackmodul": "Feedback Module",
+    "branchenverzeichnis": "Business Directory",
+    "stellenangebote": "Job Offers",
+    "tourismusinformationen": "Tourism Information",
+    "kulturveranstaltungen": "Cultural Events",
+    "bildungsinformationen": "Education Information",
+    "kinder-und-jugendangebote": "Children and Youth Services",
+    "seniorenangebote": "Senior Services",
+    "sozialdienste": "Social Services",
+    "push-benachrichtigungen": "Push Notifications",
+    "hilfe-und-faq": "Help & FAQ",
+    "barrierefreiheit": "Accessibility",
+    "sprachwahl": "Language Selection",
+    "marktplatz": "Marketplace",
+    "raumbuchung": "Room Booking"
+  }
 }

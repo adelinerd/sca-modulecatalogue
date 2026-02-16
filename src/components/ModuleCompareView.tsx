@@ -2,12 +2,19 @@ import React from 'react';
 import { AppModule } from '../types';
 import { X, Calendar, Package, ExternalLink, AlertCircle, Settings, Users, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTopicLabel } from '../hooks/useTopicLabel';
 
 interface ModuleCompareViewProps {
   modules: AppModule[];
   onClose: () => void;
   onRemoveModule: (module: AppModule) => void;
 }
+
+// Helper component to display topic with translated label
+const TopicLabel: React.FC<{ topic: string }> = ({ topic }) => {
+  const topicLabel = useTopicLabel(topic);
+  return <span>{topicLabel}</span>;
+};
 
 const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose, onRemoveModule }) => {
   const { t } = useTranslation();
@@ -61,7 +68,7 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
                   <div className="card-header bg-primary-subtle">
                     <h3 className="h5 mb-1 ">{module.name}</h3>
                     {module.topic && (
-                      <p className="small text-muted mb-1">{module.topic}</p>
+                      <p className="small text-muted mb-1"><TopicLabel topic={module.topic} /></p>
                     )}
                     {module.short_description && (
                       <p className="small text-muted mb-0">{module.short_description}</p>
