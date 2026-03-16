@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CityApp, AppModule } from '../types';
-import { ExternalLink, Calendar, Server, Users, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor, Layers, Scale, X } from 'lucide-react';
+import { ExternalLink, Calendar, Server, Info, Package, Phone, Mail, ChevronLeft, ChevronRight, Grid, List, Image, Smartphone, Globe, Monitor, Layers, Scale, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTopicLabel } from '../hooks/useTopicLabel';
 
@@ -10,8 +10,25 @@ interface AppDetailsProps {
 }
 
 // Helper component to display topic with translated label
-const TopicBadge: React.FC<{ topic: string }> = ({ topic }) => {
+const TopicBadge: React.FC<{ topic: string; floating?: boolean }> = ({ topic, floating }) => {
   const topicLabel = useTopicLabel(topic);
+  if (floating) {
+    return (
+      <span
+        className="position-absolute end-0 me-2 text-white fw-semibold py-1 px-3 rounded-pill shadow-sm"
+        style={{
+          top: '128px',
+          transform: 'translateY(-50%)',
+          backgroundColor: 'var(--bs-primary)',
+          zIndex: 1,
+          whiteSpace: 'nowrap',
+          fontSize: '0.7rem',
+        }}
+      >
+        {topicLabel}
+      </span>
+    );
+  }
   return (
     <span className="badge text-bg-primary" style={{ fontSize: '0.7rem' }}>
       {topicLabel}
@@ -23,7 +40,6 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
   const { t } = useTranslation();
   const [currentModulePage, setCurrentModulePage] = useState(1);
   const [moduleViewMode, setModuleViewMode] = useState<'grid' | 'list'>('grid');
-  const [moduleImageIndices, setModuleImageIndices] = useState<{[key: string]: number}>({});
   const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState(0);
   const [isScreenshotLightboxOpen, setIsScreenshotLightboxOpen] = useState(false);
   const modulesPerPage = 6;
@@ -44,28 +60,9 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
     setCurrentModulePage(prev => Math.min(totalModulePages, prev + 1));
   };
 
-  // Image gallery handlers for modules
-  const getModuleScreenshots = (module: any) => {
-    if (!module.screenshots) return [];
-    return Array.isArray(module.screenshots) ? module.screenshots : [module.screenshots];
-  };
-
-  const handleModulePreviousImage = (moduleKey: string, screenshots: string[]) => {
-    setModuleImageIndices(prev => ({
-      ...prev,
-      [moduleKey]: prev[moduleKey] === 0 || prev[moduleKey] === undefined 
-        ? screenshots.length - 1 
-        : prev[moduleKey] - 1
-    }));
-  };
-
-  const handleModuleNextImage = (moduleKey: string, screenshots: string[]) => {
-    setModuleImageIndices(prev => ({
-      ...prev,
-      [moduleKey]: prev[moduleKey] === screenshots.length - 1 || prev[moduleKey] === undefined 
-        ? 0 
-        : (prev[moduleKey] || 0) + 1
-    }));
+  const getFirstModuleScreenshot = (module: any): string | null => {
+    if (!module.screenshots) return null;
+    return Array.isArray(module.screenshots) ? module.screenshots[0] : module.screenshots;
   };
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -95,91 +92,23 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
     return <Package size={16} />;
   };
 
-  const ModuleImageGallery: React.FC<{ module: any; moduleKey: string; className?: string }> = ({ 
-    module, 
-    moduleKey, 
-    className = "module-image-gallery" 
+  const ModuleImageGallery: React.FC<{ module: any; className?: string; fixedHeight?: boolean }> = ({
+    module,
+    className = "",
+    fixedHeight = true,
   }) => {
-    const screenshots = getModuleScreenshots(module);
-    const currentIndex = moduleImageIndices[moduleKey] || 0;
-    const hasImages = screenshots.length > 0;
-    const showNavigation = screenshots.length > 1;
-
+    const firstImage = getFirstModuleScreenshot(module);
+    const [imageError, setImageError] = useState(false);
     return (
-      <div className={`position-relative ${className} bg-light overflow-hidden rounded`} style={{ height: '128px' }}>
-        {hasImages ? (
-          <>
-            <img
-              src={screenshots[currentIndex]}
-              alt={`${module.name} screenshot ${currentIndex + 1}`}
-              className="w-100 h-100 object-fit-cover"
-              style={{ transition: 'opacity 0.3s' }}
-              onError={handleImageError}
-            />
-            
-            {/* Image Navigation */}
-            {showNavigation && (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleModulePreviousImage(moduleKey, screenshots);
-                  }}
-                  className="btn btn-sm position-absolute top-50 start-0 translate-middle-y ms-1 p-1 rounded-circle"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white', zIndex: 2 }}
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft size={12} />
-                </button>
-                
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleModuleNextImage(moduleKey, screenshots);
-                  }}
-                  className="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-1 p-1 rounded-circle"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white', zIndex: 2 }}
-                  aria-label="Next image"
-                >
-                  <ChevronRight size={12} />
-                </button>
-                
-                {/* Image Indicators */}
-                <div className="position-absolute bottom-0 start-50 translate-middle-x mb-1 d-flex gap-1">
-                  {screenshots.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setModuleImageIndices(prev => ({
-                          ...prev,
-                          [moduleKey]: index
-                        }));
-                      }}
-                      className={`btn p-0 rounded-circle ${
-                        index === currentIndex 
-                          ? 'bg-body' 
-                          : 'bg-body bg-opacity-50'
-                      }`}
-                      style={{ width: '6px', height: '6px', border: 'none' }}
-                      aria-label={`Go to image ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-            
-            {/* Image Count Badge */}
-            {screenshots.length > 1 && (
-              <div className="position-absolute top-0 start-0 mt-1 ms-1">
-                <span className="badge text-bg-dark" style={{ fontSize: '0.6rem' }}>
-                  {currentIndex + 1}/{screenshots.length}
-                </span>
-              </div>
-            )}
-          </>
+      <div className={`overflow-hidden ${className}`} style={{ height: fixedHeight ? '128px' : '100%', backgroundColor: '#f8f9fa' }}>
+        {firstImage && !imageError ? (
+          <img
+            src={firstImage}
+            alt={`${module.name} screenshot`}
+            className="w-100 h-100 object-fit-cover"
+            onError={() => setImageError(true)}
+          />
         ) : (
-          // Placeholder when no images
           <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-primary-subtle">
             <div className="text-center">
               <Image className="text-primary mb-1" size={24} />
@@ -676,24 +605,28 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                     const moduleKey = `${startIndex + index}-${module.name}`;
                     return (
                       <div key={moduleKey} className="col-12 col-md-6 col-xl-4">
-                        <div 
-                          className="card h-100 border hover-shadow"
+                        <div
+                          className="card h-100 border hover-shadow position-relative"
                           style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
                           onClick={() => handleModuleCardClick(module)}
                         >
-                          {/* Module Image Gallery */}
-                          <ModuleImageGallery 
-                            module={module} 
-                            moduleKey={moduleKey}
-                          />
-                          
+                          <ModuleImageGallery module={module} className="border-bottom" />
+
+                          {/* Floating topic pill */}
+                          {module.topic && (
+                            <TopicBadge
+                              topic={module.topic}
+                              floating
+                            />
+                          )}
+
                           <div className="card-body p-3">
                             <div className="d-flex align-items-start justify-content-between mb-2">
                               <h3 className="h6 mb-0 flex-fill line-clamp-2">{module.name}</h3>
                               {module.development_status && (
                                 <span className={`badge ms-2 ${
-                                  module.development_status === 'Stable' 
-                                    ? 'text-bg-success' 
+                                  module.development_status === 'Stable'
+                                    ? 'text-bg-success'
                                     : module.development_status === 'Beta'
                                       ? 'text-bg-warning'
                                       : 'text-bg-info'
@@ -702,12 +635,6 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                                 </span>
                               )}
                             </div>
-                            
-                            {module.topic && (
-                              <div className="mb-2">
-                                <TopicBadge topic={module.topic} />
-                              </div>
-                            )}
 
                             {module.short_description && (
                               <p className="small text-muted mb-2 fw-medium line-clamp-3">{module.short_description}</p>
@@ -748,15 +675,14 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                         onClick={() => handleModuleCardClick(module)}
                       >
                         <div className="row g-0">
-                          {/* Module Image Gallery - Left Side */}
-                          <div className="col-auto" style={{ width: '192px' }}>
-                            <ModuleImageGallery 
-                              module={module} 
-                              moduleKey={moduleKey}
-                              className="h-100"
-                            />
+                          {/* Module Image - Left Side */}
+                          <div className="col-auto position-relative" style={{ width: '192px' }}>
+                            <ModuleImageGallery module={module} className="border-end" fixedHeight={false} />
+                            {module.topic && (
+                              <TopicBadge topic={module.topic} floating />
+                            )}
                           </div>
-                          
+
                           {/* Module Content - Right Side */}
                           <div className="col">
                             <div className="card-body p-3">
@@ -764,8 +690,8 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                                 <h3 className="h6 mb-0">{module.name}</h3>
                                 {module.development_status && (
                                   <span className={`badge ${
-                                    module.development_status === 'Stable' 
-                                      ? 'text-bg-success' 
+                                    module.development_status === 'Stable'
+                                      ? 'text-bg-success'
                                       : module.development_status === 'Beta'
                                         ? 'text-bg-warning'
                                         : 'text-bg-info'
@@ -774,11 +700,8 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                                   </span>
                                 )}
                               </div>
-                              
+
                               <div className="d-flex flex-wrap gap-2 mb-2">
-                                {module.topic && (
-                                  <TopicBadge topic={module.topic} />
-                                )}
                                 {module.optional && (
                                   <span className="badge text-bg-warning" style={{ fontSize: '0.7rem' }}>
                                     {t('appDetails.optional')}: {module.optional}

@@ -1,3 +1,6 @@
+# Version 0.11.0
+- Adjusted index.html to fix style-issue
+- adjusted module cards to make the separation from screenshot and card clear
 # Version 0.10.0
 
 - Fixed issues with local apps

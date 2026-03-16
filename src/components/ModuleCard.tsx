@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppModule } from '../types';
-import { Package, ChevronLeft, ChevronRight, Image } from 'lucide-react';
+import { Package, Image } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTopicLabel } from '../hooks/useTopicLabel';
 
@@ -21,31 +21,12 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
 }) => {
   const { t } = useTranslation();
   const topicLabel = useTopicLabel(module.topic);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  // Handle screenshots - can be string or array
-  const screenshots = Array.isArray(module.screenshots) 
-    ? module.screenshots 
-    : module.screenshots 
-      ? [module.screenshots] 
-      : [];
 
-  const hasImages = screenshots.length > 0;
-  const showNavigation = screenshots.length > 1;
+  const firstImage = Array.isArray(module.screenshots)
+    ? module.screenshots[0]
+    : module.screenshots ?? null;
 
-  const handlePreviousImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex(prev => prev === 0 ? screenshots.length - 1 : prev - 1);
-  };
-
-  const handleNextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex(prev => prev === screenshots.length - 1 ? 0 : prev + 1);
-  };
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.style.display = 'none';
-  };
+  const [imageError, setImageError] = useState(false);
 
   return (
     <div 
@@ -59,63 +40,16 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
       onClick={onClick}
       style={{ cursor: 'pointer' }}
     >
-      {/* Image Gallery Section */}
-      <div className="position-relative overflow-hidden" style={{ height: '192px', backgroundColor: '#f8f9fa' }}>
-        {hasImages ? (
-          <>
-            <img
-              src={screenshots[currentImageIndex]}
-              alt={`${module.name} screenshot ${currentImageIndex + 1}`}
-              className="w-100 h-100 object-fit-cover"
-              style={{ transition: 'opacity 0.3s' }}
-              onError={handleImageError}
-            />
-            
-            {/* Image Navigation */}
-            {showNavigation && (
-              <>
-                <button
-                  onClick={handlePreviousImage}
-                  className="btn btn-sm position-absolute top-50 start-0 translate-middle-y ms-2 p-1 rounded-circle"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft size={16} />
-                </button>
-                
-                <button
-                  onClick={handleNextImage}
-                  className="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2 p-1 rounded-circle"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', border: 'none', color: 'white' }}
-                  aria-label="Next image"
-                >
-                  <ChevronRight size={16} />
-                </button>
-                
-                {/* Image Indicators */}
-                <div className="position-absolute bottom-0 start-50 translate-middle-x mb-2 d-flex gap-1">
-                  {screenshots.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentImageIndex(index);
-                      }}
-                      className={`btn p-0 rounded-circle ${
-                        index === currentImageIndex 
-                          ? 'bg-body' 
-                          : 'bg-body bg-opacity-50'
-                      }`}
-                      style={{ width: '8px', height: '8px', border: 'none' }}
-                      aria-label={`Go to image ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </>
+      {/* Image Section */}
+      <div className="position-relative overflow-hidden border-bottom" style={{ height: '192px', backgroundColor: '#f8f9fa' }}>
+        {firstImage && !imageError ? (
+          <img
+            src={firstImage}
+            alt={`${module.name} screenshot`}
+            className="w-100 h-100 object-fit-cover"
+            onError={() => setImageError(true)}
+          />
         ) : (
-          // Placeholder when no images
           <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-primary-subtle">
             <div className="text-center">
               <Image className="text-primary mb-2" size={48} />
@@ -125,16 +59,24 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
             </div>
           </div>
         )}
-        
-        {/* Image Count Badge */}
-        {hasImages && screenshots.length > 1 && (
-          <div className="position-absolute top-0 start-0 mt-2 ms-2">
-            <span className="badge text-bg-dark small">
-              {currentImageIndex + 1}/{screenshots.length}
-            </span>
-          </div>
-        )}
+
       </div>
+
+      {/* Category label — floats on the seam between image and card body */}
+      {topicLabel && (
+        <div
+          className="position-absolute end-0 me-3 text-white small fw-semibold py-1 px-3 rounded-pill shadow-sm"
+          style={{
+            top: '192px',
+            transform: 'translateY(-50%)',
+            backgroundColor: 'var(--bs-primary)',
+            zIndex: 1,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {topicLabel}
+        </div>
+      )}
 
       {/* Content Section */}
       <div className="card-body p-3">
@@ -147,19 +89,11 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
               <h5 className="card-title mb-1 text-truncate">
                 {module.name}
               </h5>
-              <div className="d-flex align-items-center gap-2 small text-muted">
-                {module.app_name && (
-                  <span className="text-truncate">
-                    {t('moduleCard.fromApp', { appName: module.app_name })}
-                  </span>
-                )}
-                {module.topic && module.app_name && (
-                  <span>•</span>
-                )}
-                {module.topic && (
-                  <span className="text-truncate">{topicLabel}</span>
-                )}
-              </div>
+              {module.app_name && (
+                <div className="small text-muted text-truncate">
+                  {t('moduleCard.fromApp', { appName: module.app_name })}
+                </div>
+              )}
             </div>
           </div>
           
