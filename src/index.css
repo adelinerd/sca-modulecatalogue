@@ -26,21 +26,8 @@
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-@font-face {
-  font-family: 'BundesSans Web';
-  src: url('https://www.smart-city-dialog.de/fonts/BundesSansWeb-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'BundesSans Web';
-  src: url('https://www.smart-city-dialog.de/fonts/BundesSansWeb-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/700.css';
 
 :root {
   --bs-primary: #0070BA;
@@ -69,7 +56,7 @@
 }
 
 body {
-  font-family: 'BundesSans Web', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -86,6 +73,7 @@ body {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -93,6 +81,7 @@ body {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -210,6 +199,7 @@ body {
 .text-truncate-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -217,6 +207,7 @@ body {
 .text-truncate-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

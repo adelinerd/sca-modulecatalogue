@@ -38,14 +38,12 @@ if (typeof window !== 'undefined') {
 export function wrapWithProxy(url: string): string {
   try {
     // Skip local URLs (starting with "/")
-    if (url.startsWith('/')) {
-      console.log(`Local URL detected, no proxy needed: ${url}`);
+    if (url.startsWith('/')) {      
       return url;
     }
 
     // Skip if already proxied
-    if (url.includes('/api/yaml?url=')) {
-      console.log(`URL already proxied, skipping: ${url}`);
+    if (url.includes('/api/yaml?url=')) {      
       return url;
     }
 
@@ -72,8 +70,7 @@ export function wrapWithProxy(url: string): string {
  */
 export function convertBlobToRaw(url: string): string {
   // Skip local URLs (starting with "/")
-  if (url.startsWith('/')) {
-    console.log(`Local URL detected, no conversion needed: ${url}`);
+  if (url.startsWith('/')) {    
     return url;
   }
 
@@ -82,8 +79,7 @@ export function convertBlobToRaw(url: string): string {
     const parts = u.pathname.split('/').filter(Boolean);
 
     // Skip if already raw
-    if (url.includes('/-/raw/') || url.includes('/raw/')) {
-      console.log(`URL already raw, skipping conversion: ${url}`);
+    if (url.includes('/-/raw/') || url.includes('/raw/')) {      
       return url;
     }
 
@@ -144,8 +140,7 @@ export async function fetchYaml<T>(url: string): Promise<T | null> {
 
   // Check cache
   const cached = getCached<T>(rawUrl);
-  if (cached) {
-    console.log(`Using cached YAML for: ${rawUrl}`);
+  if (cached) {    
     return cached;
   }
 

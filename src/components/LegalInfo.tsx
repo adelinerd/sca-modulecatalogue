@@ -31,14 +31,18 @@ interface LegalInfoProps {
   type: 'impressum' | 'privacy';
 }
 
+const IMPRESSUM_URL = 'https://www.smart-city-dialog.de/impressum';
+
 const LegalInfo: React.FC<LegalInfoProps> = ({ type }) => {
   const { t } = useTranslation();
   const [content, setContent] = useState<string>('');
 
   useEffect(() => {
+    if (type === 'impressum') return;
+
     const fetchContent = async () => {
       try {
-        const response = await fetch(`/${type === 'privacy' ? 'datenschutz' : 'impressum'}.html`);
+        const response = await fetch('/datenschutz.html');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -58,6 +62,21 @@ const LegalInfo: React.FC<LegalInfoProps> = ({ type }) => {
 
     fetchContent();
   }, [type]);
+
+  if (type === 'impressum') {
+    return (
+      <div className="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <a
+          href={IMPRESSUM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary"
+        >
+          {t('footer.impressum')}
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-grow-1 py-5 container-fluid">

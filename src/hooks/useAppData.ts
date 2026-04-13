@@ -56,7 +56,7 @@ const useAppData = () => {
         const appPromises = manifest.apps.map(async (manifestApp, index) => {
           try {
             console.log(`\n=== Processing app ${index + 1}/${manifest.apps.length}: ${manifestApp.name} ===`);
-            console.log(`Original App YAML URL: ${manifestApp.app_yml_url}`);
+            
 
             // fetchYaml will handle blob-to-raw conversion and proxy wrapping automatically
             const appData = await fetchYaml<any>(manifestApp.app_yml_url);
@@ -82,16 +82,14 @@ const useAppData = () => {
             }
             
             // 3. For each module URL in the app, fetch the module data
-            const moduleUrls: string[] = appData.modules || [];
-            console.log(`Module URLs for ${manifestApp.name} (${moduleUrls.length} modules):`, moduleUrls);
+            const moduleUrls: string[] = appData.modules || [];            
 
             if (moduleUrls.length === 0) {
               console.log(`No modules defined for ${manifestApp.name}`);
             }
 
             const modulePromises = moduleUrls.map(async (moduleUrl, moduleIndex) => {
-              try {
-                console.log(`  Fetching module ${moduleIndex + 1}/${moduleUrls.length} from: ${moduleUrl}`);
+              try {                
                 const moduleData = await fetchYaml<AppModule>(moduleUrl);
                 if (!moduleData) {
                   console.warn(`  Failed to load module from ${moduleUrl}`);
@@ -102,9 +100,7 @@ const useAppData = () => {
                 if (!moduleData.app_name) {
                   moduleData.app_name = appData.name || manifestApp.name;
                   console.log(`  Added app_name "${moduleData.app_name}" to module "${moduleData.name}"`);
-                }
-
-                console.log(`Successfully loaded module: ${moduleData.name}`);
+                }                
                 return moduleData;
               } catch (error) {
                 console.error(`Error loading module from ${moduleUrl}:`, error);

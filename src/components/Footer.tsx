@@ -49,8 +49,9 @@ const Footer: React.FC = () => {
           <div className="col-12 col-md-6">
             <div className="d-flex justify-content-md-end gap-3 mt-2 mt-md-0">
               <a
-                href="/impressum"
-                onClick={handleNavigation('/impressum')}
+                href="https://www.smart-city-dialog.de/impressum"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="small text-muted text-decoration-none"
               >
                 {t('footer.impressum')}
