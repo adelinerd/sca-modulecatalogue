@@ -219,6 +219,40 @@ body {
   }
 }
 
+/* Sidebar panel — scrollable on desktop, natural flow on mobile */
+.sidebar-panel {
+  max-height: calc(100vh - 200px);
+}
+
+@media (max-width: 767.98px) {
+  .sidebar-panel {
+    max-height: none;
+    border-right: none !important;
+  }
+}
+
+/* Header logo sizing */
+.header-logo {
+  height: 40px;
+}
+
+@media (min-width: 576px) {
+  .header-logo {
+    height: 56px;
+  }
+}
+
+/* Module list image column width */
+.module-list-image-col {
+  width: 192px;
+}
+
+@media (max-width: 575.98px) {
+  .module-list-image-col {
+    width: 100px;
+  }
+}
+
 /* Custom spacing */
 .py-6 {
   padding-top: 3rem !important;

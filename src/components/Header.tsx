@@ -75,26 +75,27 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className="bg-body border-bottom shadow-sm">
       <div className="container-fluid px-3 px-md-4 px-lg-5">
-        <div className="row align-items-center py-3">
+        <div className="row align-items-center py-2 py-md-3">
           <div className="col-auto">
             <div
-              className="d-flex align-items-center cursor-pointer"
+              className="d-flex align-items-center"
               onClick={handleLogoClick}
               style={{ cursor: 'pointer' }}
             >
               <img
                 src="/smart_city_color.svg"
                 alt="Smart City Dialog Logo"
-                style={{ height: '56px', marginRight: '1rem' }}
+                className="header-logo"
+                style={{ marginRight: '0.75rem' }}
               />
               <div>
-                <h1 className="h4 mb-0">{t('header.title')}</h1>
-                <p className="small text-muted mb-0">Smart City Dialog</p>
+                <h1 className="h5 h4-md mb-0">{t('header.title')}</h1>
+                <p className="small text-muted mb-0 d-none d-sm-block">Smart City Dialog</p>
               </div>
             </div>
           </div>
 
-          <div className="col-auto ms-4">
+          <div className="col-auto ms-2 ms-md-4">
             {/* View Toggle */}
             <div className="btn-group" role="group">
               <button
@@ -105,8 +106,8 @@ const Header: React.FC<HeaderProps> = ({
                     : 'btn-outline-secondary'
                 }`}
               >
-                <Layers size={16} className="me-1" />
-                {t('header.apps')}
+                <Layers size={16} className="me-1 me-sm-1" />
+                <span className="d-none d-sm-inline">{t('header.apps')}</span>
               </button>
               <button
                 onClick={() => handleViewChange('modules')}
@@ -116,26 +117,26 @@ const Header: React.FC<HeaderProps> = ({
                     : 'btn-outline-secondary'
                 }`}
               >
-                <Package size={16} className="me-1" />
-                {t('header.modules')}
+                <Package size={16} className="me-1 me-sm-1" />
+                <span className="d-none d-sm-inline">{t('header.modules')}</span>
               </button>
             </div>
           </div>
-          
+
           <div className="col d-flex justify-content-end align-items-center">
-            <div className="d-flex align-items-center gap-2">
+            <div className="d-flex align-items-center gap-1 gap-md-2">
               {/* App Comparison Button */}
               {comparisonApps.length > 0 && currentView === 'apps' && (
                 <button
                   onClick={onToggleCompareView}
                   className={`btn btn-sm ${
-                    isCompareMode 
-                      ? 'btn-success' 
+                    isCompareMode
+                      ? 'btn-success'
                       : 'btn-outline-primary'
                   }`}
                 >
-                  <span>{t('header.compare')}</span>
-                  <span className={`badge ms-2 ${
+                  <span className="d-none d-sm-inline">{t('header.compare')}</span>
+                  <span className={`badge ms-1 ms-sm-2 ${
                     isCompareMode
                       ? 'bg-body-secondary text-success'
                       : 'bg-primary'
@@ -150,13 +151,13 @@ const Header: React.FC<HeaderProps> = ({
                 <button
                   onClick={onToggleModuleCompareView}
                   className={`btn btn-sm ${
-                    isModuleCompareMode 
-                      ? 'btn-success' 
+                    isModuleCompareMode
+                      ? 'btn-success'
                       : 'btn-outline-primary'
                   }`}
                 >
-                  <span>{t('header.compareModules')}</span>
-                  <span className={`badge ms-2 ${
+                  <span className="d-none d-sm-inline">{t('header.compareModules')}</span>
+                  <span className={`badge ms-1 ms-sm-2 ${
                     isModuleCompareMode
                       ? 'bg-body-secondary text-success'
                       : 'bg-primary'
@@ -173,7 +174,7 @@ const Header: React.FC<HeaderProps> = ({
               >
                 <Languages size={18} />
               </button>
-              
+
               <button
                 onClick={onToggleDarkMode}
                 className="btn btn-outline-secondary btn-sm"

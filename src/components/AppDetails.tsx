@@ -33,6 +33,7 @@ import { useTopicLabel } from '../hooks/useTopicLabel';
 interface AppDetailsProps {
   app: CityApp;
   onModuleClick?: (module: AppModule, fromApp: CityApp) => void;
+  onMobileBack?: () => void;
 }
 
 // Helper component to display topic with translated label
@@ -62,7 +63,7 @@ const TopicBadge: React.FC<{ topic: string; floating?: boolean }> = ({ topic, fl
   );
 };
 
-const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
+const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick, onMobileBack }) => {
   const { t } = useTranslation();
   const [currentModulePage, setCurrentModulePage] = useState(1);
   const [moduleViewMode, setModuleViewMode] = useState<'grid' | 'list'>('grid');
@@ -149,7 +150,16 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
   };
 
   return (
-    <div className="flex-fill p-4 overflow-auto animate-fadeIn">
+    <div className="flex-fill p-3 p-md-4 overflow-auto animate-fadeIn">
+      {onMobileBack && (
+        <button
+          onClick={onMobileBack}
+          className="btn btn-link text-decoration-none p-0 mb-3 d-flex align-items-center text-primary"
+        >
+          <ChevronLeft className="me-1" size={16} />
+          {t('appList.title')}
+        </button>
+      )}
       <header className="mb-4">
         <div className="d-flex align-items-center mb-3">
           {app.logo?.url && (
@@ -702,7 +712,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ app, onModuleClick }) => {
                       >
                         <div className="row g-0">
                           {/* Module Image - Left Side */}
-                          <div className="col-auto position-relative" style={{ width: '192px' }}>
+                          <div className="col-auto position-relative module-list-image-col">
                             <ModuleImageGallery module={module} className="border-end" fixedHeight={false} />
                             {module.topic && (
                               <TopicBadge topic={module.topic} floating />

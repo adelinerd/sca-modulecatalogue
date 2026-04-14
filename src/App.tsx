@@ -55,6 +55,24 @@ function App() {
     fromApp?: CityApp;
     showingModuleFromApp?: boolean;
   }>({});
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [mobileShowDetails, setMobileShowDetails] = useState(false);
+
+  // Mobile detection with resize listener
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) setMobileShowDetails(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Reset mobile panel when view changes
+  useEffect(() => {
+    setMobileShowDetails(false);
+  }, [currentView]);
 
   // Handle dark mode toggle and system preference
   useEffect(() => {
@@ -147,11 +165,19 @@ function App() {
   };
 
   const handleToggleCompareView = () => {
-    setIsCompareMode(prev => !prev);
+    setIsCompareMode(prev => {
+      const next = !prev;
+      if (next && isMobile) setMobileShowDetails(true);
+      return next;
+    });
   };
 
   const handleToggleModuleCompareView = () => {
-    setIsModuleCompareMode(prev => !prev);
+    setIsModuleCompareMode(prev => {
+      const next = !prev;
+      if (next && isMobile) setMobileShowDetails(true);
+      return next;
+    });
   };
 
   const handleRemoveFromCompare = (app: CityApp) => {
@@ -268,41 +294,46 @@ function App() {
       {/* Main content with horizontal padding */}
       <div className="flex-grow-1 px-3 px-md-4 px-lg-5">
         <div className="container-fluid">
-          <main className="d-flex flex-grow-1 overflow-hidden">
+          <main className={`d-flex flex-grow-1 ${isMobile ? '' : 'overflow-hidden'}`}>
             {currentView === 'apps' ? (
               <>
                 {/* Show module details when navigating from app */}
                 {navigationState.showingModuleFromApp && selectedModule ? (
-                  <ModuleDetails 
-                    module={selectedModule} 
+                  <ModuleDetails
+                    module={selectedModule}
                     onBack={handleBackToApp}
                     showBackButton={true}
                     backToApp={navigationState.fromApp}
                   />
                 ) : (
                   <>
-                    <AppList 
-                      apps={apps}
-                      onSelectApp={setSelectedApp}
-                      selectedApp={selectedApp}
-                      onToggleCompare={handleToggleCompare}
-                      comparisonApps={comparisonApps}
-                      searchTerm={searchTerm}
-                      onSearchChange={setSearchTerm}
-                    />
-                    
-                    {isCompareMode ? (
-                      <CompareView 
-                        apps={comparisonApps}
-                        onClose={() => setIsCompareMode(false)}
-                        onRemoveApp={handleRemoveFromCompare}
+                    {(!isMobile || !mobileShowDetails) && (
+                      <AppList
+                        apps={apps}
+                        onSelectApp={(app) => { setSelectedApp(app); if (isMobile) setMobileShowDetails(true); }}
+                        selectedApp={selectedApp}
+                        onToggleCompare={handleToggleCompare}
+                        comparisonApps={comparisonApps}
+                        searchTerm={searchTerm}
+                        onSearchChange={setSearchTerm}
                       />
-                    ) : (
-                      selectedApp && (
-                        <AppDetails 
-                          app={selectedApp} 
-                          onModuleClick={handleModuleClick}
+                    )}
+
+                    {(!isMobile || mobileShowDetails) && (
+                      isCompareMode ? (
+                        <CompareView
+                          apps={comparisonApps}
+                          onClose={() => { setIsCompareMode(false); if (isMobile) setMobileShowDetails(false); }}
+                          onRemoveApp={handleRemoveFromCompare}
                         />
+                      ) : (
+                        selectedApp && (
+                          <AppDetails
+                            app={selectedApp}
+                            onModuleClick={handleModuleClick}
+                            onMobileBack={isMobile ? () => setMobileShowDetails(false) : undefined}
+                          />
+                        )
                       )
                     )}
                   </>
@@ -310,28 +341,33 @@ function App() {
               </>
             ) : currentView === 'modules' ? (
               <>
-                <ModuleList 
-                  modules={allModules}
-                  onSelectModule={setSelectedModule}
-                  selectedModule={selectedModule}
-                  onToggleCompare={handleToggleModuleCompare}
-                  comparisonModules={comparisonModules}
-                  searchTerm={moduleSearchTerm}
-                  onSearchChange={setModuleSearchTerm}
-                />
-                
-                {isModuleCompareMode ? (
-                  <ModuleCompareView 
-                    modules={comparisonModules}
-                    onClose={() => setIsModuleCompareMode(false)}
-                    onRemoveModule={handleRemoveModuleFromCompare}
+                {(!isMobile || !mobileShowDetails) && (
+                  <ModuleList
+                    modules={allModules}
+                    onSelectModule={(module) => { setSelectedModule(module); if (isMobile) setMobileShowDetails(true); }}
+                    selectedModule={selectedModule}
+                    onToggleCompare={handleToggleModuleCompare}
+                    comparisonModules={comparisonModules}
+                    searchTerm={moduleSearchTerm}
+                    onSearchChange={setModuleSearchTerm}
                   />
-                ) : (
-                  selectedModule && (
-                    <ModuleDetails 
-                      module={selectedModule} 
-                      showBackButton={false}
+                )}
+
+                {(!isMobile || mobileShowDetails) && (
+                  isModuleCompareMode ? (
+                    <ModuleCompareView
+                      modules={comparisonModules}
+                      onClose={() => { setIsModuleCompareMode(false); if (isMobile) setMobileShowDetails(false); }}
+                      onRemoveModule={handleRemoveModuleFromCompare}
                     />
+                  ) : (
+                    selectedModule && (
+                      <ModuleDetails
+                        module={selectedModule}
+                        showBackButton={isMobile && mobileShowDetails}
+                        onBack={isMobile ? () => setMobileShowDetails(false) : undefined}
+                      />
+                    )
                   )
                 )}
               </>
