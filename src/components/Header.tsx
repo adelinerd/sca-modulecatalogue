@@ -61,11 +61,6 @@ const Header: React.FC<HeaderProps> = ({
     localStorage.setItem('language', newLang);
   };
 
-  const handleLogoClick = () => {
-    window.history.pushState({}, '', '/');
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  };
-
   const handleViewChange = (view: 'apps' | 'modules') => {
     const path = view === 'modules' ? '/modules' : '/';
     window.history.pushState({}, '', path);
@@ -77,10 +72,11 @@ const Header: React.FC<HeaderProps> = ({
       <div className="container-fluid px-3 px-md-4 px-lg-5">
         <div className="row align-items-center py-2 py-md-3">
           <div className="col-auto">
-            <div
-              className="d-flex align-items-center"
-              onClick={handleLogoClick}
-              style={{ cursor: 'pointer' }}
+            <a
+              href="https://smart-city-dialog.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="d-flex align-items-center text-decoration-none"
             >
               <img
                 src="/smart_city_color.svg"
@@ -89,10 +85,10 @@ const Header: React.FC<HeaderProps> = ({
                 style={{ marginRight: '0.75rem' }}
               />
               <div>
-                <h1 className="h5 h4-md mb-0">{t('header.title')}</h1>
+                <h1 className="h5 h4-md mb-0 text-body">{t('header.title')}</h1>
                 <p className="small text-muted mb-0 d-none d-sm-block">Smart City Dialog</p>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="col-auto ms-2 ms-md-4">

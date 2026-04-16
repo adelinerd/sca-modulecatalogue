@@ -92,16 +92,14 @@ function toRawURL(url: string): { rawUrl: string; token?: string } | null {
 }
 
 // Endpoint 1: Accept Git blob URL directly
-app.get("/api/yaml", async (req, res) => {
-  console.log("Endpoint 1 received request:", req.query);
+app.get("/api/yaml", async (req, res) => {  
   const parsed = UrlQuery.safeParse(req.query);
   if (!parsed.success) {
     return res.status(400).json({ error: "Invalid query: 'url' parameter required" });
   }
 
   const { url } = parsed.data;
-  const converted = toRawURL(url);
-  console.log("Converted URL:", converted);
+  const converted = toRawURL(url);  
 
   if (!converted) {
     console.log("Invalid or unsupported URL:", url);
