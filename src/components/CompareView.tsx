@@ -54,12 +54,20 @@ const CompareView: React.FC<CompareViewProps> = ({ apps, onClose, onRemoveApp })
       <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-body">
         <div className="text-center p-4">
           <AlertCircle className="text-primary mb-3" size={48} />
-          <h3 className="h5 mb-2">
-            {t('compareView.empty.title')}
-          </h3>
-          <p className="text-muted">
-            {t('compareView.empty.description')}
-          </p>
+          <h3 className="h5 mb-2">{t('compareView.empty.title')}</h3>
+          <p className="text-muted">{t('compareView.empty.description')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (apps.length === 1) {
+    return (
+      <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-body">
+        <div className="text-center p-4">
+          <AlertCircle className="text-warning mb-3" size={48} />
+          <h3 className="h5 mb-2">{t('compareView.needsTwo.title')}</h3>
+          <p className="text-muted">{t('compareView.needsTwo.description')}</p>
         </div>
       </div>
     );

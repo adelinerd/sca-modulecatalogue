@@ -17,7 +17,9 @@
   "moduleList": {
     "title": "Module",
     "searchPlaceholder": "Module suchen...",
-    "noResults": "Keine Module gefunden für '{{searchTerm}}'"
+    "noResults": "Keine Module gefunden für '{{searchTerm}}'",
+    "filterByCategory": "Nach Kategorie filtern",
+    "allCategories": "Alle Kategorien"
   },
   "appCard": {
     "provider": "von {{provider}}",
@@ -38,6 +40,10 @@
     "empty": {
       "title": "Keine App ausgewählt",
       "description": "Wählen Sie bis zu zwei Apps aus, um ihre Funktionen zu vergleichen"
+    },
+    "needsTwo": {
+      "title": "Wählen Sie eine weitere App aus",
+      "description": "Sie haben eine App ausgewählt. Bitte wählen Sie eine zweite aus, um den Vergleich zu starten."
     },
     "details": {
       "title": "Details",
@@ -63,6 +69,10 @@
     "empty": {
       "title": "Keine Module ausgewählt",
       "description": "Wählen Sie bis zu zwei Module aus, um ihre Funktionen zu vergleichen"
+    },
+    "needsTwo": {
+      "title": "Wählen Sie ein weiteres Modul aus",
+      "description": "Sie haben ein Modul ausgewählt. Bitte wählen Sie ein zweites aus, um den Vergleich zu starten."
     },
     "details": {
       "title": "Details",

@@ -50,12 +50,20 @@ const ModuleCompareView: React.FC<ModuleCompareViewProps> = ({ modules, onClose,
       <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-body">
         <div className="text-center p-4">
           <AlertCircle className="text-primary mb-3" size={48} />
-          <h3 className="h5 mb-2">
-            {t('moduleCompareView.empty.title')}
-          </h3>
-          <p className="text-muted">
-            {t('moduleCompareView.empty.description')}
-          </p>
+          <h3 className="h5 mb-2">{t('moduleCompareView.empty.title')}</h3>
+          <p className="text-muted">{t('moduleCompareView.empty.description')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (modules.length === 1) {
+    return (
+      <div className="flex-grow-1 d-flex align-items-center justify-content-center bg-body">
+        <div className="text-center p-4">
+          <AlertCircle className="text-warning mb-3" size={48} />
+          <h3 className="h5 mb-2">{t('moduleCompareView.needsTwo.title')}</h3>
+          <p className="text-muted">{t('moduleCompareView.needsTwo.description')}</p>
         </div>
       </div>
     );

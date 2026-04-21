@@ -121,42 +121,50 @@ const Header: React.FC<HeaderProps> = ({
 
           <div className="col d-flex justify-content-end align-items-center">
             <div className="d-flex align-items-center gap-1 gap-md-2">
-              {/* App Comparison Button */}
-              {comparisonApps.length > 0 && currentView === 'apps' && (
+              {/* App Comparison Button — always visible in apps view */}
+              {currentView === 'apps' && (
                 <button
                   onClick={onToggleCompareView}
                   className={`btn btn-sm ${
                     isCompareMode
                       ? 'btn-success'
-                      : 'btn-outline-primary'
+                      : comparisonApps.length === 2
+                        ? 'btn-outline-primary'
+                        : 'btn-outline-secondary'
                   }`}
                 >
                   <span className="d-none d-sm-inline">{t('header.compare')}</span>
                   <span className={`badge ms-1 ms-sm-2 ${
                     isCompareMode
                       ? 'bg-body-secondary text-success'
-                      : 'bg-primary'
+                      : comparisonApps.length === 2
+                        ? 'bg-primary'
+                        : 'bg-secondary'
                   }`}>
                     {comparisonApps.length}
                   </span>
                 </button>
               )}
 
-              {/* Module Comparison Button */}
-              {comparisonModules.length > 0 && currentView === 'modules' && (
+              {/* Module Comparison Button — always visible in modules view */}
+              {currentView === 'modules' && (
                 <button
                   onClick={onToggleModuleCompareView}
                   className={`btn btn-sm ${
                     isModuleCompareMode
                       ? 'btn-success'
-                      : 'btn-outline-primary'
+                      : comparisonModules.length === 2
+                        ? 'btn-outline-primary'
+                        : 'btn-outline-secondary'
                   }`}
                 >
                   <span className="d-none d-sm-inline">{t('header.compareModules')}</span>
                   <span className={`badge ms-1 ms-sm-2 ${
                     isModuleCompareMode
                       ? 'bg-body-secondary text-success'
-                      : 'bg-primary'
+                      : comparisonModules.length === 2
+                        ? 'bg-primary'
+                        : 'bg-secondary'
                   }`}>
                     {comparisonModules.length}
                   </span>

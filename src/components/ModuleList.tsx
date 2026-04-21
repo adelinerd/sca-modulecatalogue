@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { AppModule } from '../types';
 import ModuleCard from './ModuleCard';
 import { Search } from 'lucide-react';
@@ -50,13 +50,30 @@ const ModuleList: React.FC<ModuleListProps> = ({
   onSearchChange,
 }) => {
   const { t } = useTranslation();
-  
-  const filteredModules = modules.filter(module => 
-    module.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    (module.topic && module.topic.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (module.app_name && module.app_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (module.short_description && module.short_description.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const [selectedTopic, setSelectedTopic] = useState<string>('');
+
+  const availableTopics = useMemo(() => {
+    const topics = Array.from(
+      new Set(modules.map(m => m.topic).filter((topic): topic is string => Boolean(topic)))
+    );
+    return topics.sort((a, b) => {
+      const labelA = t(`topics.${a}`, { defaultValue: a });
+      const labelB = t(`topics.${b}`, { defaultValue: b });
+      return labelA.localeCompare(labelB);
+    });
+  }, [modules, t]);
+
+  const filteredModules = modules.filter(module => {
+    const matchesSearch =
+      module.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (module.topic && module.topic.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (module.app_name && module.app_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (module.short_description && module.short_description.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const matchesTopic = !selectedTopic || module.topic === selectedTopic;
+
+    return matchesSearch && matchesTopic;
+  });
 
   return (
     <div className="col-12 col-md-4 col-lg-3 border-end overflow-auto sidebar-panel">
@@ -64,7 +81,7 @@ const ModuleList: React.FC<ModuleListProps> = ({
         <h2 className="h4 mb-3">
           {t('moduleList.title')}
         </h2>
-        <div className="position-relative">
+        <div className="position-relative mb-2">
           <div className="position-absolute top-50 start-0 translate-middle-y ms-3">
             <Search size={20} className="text-muted" />
           </div>
@@ -76,6 +93,19 @@ const ModuleList: React.FC<ModuleListProps> = ({
             onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
+        <select
+          className="form-select form-select-sm"
+          value={selectedTopic}
+          onChange={(e) => setSelectedTopic(e.target.value)}
+          aria-label={t('moduleList.filterByCategory')}
+        >
+          <option value="">{t('moduleList.allCategories')}</option>
+          {availableTopics.map(topic => (
+            <option key={topic} value={topic}>
+              {t(`topics.${topic}`, { defaultValue: topic })}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="p-3">
