@@ -31,12 +31,6 @@ const Footer: React.FC = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
-  const handleNavigation = (path: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.history.pushState({}, '', path);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  };
-
   return (
     <footer className="bg-body border-top mt-auto">
       <div className="container-fluid px-3 px-md-4 px-lg-5">
@@ -57,8 +51,9 @@ const Footer: React.FC = () => {
                 {t('footer.impressum')}
               </a>
               <a
-                href="/datenschutz"
-                onClick={handleNavigation('/datenschutz')}
+                href="https://www.smart-city-dialog.de/datenschutzerklaerung"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="small text-muted text-decoration-none"
               >
                 {t('footer.privacy')}

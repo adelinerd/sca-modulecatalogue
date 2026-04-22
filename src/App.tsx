@@ -36,7 +36,6 @@ import ModuleDetails from './components/ModuleDetails';
 import ModuleCompareView from './components/ModuleCompareView';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import LegalInfo from './components/LegalInfo';
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -50,7 +49,7 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [moduleSearchTerm, setModuleSearchTerm] = useState('');
-  const [currentView, setCurrentView] = useState<'apps' | 'modules' | 'impressum' | 'privacy'>('apps');
+  const [currentView, setCurrentView] = useState<'apps' | 'modules'>('apps');
   const [navigationState, setNavigationState] = useState<{
     fromApp?: CityApp;
     showingModuleFromApp?: boolean;
@@ -221,21 +220,11 @@ function App() {
   useEffect(() => {
     const handleNavigation = () => {
       const path = window.location.pathname;
-      if (path === '/impressum') {
-        setCurrentView('impressum');
-        // Clear navigation state when switching views
-        setNavigationState({});
-      } else if (path === '/datenschutz') {
-        setCurrentView('privacy');
-        // Clear navigation state when switching views
-        setNavigationState({});
-      } else if (path === '/modules') {
+      if (path === '/modules') {
         setCurrentView('modules');
-        // Clear navigation state when switching to modules view
         setNavigationState({});
       } else {
         setCurrentView('apps');
-        // Don't clear navigation state here if we're showing a module from an app
       }
     };
 
@@ -288,7 +277,6 @@ function App() {
         isCompareMode={isCompareMode}
         isModuleCompareMode={isModuleCompareMode}
         currentView={currentView}
-        onViewChange={setCurrentView}
       />
       
       {/* Main content with horizontal padding */}
@@ -339,7 +327,7 @@ function App() {
                   </>
                 )}
               </>
-            ) : currentView === 'modules' ? (
+            ) : (
               <>
                 {(!isMobile || !mobileShowDetails) && (
                   <ModuleList
@@ -371,8 +359,6 @@ function App() {
                   )
                 )}
               </>
-            ) : (
-              <LegalInfo type={currentView} />
             )}
           </main>
         </div>

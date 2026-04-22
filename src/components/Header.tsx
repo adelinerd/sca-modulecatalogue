@@ -27,19 +27,18 @@
 import React from 'react';
 import { Sun, Moon, Languages, Package, Layers } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { AppModule } from '../types';
+import { AppModule, CityApp } from '../types';
 
 interface HeaderProps {
   isDarkMode: boolean;
   onToggleDarkMode: () => void;
-  comparisonApps: any[];
+  comparisonApps: CityApp[];
   comparisonModules: AppModule[];
   onToggleCompareView: () => void;
   onToggleModuleCompareView: () => void;
   isCompareMode: boolean;
   isModuleCompareMode: boolean;
-  currentView: 'apps' | 'modules' | 'impressum' | 'privacy';
-  onViewChange: (view: 'apps' | 'modules' | 'impressum' | 'privacy') => void;
+  currentView: 'apps' | 'modules';
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -52,7 +51,6 @@ const Header: React.FC<HeaderProps> = ({
   isCompareMode,
   isModuleCompareMode,
   currentView,
-  onViewChange
 }) => {
   const { t, i18n } = useTranslation();
   const toggleLanguage = () => {
